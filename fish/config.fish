@@ -4,7 +4,7 @@ function fish_prompt
 end
 
 function fish_greeting
-	echo "Welcome fellow fisherman!"
+	echo "Welcome brave fisherman!"
 end
 
 set fish_greeting
