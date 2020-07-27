@@ -8,5 +8,6 @@ function fish_greeting
 end
 
 set fish_greeting
-
-set exit exit -0
+alias exit="exit"
+alias quit="exit"
+alias c="clear"
