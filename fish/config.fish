@@ -10,7 +10,10 @@ end
 set fish_greeting
 alias exit="exit"
 alias quit="exit"
+alias q=exit
 alias c="clear"
 alias gs="git status"
 alias ga="git add"
 alias gc="git commit -m"
+
+bind \cq 'exit'
