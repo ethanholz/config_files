@@ -15,5 +15,10 @@ alias c="clear"
 alias gs="git status"
 alias ga="git add"
 alias gc="git commit -m"
+alias vim="nvim"
+
 
 bind \cq 'exit'
+function sudobangbang --on-event fish_postexec
+    abbr !! sudo $argv[1]
+end
