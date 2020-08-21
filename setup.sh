@@ -21,7 +21,7 @@ if [ $PM == 'apt' ]; then apt-add-repository ppa:fish-shell/release-3 && apt upd
 if [ -x "$(command -v apt)" ]; then sudo apt install $packagesNeeded
 elif [ -x "$(command -v dnf)" ];     then sudo dnf install $packagesNeeded
 elif [ -x "$(command -v zypper)" ];  then sudo zypper install $packagesNeeded
-elif [ -x "$(command -v pacman)" ];  then sudo pacman -S install $packagesNeeded
+elif [ -x "$(command -v pacman)" ];  then sudo pacman -S $packagesNeeded
 else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must manually install: $packagesNeeded">&2; fi
 
 echo "Starting Powerline-Go install"
@@ -42,9 +42,9 @@ fi
 
 cd $HOME/.config
 
-if [ -d "fish" ]; then rm -r fish; fi
-if [ -d "nvim" ]; then rm -r nvim; fi
-if [ -d ".git" ]; then rm -r .git; fi
+if [ -d "fish" ]; then rm -rf fish; fi
+if [ -d "nvim" ]; then rm -rf nvim; fi
+if [ -d ".git" ]; then rm -rf .git; fi
 
 git init
 git remote add pi ubuntu@192.168.50.75:/home/ubuntu/config.git
