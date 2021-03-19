@@ -23,6 +23,8 @@ call dein#add('kaicataldo/material.vim', { 'branch': 'main' })
 call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-fugitive')
+call dein#add('voldikss/vim-floaterm')	
+call dein#add('cdelledonne/vim-cmake')
 " Required:
 call dein#end()
 
@@ -39,11 +41,8 @@ endif
 if (has("termguicolors"))
 	set termguicolors
 endif
+let mapleader = ","
 source ~/.config/nvim/coc-config.vim
-function! CocCurrentFunction()
-	    return get(b:, 'coc_current_function', '')
-
-endfunction
 
 let g:material_theme_style='darker'
 let g:lightline = {
@@ -65,3 +64,8 @@ set noshowmode
 let g:cpp_class_decl_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_scope_highlight = 1
+let g:cmake_link_compile_commands = 1
+
+
+let g:floaterm_keymap_new = '<Leader>ft'
+let g:floaterm_keymap_toggle = '<Leader>t'
