@@ -25,6 +25,8 @@ call dein#add('tpope/vim-commentary')
 call dein#add('tpope/vim-fugitive')
 call dein#add('voldikss/vim-floaterm')	
 call dein#add('cdelledonne/vim-cmake')
+call dein#add('mengelbrecht/lightline-bufferline')
+call dein#add('ryanoasis/vim-devicons')
 " Required:
 call dein#end()
 
@@ -54,10 +56,22 @@ let g:lightline = {
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead'
       \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
       \ }
 colorscheme material
 set noshowmode
-
+set showtabline=2
+set relativenumber
+let g:lightline#bufferline#enable_devicons = 1
 " set colorcolumn=75
 
 " C++ config
