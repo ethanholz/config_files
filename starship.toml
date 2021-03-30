@@ -1,0 +1,14 @@
+[python]
+disabled = true
+
+[cmake]
+disabled = true
+
+[character]
+success_symbol = "[❯](bold purple)"
+
+[cmd_duration]
+min_time = 10_000
+
+[directory]
+format = "[🦄 $path]($style)[$read_only]($read_only_style) "
