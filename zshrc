@@ -2,7 +2,7 @@
 source ~/.config/zsh-plugins/antigen.zsh
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
-if [ $WSL_flag -e false ]; then
+if [ $WSL_FLAG != false ]; then
     export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:$PATH
 fi
 export GPG_TTY=$(tty)
