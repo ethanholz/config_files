@@ -1,6 +1,10 @@
+# NOTE: Set WSL_FLAG in .zprofile
 source ~/.config/zsh-plugins/antigen.zsh
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+if [ $WSL_flag -e false ]; then
+    export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:$PATH
+fi
 export GPG_TTY=$(tty)
 
 antigen use oh-my-zsh
@@ -22,4 +26,4 @@ alias slack-term-em='slack-term --config ~/.config/slack-term/embedded-slack-tok
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"
-sh ~/.motd.sh
+# sh ~/.motd.sh
