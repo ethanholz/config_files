@@ -10,5 +10,6 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'junegunn/fzf'
 Plug 'morhetz/gruvbox'
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'metakirby5/codi.vim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
