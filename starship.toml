@@ -11,4 +11,4 @@ success_symbol = "[❯](bold purple)"
 min_time = 10_000
 
 [directory]
-format = "[🦄 $path]($style)[$read_only]($read_only_style) "
+format = "[$path]($style)[$read_only]($read_only_style) "
