@@ -9,13 +9,14 @@ let mapleader = ","
 filetype plugin indent on
 syntax enable
 
-colorscheme pink-moon
+colorscheme gruvbox
+set background=dark
 set noshowmode
 set showtabline=2
 set relativenumber
 " set colorcolumn=75
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
