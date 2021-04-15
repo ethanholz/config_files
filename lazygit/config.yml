@@ -1,0 +1,3 @@
+gui:
+        skipUnstageLineWarning: true
+        showFileTree: true
