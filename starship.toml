@@ -1,7 +1,10 @@
 [python]
-disabled = true
+pyenv_version_name=true
 
 [cmake]
+disabled = true
+
+[java]
 disabled = true
 
 [character]
