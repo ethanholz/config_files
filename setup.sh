@@ -2,7 +2,7 @@
 # Use this line to create a space delimited list of applications to be installed
 # while this does not work for all distros at this time, the PM will throw an error
 # if the package can't be installed
-packagesNeeded='neovim fish golang-go go ccls clang-format clang'
+packagesNeeded='neovim zsh golang-go go ccls clang-format clang'
 
 PM=''
 
