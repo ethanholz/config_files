@@ -51,3 +51,4 @@ venv-update() {
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"
 # sh ~/.motd.sh
+fpath+=~/.config/zsh-plugins/completions
