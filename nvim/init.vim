@@ -1,5 +1,9 @@
 source ~/.config/nvim/plugs.vim
-source ~/.config/nvim/coc-config.vim
+if has('nvim-0.5')
+	source ~/.config/nvim/lspconfig.vim
+else
+	source ~/.config/nvim/coc-config.vim
+endif
 source ~/.config/nvim/lightline-config.vim
 if (has("termguicolors"))
 	set termguicolors

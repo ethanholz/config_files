@@ -1,5 +1,10 @@
 call plug#begin()
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if has('nvim-0.5')
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'nvim-lua/completion-nvim'
+else
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 Plug 'itchyny/lightline.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tpope/vim-commentary'
