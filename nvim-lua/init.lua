@@ -34,3 +34,15 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+vim.api.nvim_set_var('codi#interpreters', {python = { bin= 'python3'}})
+local codi_state = false
+toggle_codi = function()
+	if codi_state == false then
+		codi_state=true
+		vim.cmd([[Codi]])
+	else
+		codi_state=false
+		vim.cmd([[Codi!]])
+	end
+end
+map('n', '<Leader>c', '<CMD>lua toggle_codi()<CR>', opts)

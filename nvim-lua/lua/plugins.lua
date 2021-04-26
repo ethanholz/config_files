@@ -45,6 +45,7 @@ require('packer').startup(function(use)
 	use {'tjdevries/gruvbuddy.nvim', requires={'tjdevries/colorbuddy.vim', opt=true}}
 	-- Treesitter
 	use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+	use {'metakirby5/codi.vim'}
 	require_plugin("nvim-treesitter")
 	require_plugin("completion-nvim")
 	require_plugin("nvim-lspconfig")
