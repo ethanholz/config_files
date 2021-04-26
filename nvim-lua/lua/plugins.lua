@@ -1,5 +1,6 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
+vim.cmd [[packadd packer.nvim]]
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
 
@@ -28,7 +29,7 @@ local function require_plugin(plugin)
 end
 
 require('packer').startup(function(use)
-	use "wbthomason/packer.nvim"
+	use {"wbthomason/packer.nvim", opt = true}
 	use {"neovim/nvim-lspconfig", opt=true}
 	use {'nvim-lua/completion-nvim', opt=true}
 	use {
@@ -45,7 +46,9 @@ require('packer').startup(function(use)
 	use {'tjdevries/gruvbuddy.nvim', requires={'tjdevries/colorbuddy.vim', opt=true}}
 	-- Treesitter
 	use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-	use {'metakirby5/codi.vim'}
+	use 'metakirby5/codi.vim'
+	use 'b3nj5m1n/kommentary'
+	use 'p00f/nvim-ts-rainbow'
 	require_plugin("nvim-treesitter")
 	require_plugin("completion-nvim")
 	require_plugin("nvim-lspconfig")

@@ -1,5 +1,8 @@
 require('plugins')
 require('lspconf')
+-- Local variables
+local opts = { noremap = true, silent = true }
+local map = vim.api.nvim_set_keymap
 
 -- Map leader config
 vim.g.mapleader=','
@@ -9,30 +12,31 @@ require('colorbuddy').colorscheme('gruvbuddy')
 --Set Bufferline
 require('bufferline').setup{}
 -- Set Lualine
-require('lualine').setup{options={theme='gruvbox_material'}}
+require('lualine').setup{options={theme='auto'}}
 -- Init FTerm
 require('FTerm').setup()
-
 --Map Fterm
-local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
 map('n', '<Leader>t', '<CMD>lua require("FTerm").toggle()<CR>', opts)
 map('t', '<Leader>t', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 --Bufferline Keymaps
-map('n', '<Leader>[', ':BufferLineCyclePrev<CR>', {noremap=true, silent=true})
-map('n', '<Leader>]', ':BufferLineCycleNext<CR>', {noremap=true, silent=true})
+map('n', '<Leader>[', ':BufferLineCyclePrev<CR>', opts)
+map('n', '<Leader>]', ':BufferLineCycleNext<CR>', opts)
 -- Treesitter Consistent Syntax Highlighting and indent
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    indent = {
-	    enable = true,
-    },
     custom_captures = {
       -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
       ["foo.bar"] = "Identifier",
     },
   },
+  indent = {
+     enable = true,
+  },
+  rainbow = {
+	  enable=true,
+	  extended_mode=true,
+	}
 }
 vim.api.nvim_set_var('codi#interpreters', {python = { bin= 'python3'}})
 local codi_state = false
