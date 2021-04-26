@@ -11,11 +11,18 @@ end
 require('packer').startup(function(use)
 	use "wbthomason/packer.nvim"
 	use "neovim/nvim-lspconfig"
-	use "nvim-lua/completion-nvim"
+	use 'nvim-lua/completion-nvim'
 	use {
 	  'hoob3rt/lualine.nvim',
 	  requires = {'kyazdani42/nvim-web-devicons', opt = true}
 	}	
+	use {
+	    "numtostr/FTerm.nvim",
+	    config = function()
+		require("FTerm").setup()
+	    end
+	}
+	use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
 
 end)
 
