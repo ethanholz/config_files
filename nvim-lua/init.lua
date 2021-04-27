@@ -6,7 +6,14 @@ local map = vim.api.nvim_set_keymap
 
 -- Map leader config
 vim.g.mapleader=','
+-- Window options
 vim.wo.relativenumber=true
+vim.wo.number=true
+-- Global options
+vim.o.hlsearch=false
+vim.o.incsearch=true
+vim.o.scrolloff=8
+vim.o.splitright=true
 -- Set colorscheme with colorbuddy
 require('colorbuddy').colorscheme('gruvbuddy')
 --Set Bufferline
@@ -39,6 +46,7 @@ require'nvim-treesitter.configs'.setup {
 	}
 }
 vim.api.nvim_set_var('codi#interpreters', {python = { bin= 'python3'}})
+
 local codi_state = false
 toggle_codi = function()
 	if codi_state == false then
@@ -50,3 +58,11 @@ toggle_codi = function()
 	end
 end
 map('n', '<Leader>c', '<CMD>lua toggle_codi()<CR>', opts)
+
+-- Telescope
+map('n', '<Leader>ff', "<CMD>lua require('telescope.builtin').find_files()<CR>", opts)
+map("n", "<Leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)
+map("n", "<Leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", opts)
+map("n", "<Leader>fh", "<CMD>lua require('telescope.builtin').help_tags()<CR>", opts)
+
+map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
