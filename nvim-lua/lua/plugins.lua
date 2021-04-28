@@ -14,8 +14,7 @@ paq {'kyazdani42/nvim-web-devicons', opt = true}
 paq 'kyazdani42/nvim-tree.lua'
 paq 'hoob3rt/lualine.nvim'	
 paq 'akinsho/nvim-bufferline.lua'
-paq 'tjdevries/colorbuddy.vim'
-paq 'tjdevries/gruvbuddy.nvim'
+paq 'marko-cerovac/material.nvim'
 
 -- Floatterm but lua
 paq 'numtostr/FTerm.nvim'
