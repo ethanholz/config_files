@@ -12,6 +12,7 @@ vim.o.scrolloff=8
 vim.o.splitright=true
 
 vim.g.material_style="darker"
+vim.g.material_contrast = true
 require('material').set()
 --Set Bufferline
 require('bufferline').setup{}
