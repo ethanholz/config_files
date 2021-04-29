@@ -20,12 +20,13 @@ toggle_codi = function()
 		vim.cmd([[Codi!]])
 	end
 end
-map('n', '<Leader>c', '<CMD>lua toggle_codi()<CR>', opts)
 
+map('n', '<Leader>c', '<CMD>lua toggle_codi()<CR>', opts)
 -- Telescope
 map('n', '<Leader>ff', "<CMD>lua require('telescope.builtin').find_files()<CR>", opts)
 map("n", "<Leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)
 map("n", "<Leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", opts)
 map("n", "<Leader>fh", "<CMD>lua require('telescope.builtin').help_tags()<CR>", opts)
+map("n", "<Leader>fl", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
 
 map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)

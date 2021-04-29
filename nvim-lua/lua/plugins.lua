@@ -29,5 +29,5 @@ paq 'b3nj5m1n/kommentary'
 
 -- Telescope
 paq 'nvim-lua/popup.nvim'
-paq 'nvim-lua/plenary.nvi'
+paq 'nvim-lua/plenary.nvim'
 paq 'nvim-telescope/telescope.nvim'
