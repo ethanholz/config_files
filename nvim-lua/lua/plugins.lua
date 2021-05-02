@@ -1,10 +1,16 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-vim.cmd 'packadd paq-nvim'
+-- Checks if paq is installed
+local paq_path = fn.stdpath("data") .. "/site/pack/paqs/opt/paqs-nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+	execute ("!git clone https://github.com/savq/paq-nvim.git" .. install_path)
+	execute "packadd paq-nvim"
+end
+
 local paq = require'paq-nvim'.paq
 -- Manage itself
-paq {'savq/paq-nvim', opt=true}
+paq {'savq/paq-nvim', opt = true}
 -- LSP
 paq 'neovim/nvim-lspconfig'
 paq 'nvim-lua/completion-nvim'
