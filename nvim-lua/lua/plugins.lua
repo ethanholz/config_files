@@ -7,7 +7,7 @@ end
 execute('packadd paq-nvim')
 local paq = require'paq-nvim'.paq
 -- Manage itself
-paq {'savq/paq-nvim', opt=true}
+paq {'savq/paq-nvim', opt = true}
 -- LSP
 paq 'neovim/nvim-lspconfig'
 paq 'nvim-lua/completion-nvim'
