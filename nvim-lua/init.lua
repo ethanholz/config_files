@@ -11,13 +11,12 @@ vim.o.incsearch=true
 vim.o.scrolloff=8
 vim.o.splitright=true
 
-vim.g.material_style="darker"
-vim.g.material_contrast = true
-require('material').set()
+vim.g.nb_style = "midnight"
+require('colorbuddy').colorscheme('nightbuddy')
 --Set Bufferline
 require('bufferline').setup{}
 -- Set Lualine
-require('lualine').setup{options={theme='material-nvim'}}
+require('lualine').setup{options={theme='dracula'}}
 -- Init FTerm
 require('FTerm').setup{border="double"}
 -- Treesitter Consistent Syntax Highlighting and indent
