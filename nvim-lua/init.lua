@@ -18,7 +18,7 @@ require('bufferline').setup{}
 -- Set Lualine
 require('lualine').setup{options={theme='dracula'}}
 -- Init FTerm
-require('FTerm').setup{border="double"}
+-- require('FTerm').setup{border="double"}
 -- Treesitter Consistent Syntax Highlighting and indent
 require'nvim-treesitter.configs'.setup {
   highlight = {
