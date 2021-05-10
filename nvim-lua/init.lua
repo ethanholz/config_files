@@ -10,7 +10,7 @@ vim.o.hlsearch=false
 vim.o.incsearch=true
 vim.o.scrolloff=8
 vim.o.splitright=true
-
+require'nvim-lastplace'.setup{}
 vim.g.nb_style = "midnight"
 require('colorbuddy').colorscheme('nightbuddy')
 --Set Bufferline

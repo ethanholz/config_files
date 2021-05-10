@@ -11,6 +11,7 @@ paq {'savq/paq-nvim', opt = true}
 -- LSP
 paq 'neovim/nvim-lspconfig'
 paq 'nvim-lua/completion-nvim'
+paq 'folke/lsp-trouble.nvim'
 
 --Inteface
 paq {'kyazdani42/nvim-web-devicons', opt = true}
@@ -41,3 +42,4 @@ local flag = os.getenv("WSL_FLAG")
 if flag == nil then
 	paq 'andweeb/presence.nvim'
 end
+paq 'ethanholz/nvim-lastplace'
