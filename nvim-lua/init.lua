@@ -1,4 +1,4 @@
-require('plugins')
+require('packer-plugins')
 require('lspconf')
 require('mappings')
 
@@ -11,12 +11,14 @@ vim.o.incsearch=true
 vim.o.scrolloff=8
 vim.o.splitright=true
 require'nvim-lastplace'.setup{}
-vim.g.nb_style = "midnight"
-require('colorbuddy').colorscheme('nightbuddy')
+--[[ vim.g.nb_style = "midnight"
+require('colorbuddy').colorscheme('nightbuddy') ]]
+require('nord').set()
+
 --Set Bufferline
 require('bufferline').setup{}
 -- Set Lualine
-require('lualine').setup{options={theme='dracula'}}
+require('lualine').setup{options={theme='nord'}}
 -- Init FTerm
 -- require('FTerm').setup{border="double"}
 -- Treesitter Consistent Syntax Highlighting and indent
