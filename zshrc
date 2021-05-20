@@ -6,7 +6,6 @@ if [ $WSL_FLAG ]; then
     export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
 export GPG_TTY=$(tty)
-
 antigen use oh-my-zsh
 antigen bundle git
 
@@ -47,6 +46,8 @@ venv-update() {
 		python_env_state=0
 	fi
 }
+autoload -U compinit
+compinit -i
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"
