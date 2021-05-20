@@ -6,12 +6,13 @@ if [ $WSL_FLAG ]; then
     export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
 export GPG_TTY=$(tty)
+source ~/.config/zsh-plugins/bootstrap.zsh
+
 antigen use oh-my-zsh
 antigen bundle git
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle agkozak/zsh-z
 antigen apply
 
 export EDITOR='nvim'
@@ -51,5 +52,6 @@ compinit -i
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 # sh ~/.motd.sh
 fpath+=~/.config/zsh-plugins/completions

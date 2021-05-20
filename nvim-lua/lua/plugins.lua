@@ -18,8 +18,9 @@ paq {'kyazdani42/nvim-web-devicons', opt = true}
 paq 'kyazdani42/nvim-tree.lua'
 paq 'hoob3rt/lualine.nvim'	
 paq 'akinsho/nvim-bufferline.lua'
-paq 'tjdevries/colorbuddy.vim'
-paq 'DilanGMB/nightbuddy'
+--[[ paq 'tjdevries/colorbuddy.vim'
+paq 'DilanGMB/nightbuddy' ]]
+paq 'shaunsingh/nord.nvim'
 -- paq 'marko-cerovac/material.nvim'
 
 -- Floatterm but lua
@@ -42,4 +43,4 @@ local flag = os.getenv("WSL_FLAG")
 if flag == nil then
 	paq 'andweeb/presence.nvim'
 end
-paq 'ethanholz/nvim-lastplace'
+paq {'ethanholz/nvim-lastplace', branch='main'}
