@@ -2,8 +2,10 @@
 source ~/.config/zsh-plugins/antigen.zsh
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
-if [ $WSL_FLAG ]; then
-    export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
+# Check for WSL in kernel info
+if [[ $(uname -r) == *"WSL"* ]]; then
+        echo "WSL Detected"
+        export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
 export GPG_TTY=$(tty)
 source ~/.config/zsh-plugins/bootstrap.zsh
@@ -49,9 +51,11 @@ venv-update() {
 }
 autoload -U compinit
 compinit -i
+bindkey -s '^f' 'fzf^M'
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 # sh ~/.motd.sh
 fpath+=~/.config/zsh-plugins/completions
+eval "$(zoxide init zsh)"
