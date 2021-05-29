@@ -2,6 +2,7 @@ require('packer-plugins')
 require('lspconf')
 require('mappings')
 
+tab_value = 4
 -- Window options
 vim.wo.relativenumber=true
 vim.wo.number=true
@@ -11,8 +12,10 @@ vim.o.incsearch=true
 vim.o.scrolloff=8
 vim.o.splitright=true
 vim.bo.expandtab=true
-vim.bo.tabstop=8
-vim.bo.softtabstop=8
+vim.bo.tabstop=tab_value
+vim.bo.softtabstop=tab_value
+vim.bo.shiftwidth=tab_value
+    
 require'nvim-lastplace'.setup{}
 --[[ vim.g.nb_style = "midnight"
 require('colorbuddy').colorscheme('nightbuddy') ]]
@@ -32,9 +35,6 @@ require'nvim-treesitter.configs'.setup {
       -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
       ["foo.bar"] = "Identifier",
     },
-  },
-  indent = {
-     enable = true,
   },
   rainbow = {
           enable=true,
