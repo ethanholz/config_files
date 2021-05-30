@@ -4,29 +4,27 @@ require('mappings')
 
 tab_value = 4
 -- Window options
-vim.wo.relativenumber=true
-vim.wo.number=true
+vim.opt.relativenumber=true
+vim.opt.number=true
 -- Global options
-vim.o.hlsearch=false
-vim.o.incsearch=true
-vim.o.scrolloff=8
-vim.o.splitright=true
-vim.bo.expandtab=true
-vim.bo.tabstop=tab_value
-vim.bo.softtabstop=tab_value
-vim.bo.shiftwidth=tab_value
+vim.opt.hlsearch=false
+vim.opt.incsearch=true
+vim.opt.scrolloff=8
+vim.opt.splitright=true
+vim.opt.expandtab=true
+vim.opt.tabstop=tab_value
+vim.opt.softtabstop=tab_value
+vim.opt.shiftwidth=tab_value
+vim.opt.shell='zsh'
     
 require'nvim-lastplace'.setup{}
 --[[ vim.g.nb_style = "midnight"
 require('colorbuddy').colorscheme('nightbuddy') ]]
-require('nord').set()
-
+require('nord').set{}
+require('lualine').setup{options={theme='nord'}}
 --Set Bufferline
 require('bufferline').setup{}
--- Set Lualine
-require('lualine').setup{options={theme='nord'}}
--- Init FTerm
--- require('FTerm').setup{border="double"}
+
 -- Treesitter Consistent Syntax Highlighting and indent
 require'nvim-treesitter.configs'.setup {
   highlight = {
