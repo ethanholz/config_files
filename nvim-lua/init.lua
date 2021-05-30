@@ -7,6 +7,7 @@ tab_value = 4
 vim.opt.relativenumber=true
 vim.opt.number=true
 -- Global options
+vim.opt.hidden=true
 vim.opt.hlsearch=false
 vim.opt.incsearch=true
 vim.opt.scrolloff=8
@@ -24,6 +25,7 @@ require('nord').set{}
 require('lualine').setup{options={theme='nord'}}
 --Set Bufferline
 require('bufferline').setup{}
+require("toggleterm").setup{}
 
 -- Treesitter Consistent Syntax Highlighting and indent
 require'nvim-treesitter.configs'.setup {

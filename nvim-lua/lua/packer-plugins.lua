@@ -46,6 +46,7 @@ return require('packer').startup(function()
     -- Code help
     use 'metakirby5/codi.vim'
     use 'b3nj5m1n/kommentary'
+    use {"akinsho/nvim-toggleterm.lua"}
 
     -- Telescope
     use {
