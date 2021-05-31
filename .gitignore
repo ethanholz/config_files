@@ -2,5 +2,6 @@ nvim/plugged
 nvim/.netrwhist
 lazygit/*
 !lazygit/config.yml
-nvim-lua/plugin
+nvim-lua/{plugin,spell}
 zsh-plugins/*
+
