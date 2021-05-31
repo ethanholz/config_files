@@ -6,6 +6,7 @@ tab_value = 4
 -- Window options
 vim.opt.relativenumber=true
 vim.opt.number=true
+vim.opt.spelllang='en'
 -- Global options
 vim.opt.hidden=true
 vim.opt.hlsearch=false
