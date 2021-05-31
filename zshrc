@@ -4,7 +4,6 @@ source ~/.config/zsh-plugins/antigen.zsh
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 # Check for WSL in kernel info
 if [[ $(uname -r) == *"WSL"* ]]; then
-        echo "WSL Detected"
         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
 export GPG_TTY=$(tty)

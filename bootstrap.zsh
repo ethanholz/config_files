@@ -21,4 +21,3 @@ if (( $+commands[apt] )); then
 		sudo apt install $missing_args
 	fi
 fi
-echo 'Bootstrapping complete'
