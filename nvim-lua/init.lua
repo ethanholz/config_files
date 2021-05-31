@@ -8,6 +8,7 @@ vim.opt.relativenumber=true
 vim.opt.number=true
 vim.opt.spelllang='en'
 -- Global options
+vim.opt.termguicolors=true
 vim.opt.hidden=true
 vim.opt.hlsearch=false
 vim.opt.incsearch=true
@@ -18,6 +19,7 @@ vim.opt.tabstop=tab_value
 vim.opt.softtabstop=tab_value
 vim.opt.shiftwidth=tab_value
 vim.opt.shell='zsh'
+vim.opt.bg='dark'
     
 require'nvim-lastplace'.setup{}
 --[[ vim.g.nb_style = "midnight"

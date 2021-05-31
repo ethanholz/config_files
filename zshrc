@@ -4,20 +4,17 @@ source ~/.config/zsh-plugins/antigen.zsh
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 # Check for WSL in kernel info
 if [[ $(uname -r) == *"WSL"* ]]; then
-        echo "WSL Detected"
         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
 export GPG_TTY=$(tty)
 source ~/.config/zsh-plugins/bootstrap.zsh
-
 antigen use oh-my-zsh
 antigen bundle git
-
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen apply
-
 export EDITOR='nvim'
+alias update='sudo apt update && sudo apt upgrade -y'
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
