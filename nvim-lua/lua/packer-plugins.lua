@@ -15,47 +15,51 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
-    -- Manage itself
-    use 'wbthomason/packer.nvim'
-    -- LSP
-    use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/completion-nvim'
-    use 'folke/lsp-trouble.nvim'
+return require('packer').startup({
+    function()
+        -- Manage itself
+        use 'wbthomason/packer.nvim'
+        -- LSP
+        use 'neovim/nvim-lspconfig'
+        use 'nvim-lua/completion-nvim'
+        use 'folke/lsp-trouble.nvim'
 
-    -- Inteface
-    -- use {'kyazdani42/nvim-web-devicons', opt = true}
-    use {'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons'}
+        -- Inteface
+        -- use {'kyazdani42/nvim-web-devicons', opt = true}
+        use {
+            'kyazdani42/nvim-tree.lua',
+            requires = 'kyazdani42/nvim-web-devicons'
+        }
 
-    use {
-        'akinsho/nvim-bufferline.lua',
-        requires = 'kyazdani42/nvim-web-devicons'
-    }
+        use {
+            'akinsho/nvim-bufferline.lua',
+            requires = 'kyazdani42/nvim-web-devicons'
+        }
 
-    use {
-        'hoob3rt/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true}
-    }
+        use {
+            'hoob3rt/lualine.nvim',
+            requires = {'kyazdani42/nvim-web-devicons', opt = true}
+        }
 
-    use 'shaunsingh/nord.nvim'
+        use 'shaunsingh/nord.nvim'
 
-    -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use 'p00f/nvim-ts-rainbow'
+        -- Treesitter
+        use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+        use 'p00f/nvim-ts-rainbow'
 
-    -- Code help
-    use 'metakirby5/codi.vim'
-    use 'b3nj5m1n/kommentary'
-    use {"akinsho/nvim-toggleterm.lua"}
+        -- Code help
+        use 'metakirby5/codi.vim'
+        use 'b3nj5m1n/kommentary'
+        use {"akinsho/nvim-toggleterm.lua"}
 
-    -- Telescope
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-    }
-    if not is_wsl then use 'andweeb/presence.nvim' end
-    use 'ethanholz/nvim-lastplace'
-    use 'hrsh7th/nvim-compe'
-    use 'sbdchd/neoformat'
-    -- use '~/Documents/nvim-lastplace/'
-end)
+        -- Telescope
+        use {
+            'nvim-telescope/telescope.nvim',
+            requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+        }
+        if not is_wsl then use 'andweeb/presence.nvim' end
+        use 'ethanholz/nvim-lastplace'
+        use 'hrsh7th/nvim-compe'
+        -- use '~/Documents/nvim-lastplace/'
+    end
+})
