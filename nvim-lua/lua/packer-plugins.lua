@@ -55,5 +55,7 @@ return require('packer').startup(function()
     }
     if not is_wsl then use 'andweeb/presence.nvim' end
     use 'ethanholz/nvim-lastplace'
+    use 'hrsh7th/nvim-compe'
+    use 'sbdchd/neoformat'
     -- use '~/Documents/nvim-lastplace/'
 end)
