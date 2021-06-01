@@ -1,32 +1,37 @@
 -- Map leader config
-vim.g.mapleader=','
+vim.g.mapleader = ','
 
-local opts = { noremap = true, silent = true }
+local opts = {noremap = true, silent = true}
 local map = vim.api.nvim_set_keymap
---Map Terminal
+-- Map Terminal
 map('n', '<Leader>t', '<CMD>ToggleTerm<CR>', opts)
 map('t', '<Leader>t', '<C-\\><C-n><CMD>ToggleTerm<CR>', opts)
---Bufferline Keymaps
+-- Bufferline Keymaps
 map('n', '<Leader>[', ':BufferLineCyclePrev<CR>', opts)
 map('n', '<Leader>]', ':BufferLineCycleNext<CR>', opts)
 -- Codi state fix
 local codi_state = false
 toggle_codi = function()
-	if codi_state == false then
-		codi_state=true
-		vim.cmd([[Codi]])
-	else
-		codi_state=false
-		vim.cmd([[Codi!]])
-	end
+    if codi_state == false then
+        codi_state = true
+        vim.cmd([[Codi]])
+    else
+        codi_state = false
+        vim.cmd([[Codi!]])
+    end
 end
 
 map('n', '<Leader>c', '<CMD>lua toggle_codi()<CR>', opts)
 -- Telescope
-map('n', '<Leader>ff', "<CMD>lua require('telescope.builtin').find_files()<CR>", opts)
-map("n", "<Leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)
-map("n", "<Leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", opts)
-map("n", "<Leader>fh", "<CMD>lua require('telescope.builtin').help_tags()<CR>", opts)
-map("n", "<Leader>fl", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
+map('n', '<Leader>ff', "<CMD>lua require('telescope.builtin').find_files()<CR>",
+    opts)
+map("n", "<Leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>",
+    opts)
+map("n", "<Leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>",
+    opts)
+map("n", "<Leader>fh", "<CMD>lua require('telescope.builtin').help_tags()<CR>",
+    opts)
+map("n", "<Leader>fl",
+    "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
 
 map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)

@@ -1,8 +1,10 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/paqs/opt/paq-nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/paqs/opt/paq-nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-	fn.system({'git', 'clone', 'https://github.com/savq/paq-nvim.git', install_path})
+    fn.system({
+        'git', 'clone', 'https://github.com/savq/paq-nvim.git', install_path
+    })
 end
 execute('packadd paq-nvim')
 local paq = require'paq-nvim'.paq
@@ -13,10 +15,10 @@ paq 'neovim/nvim-lspconfig'
 paq 'nvim-lua/completion-nvim'
 paq 'folke/lsp-trouble.nvim'
 
---Inteface
+-- Inteface
 paq {'kyazdani42/nvim-web-devicons', opt = true}
 paq 'kyazdani42/nvim-tree.lua'
-paq 'hoob3rt/lualine.nvim'	
+paq 'hoob3rt/lualine.nvim'
 paq 'akinsho/nvim-bufferline.lua'
 --[[ paq 'tjdevries/colorbuddy.vim'
 paq 'DilanGMB/nightbuddy' ]]
@@ -40,7 +42,5 @@ paq 'nvim-lua/plenary.nvim'
 paq 'nvim-telescope/telescope.nvim'
 require("os")
 local flag = os.getenv("WSL_FLAG")
-if flag == nil then
-	paq 'andweeb/presence.nvim'
-end
-paq {'ethanholz/nvim-lastplace', branch='main'}
+if flag == nil then paq 'andweeb/presence.nvim' end
+paq {'ethanholz/nvim-lastplace', branch = 'main'}
