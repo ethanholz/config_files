@@ -42,4 +42,11 @@ require'nvim-treesitter.configs'.setup {
     rainbow = {enable = true, extended_mode = true}
 }
 vim.api.nvim_set_var('codi#interpreters', {python = {bin = 'python3'}})
-vim.cmd [[autocmd BufWritePre *.py execute ':Black']]
+-- Neoformat config
+vim.g.neoformat_enabled_python = {'black'}
+vim.cmd([[
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+]])

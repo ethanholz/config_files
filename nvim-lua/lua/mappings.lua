@@ -35,3 +35,4 @@ map("n", "<Leader>fl",
     "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
 
 map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
+map("n", "<Leader>i", ":ISwap<CR>", opts)
