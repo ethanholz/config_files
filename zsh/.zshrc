@@ -8,52 +8,26 @@ fi
 
 # Soruce zsh-functions
 source "$ZDOTDIR/zsh-functions"
+zsh_add_file "zsh-aliases"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 
 export GPG_TTY=$(tty)
-source ~/.config/zsh-plugins/bootstrap.zsh
+# Opting not to source the bootstrap file and will run this manually
+# source ~/.config/zsh-plugins/bootstrap.zsh
 
 export EDITOR='nvim'
-alias update='sudo apt update && sudo apt upgrade -y'
-alias ls='lsd'
-alias l='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
-alias coz='$EDITOR ~/.zshrc'
-alias py-act='source env/bin/activate'
-alias slack-term-em='slack-term --config ~/.config/slack-term/embedded-slack-token'
 
-#0->not activated, 1-> activated
-python_env_state=0
-venv-update() {
-	if command -v deactivate &> /dev/null
-	then
-		#Checks if an initial env is running
-		python_env_state=1
-	fi
-
-	if [ $python_env_state -eq 0 ]
-	then
-		if [ -f env/bin/activate ]
-		then
-			source env/bin/activate
-		else
-			echo "Not in virtual environment"
-		fi
-	elif [ $python_env_state -eq 1 ]
-	then
-		deactivate
-		python_env_state=0
-	fi
-}
+# Completions
 autoload -U compinit
 compinit -i
+
+
+# Keybindings
 bindkey -s '^f' 'fzf^M'
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# Add prompt and zoxide
 eval "$(starship init zsh)"
-# sh ~/.motd.sh
-fpath+=~/.config/zsh-plugins/completions
 eval "$(zoxide init zsh)"
