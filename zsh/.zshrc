@@ -1,18 +1,19 @@
 # NOTE: Set WSL_FLAG in .zprofile
-source ~/.config/zsh-plugins/antigen.zsh
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 # Check for WSL in kernel info
 if [[ $(uname -r) == *"WSL"* ]]; then
         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
+
+# Soruce zsh-functions
+source "$ZDOTDIR/zsh-functions"
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
+
 export GPG_TTY=$(tty)
 source ~/.config/zsh-plugins/bootstrap.zsh
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen apply
+
 export EDITOR='nvim'
 alias update='sudo apt update && sudo apt upgrade -y'
 alias ls='lsd'
@@ -23,6 +24,7 @@ alias lt='ls --tree'
 alias coz='$EDITOR ~/.zshrc'
 alias py-act='source env/bin/activate'
 alias slack-term-em='slack-term --config ~/.config/slack-term/embedded-slack-token'
+
 #0->not activated, 1-> activated
 python_env_state=0
 venv-update() {
@@ -52,7 +54,6 @@ bindkey -s '^f' 'fzf^M'
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
 # sh ~/.motd.sh
 fpath+=~/.config/zsh-plugins/completions
 eval "$(zoxide init zsh)"
