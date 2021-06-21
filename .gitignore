@@ -4,5 +4,6 @@ lazygit/*
 !lazygit/config.yml
 nvim-lua/plugin
 nvim-lua/spell
-zsh-plugins/*
+zsh/plugins/
+zsh/.zcompdump
 

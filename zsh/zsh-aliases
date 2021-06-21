@@ -1,0 +1,8 @@
+alias update='sudo apt update && sudo apt upgrade -y'
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
+alias coz='$EDITOR ~/.zshrc'
+alias py-act='source env/bin/activate'
