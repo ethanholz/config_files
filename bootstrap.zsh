@@ -21,3 +21,12 @@ if (( $+commands[apt] )); then
 		sudo apt install $missing_args
 	fi
 fi
+
+if ! (( $+commands[luarocks] )); then
+    wget https://luarocks.org/releases/luarocks-3.3.1.tar.gz
+    tar zxpf luarocks-3.3.1.tar.gz
+    ./luarocks-3.3.1/configure
+    make luarocks-3.3.1/
+    sudo make install luarocks-3.3.1/
+fi
+

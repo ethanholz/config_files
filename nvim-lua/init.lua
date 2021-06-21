@@ -22,10 +22,9 @@ vim.opt.shell = 'zsh'
 vim.opt.bg = 'dark'
 
 require'nvim-lastplace'.setup {}
---[[ vim.g.nb_style = "midnight"
-require('colorbuddy').colorscheme('nightbuddy') ]]
-require('nord').set {}
-require('lualine').setup {options = {theme = 'nord'}}
+vim.g.material_style = "darker"
+require('material').set()
+require('lualine').setup {options = {theme = 'material-nvim'}}
 -- Set Bufferline
 require('bufferline').setup {}
 require("toggleterm").setup {}

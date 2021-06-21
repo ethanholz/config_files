@@ -1,7 +1,7 @@
 # NOTE: Set WSL_FLAG in .zprofile
 source ~/.config/zsh-plugins/antigen.zsh
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$PATH
 # Check for WSL in kernel info
 if [[ $(uname -r) == *"WSL"* ]]; then
         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
@@ -49,6 +49,10 @@ venv-update() {
 autoload -U compinit
 compinit -i
 bindkey -s '^f' 'fzf^M'
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
+  [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1
+fi
+# (cat ~/.cache/wal/sequences &)
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(starship init zsh)"

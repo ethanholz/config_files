@@ -41,7 +41,7 @@ return require('packer').startup({
             requires = {'kyazdani42/nvim-web-devicons', opt = true}
         }
 
-        use 'shaunsingh/nord.nvim'
+        use 'marko-cerovac/material.nvim'
 
         -- Treesitter
         use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -96,6 +96,5 @@ return require('packer').startup({
         use 'ethanholz/nvim-lastplace'
         use 'hrsh7th/nvim-compe'
         use 'sbdchd/neoformat'
-        -- use '~/Documents/nvim-lastplace/'
     end
 })
