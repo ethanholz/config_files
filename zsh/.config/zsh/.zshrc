@@ -9,9 +9,6 @@ source "$ZDOTDIR/zsh-functions"
 zsh_add_file "zsh-aliases"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
-if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
-  [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1
-fi
 # Soruce zsh-functions
 
 export GPG_TTY=$(tty)
