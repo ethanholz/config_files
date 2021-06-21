@@ -1,7 +1,7 @@
 nvim-old/plugged
 nvim-old/.netrwhist
-nvim/plugin
-nvim/spell
+nvim/.config/nvim/plugin
+nvim/.config/nvim/spell
 zsh/.config/zsh/plugins/*
 zsh/.config/zsh/.zcompdump
 
