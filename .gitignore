@@ -1,9 +1,7 @@
-nvim/plugged
-nvim/.netrwhist
-lazygit/*
-!lazygit/config.yml
-nvim-lua/plugin
-nvim-lua/spell
+nvim-old/plugged
+nvim-old/.netrwhist
+nvim/plugin
+nvim/spell
 zsh/.config/zsh/plugins/*
 zsh/.config/zsh/.zcompdump
 
