@@ -5,7 +5,9 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$PATH
 if [[ $(uname -r) == *"WSL"* ]]; then
         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
 fi
-
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ]; then
+  [ -z "${TMUX}" ] && { tmux attach || tmux; } >/dev/null 2>&1
+fi
 # Soruce zsh-functions
 source "$ZDOTDIR/zsh-functions"
 zsh_add_file "zsh-aliases"
