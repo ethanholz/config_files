@@ -1,5 +1,9 @@
 # NOTE: Set WSL_FLAG in .zprofile
 # If you come from bash you might have to change your $PATH.
+setopt autocd extendedglob nomatch menucomplete
+setopt interactive_comments
+# Colors
+autoload -Uz colors && colors
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$PATH
 # Check for WSL in kernel info
 if [[ $(uname -r) == *"WSL"* ]]; then
