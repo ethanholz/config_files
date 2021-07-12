@@ -1,6 +1,10 @@
 # NOTE: Set WSL_FLAG in .zprofile
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$HOME/aibin:$HOME/.cargo/bin:$PATH
+setopt autocd extendedglob nomatch menucomplete
+setopt interactive_comments
+# Colors
+autoload -Uz colors && colors
 # Check for WSL in kernel info
 if [[ $(uname -r) == *"WSL"* ]]; then
         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
