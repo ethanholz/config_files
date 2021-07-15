@@ -38,6 +38,11 @@ if ! (( $+commands[pfetch] )); then
     wget https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
     mv pfetch /home/ethan/bin/
     chmod +x /home/ethan/bin/pfetch
+fi
 if ! (( $+commands[beautysh] )); then
     pip install beautysh
 fi
+if ! (( $+commands[exa] )); then
+    cargo install exa
+fi
+
