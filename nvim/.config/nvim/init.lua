@@ -28,7 +28,12 @@ require("nvim-lastplace").setup({})
 vim.g.material_style = "palenight"
 require("material").set()
 
-require("lualine").setup({ options = { theme = "material-nvim" } })
+require("lualine").setup({
+	options = {
+		theme = "material-nvim",
+		icons_enabled = false,
+	},
+})
 -- require('lualine').setup {options = {theme = 'material-nvim'}}
 -- Set Bufferline
 require("bufferline").setup({})
@@ -38,10 +43,6 @@ require("toggleterm").setup({})
 require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
-		custom_captures = {
-			-- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-			["foo.bar"] = "Identifier",
-		},
 	},
 	rainbow = { enable = true, extended_mode = true },
 })
