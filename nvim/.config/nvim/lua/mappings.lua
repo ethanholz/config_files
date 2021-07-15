@@ -6,6 +6,10 @@ local map = vim.api.nvim_set_keymap
 -- Map Terminal
 map("n", "<Leader>t", "<CMD>ToggleTerm<CR>", opts)
 map("t", "<Leader>t", "<C-\\><C-n><CMD>ToggleTerm<CR>", opts)
+map("t", "<A-h>", " <C-\\><C-N><C-w>h", opts)
+map("t", "<A-j>", " <C-\\><C-N><C-w>j", opts)
+map("t", "<A-k>", " <C-\\><C-N><C-w>k", opts)
+map("t", "<A-l>", " <C-\\><C-N><C-w>l", opts)
 -- Bufferline Keymaps
 map("n", "<Leader>[", ":BufferLineCyclePrev<CR>", opts)
 map("n", "<Leader>]", ":BufferLineCycleNext<CR>", opts)

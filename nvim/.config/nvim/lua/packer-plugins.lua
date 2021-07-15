@@ -27,6 +27,13 @@ return require("packer").startup({
 		use("hrsh7th/nvim-compe")
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")
+		--Git
+		use({
+			"lewis6991/gitsigns.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+			},
+		})
 
 		-- Inteface
 		use({
