@@ -34,6 +34,15 @@ if ! (( $+commands[luarocks] )); then
     sudo make install luarocks-3.3.1/
 fi
 
+if ! (( $+commands[pfetch] )); then
+    wget https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
+    mv pfetch /home/ethan/bin/
+    chmod +x /home/ethan/bin/pfetch
+fi
 if ! (( $+commands[beautysh] )); then
     pip install beautysh
 fi
+if ! (( $+commands[exa] )); then
+    cargo install exa
+fi
+
