@@ -5,27 +5,21 @@ local function formatter_not_installed(arg)
 	return not not string.find(output[1] or "", "command not found")
 end
 
+local function install_formatter(formatter, pm)
+	if formatter_not_installed(formatter) then
+		os.execute(pm .. " install " .. formatter)
+		redraw(formatter .. " is now installed")
+	else
+		redraw(formatter .. " is now installed.")
+	end
+end
+
 -- Functions to bootstrap formatters
 function format_config.bootstrap()
 	create_win()
-	if formatter_not_installed("beautysh") then
-		os.execute("pip install beautysh")
-		redraw("beautysh is now installed")
-	else
-		redraw("beautysh already installed")
-	end
-	if formatter_not_installed("black") then
-		os.execute("pip install black")
-		redraw("black is now installed")
-	else
-		redraw("black already installed")
-	end
-	if formatter_not_installed("stylua") then
-		os.execute("cargo install stylua")
-		redraw("stylua is now installed")
-	else
-		redraw("stylua is already installed")
-	end
+	install_formatter("beautysh", "pip")
+	install_formatter("black", "pip")
+	install_formatter("stylua", "cargo")
 end
 function create_win()
 	start_win = vim.api.nvim_get_current_win()
