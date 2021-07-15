@@ -31,8 +31,9 @@ require("material").set()
 require("lualine").setup({ options = { theme = "material-nvim" } })
 -- require('lualine').setup {options = {theme = 'material-nvim'}}
 -- Set Bufferline
-require("bufferline").setup({})
-require("toggleterm").setup({})
+require("bufferline").setup()
+require("toggleterm").setup()
+require("gitsigns").setup()
 
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({
