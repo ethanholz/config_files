@@ -25,20 +25,18 @@ vim.opt.bg = "dark"
 vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
 
 require("nvim-lastplace").setup({})
-vim.g.material_style = "palenight"
-require("material").set()
+vim.g.material_style = "darker"
+require("moonlight").set()
 
 require("lualine").setup({
 	options = {
-		theme = "material-nvim",
+		theme = "moonlight",
 		icons_enabled = false,
 		section_separators = "",
 		component_separators = "",
 	},
 })
 -- require('lualine').setup {options = {theme = 'material-nvim'}}
--- Set Bufferline
-require("bufferline").setup()
 require("toggleterm").setup()
 require("gitsigns").setup()
 

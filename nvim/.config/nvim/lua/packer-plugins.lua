@@ -40,17 +40,21 @@ return require("packer").startup({
 			"kyazdani42/nvim-tree.lua",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
-
 		use({
-			"akinsho/nvim-bufferline.lua",
+			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
+		--[[ use({
+			"akinsho/nvim-bufferline.lua",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		}) ]]
 		use({
 			"hoob3rt/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
 
 		use("marko-cerovac/material.nvim")
+		use("shaunsingh/moonlight.nvim")
 
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -81,8 +85,5 @@ return require("packer").startup({
 		use("ethanholz/nvim-lastplace")
 		-- use 'sbdchd/neoformat'
 		use("mhartington/formatter.nvim")
-		use("~/Documents/neospot")
-		use_rocks("media_player")
-		use_rocks("lpeg")
 	end,
 })
