@@ -36,7 +36,6 @@ require("lualine").setup({
 		component_separators = "",
 	},
 })
--- require('lualine').setup {options = {theme = 'material-nvim'}}
 require("toggleterm").setup()
 require("gitsigns").setup()
 
