@@ -50,7 +50,7 @@ return require("packer").startup({
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
 
-		use("marko-cerovac/material.nvim")
+		use("EdenEast/nightfox.nvim")
 
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -78,11 +78,9 @@ return require("packer").startup({
 		if not is_wsl then
 			use("andweeb/presence.nvim")
 		end
-		use("ethanholz/nvim-lastplace")
+		-- use("ethanholz/nvim-lastplace")
+		use("/home/ethan/Documents/nvim-lastplace")
 		-- use 'sbdchd/neoformat'
 		use("mhartington/formatter.nvim")
-		use("~/Documents/neospot")
-		use_rocks("media_player")
-		use_rocks("lpeg")
 	end,
 })

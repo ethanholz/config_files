@@ -25,10 +25,10 @@ vim.opt.bg = "dark"
 vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
 
 require("nvim-lastplace").setup({})
-vim.g.material_style = "palenight"
-require("material").set()
+-- vim.g.nightfox_style = "palefox"
+require("nightfox").set()
 
-require("lualine").setup({ options = { theme = "material-nvim" } })
+require("lualine").setup({ options = { theme = "nightfox" } })
 -- require('lualine').setup {options = {theme = 'material-nvim'}}
 -- Set Bufferline
 require("bufferline").setup()
