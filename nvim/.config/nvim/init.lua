@@ -29,9 +29,9 @@ require("nvim-lastplace").setup({})
 require("nightfox").set()
 
 require("lualine").setup({ options = { theme = "nightfox" } })
--- require('lualine').setup {options = {theme = 'material-nvim'}}
 -- Set Bufferline
 require("bufferline").setup()
+
 require("toggleterm").setup()
 require("gitsigns").setup()
 
@@ -39,10 +39,6 @@ require("gitsigns").setup()
 require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
-		custom_captures = {
-			-- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-			["foo.bar"] = "Identifier",
-		},
 	},
 	rainbow = { enable = true, extended_mode = true },
 })

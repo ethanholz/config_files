@@ -40,11 +40,14 @@ return require("packer").startup({
 			"kyazdani42/nvim-tree.lua",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
-
 		use({
-			"akinsho/nvim-bufferline.lua",
+			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
+		--[[ use({
+			"akinsho/nvim-bufferline.lua",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		}) ]]
 		use({
 			"hoob3rt/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
