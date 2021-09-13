@@ -2,6 +2,8 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 require("lspconfig").ccls.setup({ on_attach = require("compe").on_attach })
 -- require'lspconfig'.pyls.setup{on_attach=require'completion'.on_attach}
 require("lspconfig").jedi_language_server.setup({})
+require("lspconfig").vimls.setup({})
+require("lspconfig").ansiblels.setup({python={interpreterPath = python3}})
 
 require("trouble").setup({})
 require("compe").setup({

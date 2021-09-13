@@ -24,6 +24,7 @@ return require("packer").startup({
 		-- LSP
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
+        use("nvim-lua/lsp-status.nvim")
 		use("hrsh7th/nvim-compe")
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")

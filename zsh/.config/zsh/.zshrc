@@ -1,6 +1,10 @@
 # NOTE: Set WSL_FLAG in .zprofile
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$HOME/aibin:$HOME/.cargo/bin:$PATH
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
+export PATH=$HOME/.yarn/bin/:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$HOME/aibin:$HOME/.cargo/bin:$PATH
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
 # Colors
@@ -21,7 +25,9 @@ export GPG_TTY=$(tty)
 # source ~/.config/zsh-plugins/bootstrap.zsh
 
 export EDITOR='nvim'
+export SUDO_EDITOR='nvim'
 alias python='python3'
+alias ssh='kitty +kitten ssh'
 
 # Completions
 autoload -U compinit
@@ -36,3 +42,7 @@ bindkey -s '^f' 'fzf^M'
 # Add prompt and zoxide
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
