@@ -45,4 +45,6 @@ fi
 if ! (( $+commands[exa] )); then
     cargo install exa
 fi
-
+if ! (( $+commands[stylua] )); then
+    cargo install stylua
+fi
