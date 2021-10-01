@@ -40,7 +40,11 @@ function timezsh() {
 
 function copy() {
     command="${@}"
-    eval $command | xclip -sel c
+    if [[ $(uname -r) == *"WSL"* ]]; then
+            eval $command | /mnt/c/Windows/SysWOW64/clip.exe
+    else
+        eval $command | xclip -sel c
+    fi
 }
 
 #0->not activated, 1-> activated

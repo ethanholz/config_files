@@ -10,7 +10,7 @@ setopt interactive_comments
 autoload -Uz colors && colors
 # Check for WSL in kernel info
 # if [[ $(uname -r) == *"WSL"* ]]; then
-#         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
+        # export PATH=/mnt/c/Windows/SysWOW64/clip.exe:$PATH
 # fi
 fpath+=${ZDOTDIR:-~}/completions
 source "$ZDOTDIR/zsh-functions"
