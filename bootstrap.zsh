@@ -48,3 +48,6 @@ fi
 if ! (( $+commands[stylua] )); then
     cargo install stylua
 fi
+if ! (( $+commands[pyright] )); then
+    sudo npm install -g pyright
+fi
