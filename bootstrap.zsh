@@ -36,8 +36,8 @@ fi
 
 if ! (( $+commands[pfetch] )); then
     wget https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
-    mv pfetch /home/ethan/bin/
-    chmod +x /home/ethan/bin/pfetch
+    mv pfetch $HOME/bin/
+    chmod +x $HOME/bin/pfetch
 fi
 if ! (( $+commands[beautysh] )); then
     pip install beautysh

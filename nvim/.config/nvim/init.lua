@@ -22,7 +22,7 @@ vim.opt.shiftwidth = tab_value
 vim.opt.shell = "zsh"
 vim.opt.bg = "dark"
 vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
-
+require("nvim-lastplace").setup{}
 --[[ require("nvim-lastplace").setup({
     lastplace_ignore_buftype = {"nofile", "help"},
 }) ]]

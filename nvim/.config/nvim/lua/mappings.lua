@@ -40,3 +40,4 @@ map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
 map("n", "<Leader>i", ":ISwap<CR>", opts)
 --Custom bootstrap
 map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
+map("n", "<Leader>p", ":TroubleToggle<CR>", opts)
