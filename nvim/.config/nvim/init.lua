@@ -21,21 +21,22 @@ vim.opt.softtabstop = tab_value
 vim.opt.shiftwidth = tab_value
 vim.opt.shell = "zsh"
 vim.opt.bg = "dark"
-
 vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
 
-require("nvim-lastplace").setup({})
-vim.g.material_style = "darker"
-require("moonlight").set()
+--[[ require("nvim-lastplace").setup({
+    lastplace_ignore_buftype = {"nofile", "help"},
+}) ]]
+-- vim.g.nightfox_style = "palefox"
+require("nightfox").load()
 
-require("lualine").setup({
-	options = {
-		theme = "moonlight",
-		icons_enabled = false,
-		section_separators = "",
-		component_separators = "",
-	},
-})
+require("lualine").setup{
+	options = { 
+		theme = "nightfox" 
+	}, 
+}
+-- Set Bufferline
+-- require("bufferline").setup()
+
 require("toggleterm").setup()
 require("gitsigns").setup()
 

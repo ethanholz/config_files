@@ -24,6 +24,7 @@ return require("packer").startup({
 		-- LSP
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
+        use("nvim-lua/lsp-status.nvim")
 		use("hrsh7th/nvim-compe")
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")
@@ -53,8 +54,7 @@ return require("packer").startup({
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
 
-		use("marko-cerovac/material.nvim")
-		use("shaunsingh/moonlight.nvim")
+		use("EdenEast/nightfox.nvim")
 
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -82,7 +82,8 @@ return require("packer").startup({
 		if not is_wsl then
 			use("andweeb/presence.nvim")
 		end
-		use("ethanholz/nvim-lastplace")
+		-- use("ethanholz/nvim-lastplace")
+		use("/home/ethan/Documents/nvim-lastplace")
 		-- use 'sbdchd/neoformat'
 		use("mhartington/formatter.nvim")
 	end,
