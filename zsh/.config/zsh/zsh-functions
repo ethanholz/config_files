@@ -7,10 +7,10 @@ function zsh_add_file() {
 
 function zsh_add_plugin() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
         # For plugins
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
-        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+            zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
     else
         git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
     fi
@@ -19,47 +19,50 @@ function zsh_add_plugin() {
 
 function zsh_add_completion() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
         # For completions
-		completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
-		fpath+="$(dirname "${completion_file_path}")"
+        completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+        fpath+="$(dirname "${completion_file_path}")"
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
     else
         git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
-		fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+        fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
         [ -f $ZDOTDIR/.zccompdump ] && $ZDOTDIR/.zccompdump
     fi
-	completion_file="$(basename "${completion_file_path}")"
-	if [ "$2" = true ] && compinit "${completion_file:1}"
+    completion_file="$(basename "${completion_file_path}")"
+    if [ "$2" = true ] && compinit "${completion_file:1}"
 }
 
 function timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+    shell=${1-$SHELL}
+    for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-
+function copy() {
+    command="${@}"
+    eval $command | xclip -sel c
+}
 
 #0->not activated, 1-> activated
 python_env_state=0
 function venv-update() {
-	if command -v deactivate &> /dev/null
-	then
-		#Checks if an initial env is running
-		python_env_state=1
-	fi
+    if command -v deactivate &> /dev/null
+    then
+        #Checks if an initial env is running
+        python_env_state=1
+    fi
 
-	if [ $python_env_state -eq 0 ]
-	then
-		if [ -f env/bin/activate ]
-		then
-			source env/bin/activate
-		else
-			echo "Not in virtual environment"
-		fi
-	elif [ $python_env_state -eq 1 ]
-	then
-		deactivate
-		python_env_state=0
-	fi
+    if [ $python_env_state -eq 0 ]
+    then
+        if [ -f env/bin/activate ]
+        then
+            source env/bin/activate
+        else
+            echo "Not in virtual environment"
+        fi
+    elif [ $python_env_state -eq 1 ]
+    then
+        deactivate
+        python_env_state=0
+    fi
 }
