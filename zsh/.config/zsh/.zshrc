@@ -1,4 +1,3 @@
-# NOTE: Set WSL_FLAG in .zprofile
 # If you come from bash you might have to change your $PATH.
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -10,9 +9,9 @@ setopt interactive_comments
 # Colors
 autoload -Uz colors && colors
 # Check for WSL in kernel info
-if [[ $(uname -r) == *"WSL"* ]]; then
-        export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
-fi
+# if [[ $(uname -r) == *"WSL"* ]]; then
+#         export PATH=/mnt/c/Users/iplay/AppData/Local/Programs/Microsoft\ VS\ Code/bin:/mnt/c/Windows/System32/:$PATH
+# fi
 fpath+=${ZDOTDIR:-~}/completions
 source "$ZDOTDIR/zsh-functions"
 zsh_add_file "zsh-aliases"
