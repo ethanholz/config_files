@@ -10,7 +10,7 @@ setopt interactive_comments
 autoload -Uz colors && colors
 # Check for WSL in kernel info
 # if [[ $(uname -r) == *"WSL"* ]]; then
-        # export PATH=/mnt/c/Windows/SysWOW64/clip.exe:$PATH
+# export PATH=/mnt/c/Windows/SysWOW64/clip.exe:$PATH
 # fi
 fpath+=${ZDOTDIR:-~}/completions
 source "$ZDOTDIR/zsh-functions"
@@ -26,8 +26,10 @@ export GPG_TTY=$(tty)
 export EDITOR='nvim'
 export SUDO_EDITOR='nvim'
 alias python='python3'
-alias ssh='kitty +kitten ssh'
 
+if [[ ! $(uname -r) == *"WSL"* ]]; then
+    alias ssh='kitty +kitten ssh'
+fi
 # Completions
 autoload -U compinit
 compinit -i
