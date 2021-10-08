@@ -3,7 +3,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
-export PATH=$HOME/.yarn/bin/:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$HOME/aibin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.yarn/bin/:$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.luarocks/bin:$HOME/aibin:$HOME/.cargo/bin:/usr/local/go/bin/:$HOME/go/bin/:$PATH
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
 # Colors
