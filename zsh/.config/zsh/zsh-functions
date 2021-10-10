@@ -41,10 +41,21 @@ function timezsh() {
 function copy() {
     command="${@}"
     if [[ $(uname -r) == *"WSL"* ]]; then
-            eval $command | /mnt/c/Windows/SysWOW64/clip.exe
+        eval $command | /mnt/c/Windows/SysWOW64/clip.exe
     else
         eval $command | xclip -sel c
     fi
+}
+
+function copycat() {
+    filename="$1"
+    [ ! -f $filename ] && echo "File not found" && return
+    copy cat $filename
+    # if [[ $(uname -r) == *"WSL"* ]]; then
+    #     cat $filename | /mnt/c/Windows/SysWOW64/clip.exe
+    # else
+    #     cat $filename | xclip -sel c
+    # fi
 }
 
 #0->not activated, 1-> activated
