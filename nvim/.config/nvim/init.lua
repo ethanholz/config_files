@@ -22,18 +22,25 @@ vim.opt.shiftwidth = tab_value
 vim.opt.shell = "zsh"
 vim.opt.bg = "dark"
 vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
-require("nvim-lastplace").setup{}
---[[ require("nvim-lastplace").setup({
-    lastplace_ignore_buftype = {"nofile", "help"},
-}) ]]
--- vim.g.nightfox_style = "palefox"
+
+-- Load theme colors for use in UI
+local colors = require("nightfox.colors").load()
+require("nightfox").setup({
+	terminal_colors = true,
+})
 require("nightfox").load()
 
-require("lualine").setup{
-	options = { 
-		theme = "nightfox" 
-	}, 
-}
+require("lualine").setup({
+	options = {
+		theme = "nightfox",
+	},
+})
+-- vim.opt.list = true
+
+require("indent_blankline").setup({
+	show_end_of_line = true,
+	filetype_exclude = { "markdown" },
+})
 -- Set Bufferline
 -- require("bufferline").setup()
 
@@ -45,7 +52,19 @@ require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
 	},
-	rainbow = { enable = true, extended_mode = true },
+	rainbow = {
+		enable = true,
+		extended_mode = true,
+		colors = {
+			colors.red,
+			colors.yellow,
+			colors.green,
+			colors.blue,
+			colors.cyan,
+			colors.magenta,
+			colors.pink,
+		},
+	},
 })
 vim.api.nvim_set_var("codi#interpreters", { python = { bin = "python3" } })
 -- Neoformat config

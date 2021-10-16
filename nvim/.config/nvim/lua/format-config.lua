@@ -54,6 +54,11 @@ function format_config.setup()
 					return { exe = "black", args = {}, stdin = false }
 				end,
 			},
+            rust = {
+                function()
+                    return { exe = "rustfmt", arg = {}, stdin = false }
+                end,
+            },
 			sh = {
 				function()
 					return { exe = "beautysh", args = {}, stdin = false }

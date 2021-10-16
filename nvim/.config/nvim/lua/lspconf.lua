@@ -4,6 +4,19 @@ require("lspconfig").ccls.setup({ on_attach = require("compe").on_attach })
 require("lspconfig").pyright.setup({})
 require("lspconfig").vimls.setup({})
 require("lspconfig").ansiblels.setup({ python = { interpreterPath = python3 } })
+require'lspconfig'.rls.setup{}
+require("lspconfig").gopls.setup({
+	cmd = { "gopls", "serve" },
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = true,
+			},
+			staticcheck = true,
+		},
+	},
+})
+require'lspconfig'.rust_analyzer.setup{}
 
 require("trouble").setup({})
 require("compe").setup({

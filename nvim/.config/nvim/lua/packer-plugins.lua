@@ -24,7 +24,7 @@ return require("packer").startup({
 		-- LSP
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
-        use("nvim-lua/lsp-status.nvim")
+		use("nvim-lua/lsp-status.nvim")
 		use("hrsh7th/nvim-compe")
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")
@@ -45,10 +45,7 @@ return require("packer").startup({
 			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
-		--[[ use({
-			"akinsho/nvim-bufferline.lua",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		}) ]]
+		use("lukas-reineke/indent-blankline.nvim")
 		use({
 			"hoob3rt/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -83,7 +80,7 @@ return require("packer").startup({
 			use("andweeb/presence.nvim")
 		end
 		use("ethanholz/nvim-lastplace")
-        use({"stsewd/isort.nvim", run = ":UpdateRemotePlugins"})
+		use({ "stsewd/isort.nvim", run = ":UpdateRemotePlugins" })
 		-- use 'sbdchd/neoformat'
 		use("mhartington/formatter.nvim")
 	end,
