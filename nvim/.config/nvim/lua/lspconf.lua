@@ -1,43 +1,62 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
-require("lspconfig").ccls.setup({ on_attach = require("compe").on_attach })
--- require'lspconfig'.pyls.setup{on_attach=require'completion'.on_attach}
-require("lspconfig").pyright.setup({})
-require("lspconfig").vimls.setup({})
-require("lspconfig").ansiblels.setup({ python = { interpreterPath = python3 } })
-require'lspconfig'.rls.setup{}
-require("lspconfig").gopls.setup({
-	cmd = { "gopls", "serve" },
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = true,
-			},
-			staticcheck = true,
-		},
+local cmp = require("cmp")
+local lspkind = require("lspkind")
+cmp.setup({
+	formatting = {
+		format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
+	},
+	snippet = {
+		expand = function(args)
+			-- For `vsnip` user.
+			vim.fn["vsnip#anonymous"](args.body)
+
+			-- For `luasnip` user.
+			-- require('luasnip').lsp_expand(args.body)
+
+			-- For `ultisnips` user.
+			-- vim.fn["UltiSnips#Anon"](args.body)
+		end,
+	},
+	mapping = {
+		["<C-d>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.close(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+	},
+	sources = {
+		{ name = "nvim_lsp" },
+
+		-- For vsnip user.
+		{ name = "vsnip" },
+
+		-- For luasnip user.
+		-- { name = 'luasnip' },
+
+		-- For ultisnips user.
+		-- { name = 'ultisnips' },
+
+		{ name = "buffer" },
 	},
 })
-require'lspconfig'.rust_analyzer.setup{}
-
+local nvim_lsp = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local servers = { "pyright", "vimls", "ansiblels", "rls", "rust_analyzer" }
+for _, lsp in ipairs(servers) do
+	nvim_lsp[lsp].setup({
+		capabilities = capabilities,
+	})
+end
+-- nvim_lsp.gopls.setup({
+-- 	cmd = { "gopls", "serve" },
+-- 	settings = {
+-- 		gopls = {
+-- 			analyses = {
+-- 				unusedparams = true,
+-- 			},
+-- 			staticcheck = true,
+-- 		},
+-- 	},
+-- })
+require("rust-tools").setup()
 require("trouble").setup({})
-require("compe").setup({
-	enabled = true,
-	autocomplete = true,
-	debug = false,
-	min_length = 1,
-	preselect = "enable",
-	throttle_time = 80,
-	source_timeout = 200,
-	incomplete_delay = 800,
-	max_abbr_width = 100,
-	max_kind_width = 100,
-	max_menu_width = 100,
-	documentation = true,
-
-	source = {
-		path = true,
-		buffer = true,
-		calc = true,
-		nvim_lsp = true,
-		nvim_lua = true,
-	},
-})

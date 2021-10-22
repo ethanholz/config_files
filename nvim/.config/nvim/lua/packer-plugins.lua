@@ -25,7 +25,19 @@ return require("packer").startup({
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
 		use("nvim-lua/lsp-status.nvim")
-		use("hrsh7th/nvim-compe")
+		-- use("hrsh7th/nvim-compe")
+
+		use("hrsh7th/cmp-buffer")
+		use("hrsh7th/nvim-cmp")
+		-- Snips
+		use({ "hrsh7th/cmp-vsnip", opt = True })
+		use({ "hrsh7th/vim-vsnip", opt = True })
+		-- use({ "rafamadriz/friendly-snippets", opt = True })
+		-- Other LSP tools
+		use({ "hrsh7th/cmp-nvim-lsp", opt = True })
+		use({ "simrat39/rust-tools.nvim", opt = True })
+		use({ "onsails/lspkind-nvim", opt = True })
+
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")
 		--Git
@@ -59,7 +71,12 @@ return require("packer").startup({
 
 		-- Code help
 		use("metakirby5/codi.vim")
-		use("b3nj5m1n/kommentary")
+		use({
+			"numToStr/Comment.nvim",
+			config = function()
+				require("Comment").setup()
+			end,
+		})
 		use({ "akinsho/nvim-toggleterm.lua" })
 
 		-- Telescope
@@ -79,9 +96,7 @@ return require("packer").startup({
 		if not is_wsl then
 			use("andweeb/presence.nvim")
 		end
-		use("ethanholz/nvim-lastplace")
-		use({ "stsewd/isort.nvim", run = ":UpdateRemotePlugins" })
-		-- use 'sbdchd/neoformat'
+		use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
 		use("mhartington/formatter.nvim")
 	end,
 })
