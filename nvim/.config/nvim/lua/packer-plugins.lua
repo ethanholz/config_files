@@ -32,11 +32,11 @@ return require("packer").startup({
 		-- Snips
 		use({ "hrsh7th/cmp-vsnip", opt = True })
 		use({ "hrsh7th/vim-vsnip", opt = True })
-		-- use({ "rafamadriz/friendly-snippets", opt = True })
+		use({ "hrsh7th/cmp-path", opt = True })
 		-- Other LSP tools
-		use({ "hrsh7th/cmp-nvim-lsp", opt = True })
-		use({ "simrat39/rust-tools.nvim", opt = True })
-		use({ "onsails/lspkind-nvim", opt = True })
+		use({ "hrsh7th/cmp-nvim-lsp" })
+		use({ "simrat39/rust-tools.nvim" })
+		use({ "onsails/lspkind-nvim" })
 
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")
@@ -59,7 +59,7 @@ return require("packer").startup({
 		})
 		use("lukas-reineke/indent-blankline.nvim")
 		use({
-			"hoob3rt/lualine.nvim",
+			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
 
@@ -96,7 +96,22 @@ return require("packer").startup({
 		if not is_wsl then
 			use("andweeb/presence.nvim")
 		end
-		use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
+		-- use("ethanholz/nvim-lastplace")
+		use(os.getenv("HOME") .. "/Documents/nvim-dev/nvim-lastplace")
 		use("mhartington/formatter.nvim")
+		use({
+			"Saecki/crates.nvim",
+			event = "BufRead Cargo.toml",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("crates").setup()
+			end,
+		})
+		use({
+			"/home/ethanholz/Documents/nvim-dev/cmp-cargo",
+			requires = {
+				"nvim-lua/plenary.nvim",
+			},
+		})
 	end,
 })

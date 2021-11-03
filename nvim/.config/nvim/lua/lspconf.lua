@@ -1,9 +1,19 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
 local cmp = require("cmp")
 local lspkind = require("lspkind")
+require("cmp-cargo").setup({})
 cmp.setup({
 	formatting = {
-		format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
+		format = lspkind.cmp_format({
+			with_text = true,
+			maxwidth = 50,
+			menu = {
+				buffer = "[Buffer]",
+				nvim_lsp = "[LSP]",
+				path = "[Path]",
+				crates = "[Crates]",
+			},
+		}),
 	},
 	snippet = {
 		expand = function(args)
@@ -26,22 +36,19 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
-
+		{ name = "path" },
 		-- For vsnip user.
 		{ name = "vsnip" },
-
+		{ name = "cmp-cargo", keyword_length = 3 },
+		{ name = "crates" },
 		-- For luasnip user.
 		-- { name = 'luasnip' },
-
-		-- For ultisnips user.
-		-- { name = 'ultisnips' },
-
 		{ name = "buffer" },
 	},
 })
 local nvim_lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { "pyright", "vimls", "ansiblels", "rls", "rust_analyzer" }
+local servers = { "pyright", "vimls", "ansiblels", "rust_analyzer", "bashls" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
 		capabilities = capabilities,
