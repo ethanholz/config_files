@@ -34,8 +34,8 @@ return require("packer").startup({
 		use({ "hrsh7th/vim-vsnip", opt = True })
 		-- use({ "rafamadriz/friendly-snippets", opt = True })
 		-- Other LSP tools
-		use({ "hrsh7th/cmp-nvim-lsp", opt = True })
-		use({ "simrat39/rust-tools.nvim", opt = True })
+		use({ "hrsh7th/cmp-nvim-lsp" })
+		use({ "simrat39/rust-tools.nvim" })
 		use({ "onsails/lspkind-nvim", opt = True })
 
 		use("tjdevries/nlua.nvim")
@@ -96,7 +96,8 @@ return require("packer").startup({
 		if not is_wsl then
 			use("andweeb/presence.nvim")
 		end
-		use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
+		use("ethanholz/nvim-lastplace")
+		-- use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
 		use("mhartington/formatter.nvim")
 	end,
 })
