@@ -48,22 +48,12 @@ cmp.setup({
 })
 local nvim_lsp = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { "pyright", "vimls", "ansiblels", "rust_analyzer", "bashls" }
+local servers = { "pyright", "vimls", "ansiblels", "bashls" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
+		on_attach = on_attach,
 		capabilities = capabilities,
 	})
 end
--- nvim_lsp.gopls.setup({
--- 	cmd = { "gopls", "serve" },
--- 	settings = {
--- 		gopls = {
--- 			analyses = {
--- 				unusedparams = true,
--- 			},
--- 			staticcheck = true,
--- 		},
--- 	},
--- })
 require("rust-tools").setup()
 require("trouble").setup({})

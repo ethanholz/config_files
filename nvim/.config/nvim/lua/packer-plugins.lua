@@ -96,8 +96,8 @@ return require("packer").startup({
 		if not is_wsl then
 			use("andweeb/presence.nvim")
 		end
-		-- use("ethanholz/nvim-lastplace")
-		use(os.getenv("HOME") .. "/Documents/nvim-dev/nvim-lastplace")
+		use("ethanholz/nvim-lastplace")
+		-- use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
 		use("mhartington/formatter.nvim")
 		use({
 			"Saecki/crates.nvim",
