@@ -10,9 +10,7 @@ map("t", "<A-h>", " <C-\\><C-N><C-w>h", opts)
 map("t", "<A-j>", " <C-\\><C-N><C-w>j", opts)
 map("t", "<A-k>", " <C-\\><C-N><C-w>k", opts)
 map("t", "<A-l>", " <C-\\><C-N><C-w>l", opts)
--- Bufferline Keymaps
---[[ map("n", "<Leader>[", ":BufferLineCyclePrev<CR>", opts)
-map("n", "<Leader>]", ":BufferLineCycleNext<CR>", opts) ]]
+-- BarBar Keymaps
 map("n", "<Leader>[", ":BufferPrevious<CR>", opts)
 map("n", "<Leader>]", ":BufferNext<CR>", opts)
 
@@ -25,7 +23,7 @@ map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').colorscheme()<cr>"
 map("n", "<Leader>fl", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
 
 map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
-map("n", "<Leader>i", ":ISwap<CR>", opts)
 --Custom bootstrap
 map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
+-- LSP
 map("n", "<Leader>p", ":TroubleToggle<CR>", opts)

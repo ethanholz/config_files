@@ -25,8 +25,6 @@ return require("packer").startup({
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
 		use("nvim-lua/lsp-status.nvim")
-		-- use("hrsh7th/nvim-compe")
-
 		use("hrsh7th/cmp-buffer")
 		use("hrsh7th/nvim-cmp")
 		-- Snips
