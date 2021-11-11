@@ -33,7 +33,31 @@ require("nightfox").load()
 require("lualine").setup({
 	options = {
 		theme = "nightfox",
+		component_separators = "|",
+		section_separators = { left = "", right = "" },
 	},
+	sections = {
+		lualine_a = {
+			{ "mode", separator = { left = "" }, right_padding = 2 },
+		},
+		lualine_b = { "filename", "branch" },
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = { "filetype", "progress" },
+		lualine_z = {
+			{ "location", separator = { right = "" }, left_padding = 2 },
+		},
+	},
+	inactive_sections = {
+		lualine_a = { "filename" },
+		lualine_b = {},
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = { "location" },
+	},
+	tabline = {},
+	extensions = {},
 })
 -- vim.opt.list = true
 
@@ -65,11 +89,3 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
-vim.api.nvim_set_var("codi#interpreters", { python = { bin = "python3" } })
--- formatter.nvim config
-vim.cmd([[
-augroup fmt
-  autocmd!
-  autocmd BufWritePost * :silent FormatWrite
-augroup END
-]])

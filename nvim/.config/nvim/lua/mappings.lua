@@ -15,19 +15,7 @@ map("t", "<A-l>", " <C-\\><C-N><C-w>l", opts)
 map("n", "<Leader>]", ":BufferLineCycleNext<CR>", opts) ]]
 map("n", "<Leader>[", ":BufferPrevious<CR>", opts)
 map("n", "<Leader>]", ":BufferNext<CR>", opts)
--- Codi state fix
-local codi_state = false
-toggle_codi = function()
-	if codi_state == false then
-		codi_state = true
-		vim.cmd([[Codi]])
-	else
-		codi_state = false
-		vim.cmd([[Codi!]])
-	end
-end
 
-map("n", "<Leader>c", "<CMD>lua toggle_codi()<CR>", opts)
 -- Telescope
 map("n", "<Leader>ff", "<CMD>lua require('telescope.builtin').find_files()<CR>", opts)
 map("n", "<Leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)

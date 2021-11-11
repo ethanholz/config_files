@@ -70,7 +70,6 @@ return require("packer").startup({
 		use("p00f/nvim-ts-rainbow")
 
 		-- Code help
-		use("metakirby5/codi.vim")
 		use({
 			"numToStr/Comment.nvim",
 			config = function()
