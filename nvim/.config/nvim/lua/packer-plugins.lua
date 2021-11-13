@@ -104,11 +104,5 @@ return require("packer").startup({
 				require("crates").setup()
 			end,
 		})
-		use({
-			"/home/ethanholz/Documents/nvim-dev/cmp-cargo",
-			requires = {
-				"nvim-lua/plenary.nvim",
-			},
-		})
 	end,
 })
