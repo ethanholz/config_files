@@ -47,6 +47,7 @@ local lspkind = require("lspkind")
 -- 	},
 -- })
 local nvim_lsp = require("lspconfig")
+vim.g.coq_settings = { auto_start = "shut-up" }
 local coq = require("coq")
 local capabilities = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = { "pyright", "vimls", "ansiblels", "bashls" }
