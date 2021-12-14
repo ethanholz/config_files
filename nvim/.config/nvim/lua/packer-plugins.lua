@@ -21,8 +21,8 @@ return require("packer").startup({
 	function()
 		-- Manage itself
 		use({ "wbthomason/packer.nvim", opt = true })
-        --Movement
-        use ("ggandor/lightspeed.nvim")
+		--Movement
+		use("ggandor/lightspeed.nvim")
 		-- LSP
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
@@ -35,9 +35,9 @@ return require("packer").startup({
 		-- use({ "hrsh7th/cmp-path", opt = True })
 		-- -- Other LSP tools
 		-- use({ "hrsh7th/cmp-nvim-lsp" })
-        use ('ms-jpq/coq_nvim', {branch= 'coq'})
-        use ('ms-jpq/coq.artifacts', {branch= 'artifacts'})
-        use('ms-jpq/coq.thirdparty', {branch= '3p'})
+		use("ms-jpq/coq_nvim", { branch = "coq" })
+		use("ms-jpq/coq.artifacts", { branch = "artifacts" })
+		use("ms-jpq/coq.thirdparty", { branch = "3p" })
 		use({ "simrat39/rust-tools.nvim" })
 		use({ "onsails/lspkind-nvim" })
 
@@ -97,7 +97,7 @@ return require("packer").startup({
 		})
 		if not is_wsl then
 			use("andweeb/presence.nvim")
-            -- use("/home/ethanholz/Documents/presence.nvim")
+			-- use("/home/ethanholz/Documents/presence.nvim")
 		end
 		use("ethanholz/nvim-lastplace")
 		-- use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
