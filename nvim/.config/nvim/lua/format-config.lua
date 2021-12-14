@@ -54,11 +54,11 @@ function format_config.setup()
 					return { exe = "black", args = {}, stdin = false }
 				end,
 			},
-            rust = {
-                function()
-                    return { exe = "rustfmt", arg = {}, stdin = false }
-                end,
-            },
+			rust = {
+				function()
+					return { exe = "rustfmt", arg = {}, stdin = false }
+				end,
+			},
 			sh = {
 				function()
 					return { exe = "beautysh", args = {}, stdin = false }
@@ -72,5 +72,12 @@ function format_config.setup()
 		},
 	})
 end
-
+--stylua: ignore start
+vim.api.nvim_exec([[
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.rs,*.py,*.sh,*.zsh,*.lua FormatWrite
+augroup END
+]], true)
+--stylua: ignore end
 return format_config
