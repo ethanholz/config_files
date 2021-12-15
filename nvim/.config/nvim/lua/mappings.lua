@@ -21,6 +21,7 @@ map("n", "<Leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", op
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", opts)
 map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').colorscheme()<cr>", opts)
 map("n", "<Leader>fl", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
+map("n", "<Leader>fs", "<CMD>lua require('telescope.builtin').lsp_code_actions()<CR>", opts)
 
 map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
 --Custom bootstrap
