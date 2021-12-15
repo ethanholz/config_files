@@ -27,14 +27,6 @@ return require("packer").startup({
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
 		use("nvim-lua/lsp-status.nvim")
-		-- use("hrsh7th/cmp-buffer")
-		-- use("hrsh7th/nvim-cmp")
-		-- -- Snips
-		-- use({ "hrsh7th/cmp-vsnip", opt = True })
-		-- use({ "hrsh7th/vim-vsnip", opt = True })
-		-- use({ "hrsh7th/cmp-path", opt = True })
-		-- -- Other LSP tools
-		-- use({ "hrsh7th/cmp-nvim-lsp" })
 		use("ms-jpq/coq_nvim", { branch = "coq" })
 		use("ms-jpq/coq.artifacts", { branch = "artifacts" })
 		use("ms-jpq/coq.thirdparty", { branch = "3p" })
