@@ -17,7 +17,6 @@ end
 -- Functions to bootstrap formatters
 function format_config.bootstrap()
 	create_win()
-	install_formatter("beautysh", "pip")
 	install_formatter("black", "pip")
 	install_formatter("stylua", "cargo")
 end
@@ -40,44 +39,4 @@ function redraw(formatter)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, list)
 	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 end
-function format_config.setup()
-	require("formatter").setup({
-		logging = false,
-		filetype = {
-			lua = {
-				function()
-					return { exe = "stylua", args = {}, stdin = false }
-				end,
-			},
-			python = {
-				function()
-					return { exe = "black", args = {}, stdin = false }
-				end,
-			},
-			rust = {
-				function()
-					return { exe = "rustfmt", arg = {}, stdin = false }
-				end,
-			},
-			sh = {
-				function()
-					return { exe = "beautysh", args = {}, stdin = false }
-				end,
-			},
-			zsh = {
-				function()
-					return { exe = "beautysh", args = {}, stdin = false }
-				end,
-			},
-		},
-	})
-end
---stylua: ignore start
-vim.api.nvim_exec([[
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.rs,*.py,*.sh,*.zsh,*.lua FormatWrite
-augroup END
-]], true)
---stylua: ignore end
 return format_config

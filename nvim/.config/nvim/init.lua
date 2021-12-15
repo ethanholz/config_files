@@ -1,6 +1,5 @@
 require("packer-plugins")
 require("lspconf")
-require("format-config").setup()
 require("mappings")
 require("ui")
 local colors = require("nightfox.colors").load()

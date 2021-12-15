@@ -40,6 +40,7 @@ return require("packer").startup({
 		use("ms-jpq/coq.thirdparty", { branch = "3p" })
 		use({ "simrat39/rust-tools.nvim" })
 		use({ "onsails/lspkind-nvim" })
+		use({ "jose-elias-alvarez/null-ls.nvim" })
 
 		use("tjdevries/nlua.nvim")
 		use("nvim-lua/plenary.nvim")
@@ -101,7 +102,6 @@ return require("packer").startup({
 		end
 		use("ethanholz/nvim-lastplace")
 		-- use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
-		use("mhartington/formatter.nvim")
 		use({
 			"Saecki/crates.nvim",
 			event = "BufRead Cargo.toml",
