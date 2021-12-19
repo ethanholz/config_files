@@ -31,7 +31,8 @@ require("null-ls").setup({
 		formatting.rustfmt,
 		formatting.shfmt,
 		formatting.trim_newlines,
-		diagnostics.pylint,
+		formatting.isort,
+		diagnostics.pylama,
 		code_actions.gitsigns,
 	},
 	on_attach = function(client)
