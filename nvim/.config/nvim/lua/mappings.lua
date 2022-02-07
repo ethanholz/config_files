@@ -27,4 +27,8 @@ map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
 --Custom bootstrap
 map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
 -- LSP
-map("n", "<Leader>p", ":TroubleToggle<CR>", opts)
+map("n", "<Leader>i", ":TroubleToggle<CR>", opts)
+
+-- Clipboard
+map("v", "<Leader>y", '"+y', opts)
+map("n", "<Leader>p", '"+p', opts)
