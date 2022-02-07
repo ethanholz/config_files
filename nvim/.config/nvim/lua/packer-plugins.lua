@@ -58,8 +58,7 @@ return require("packer").startup({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
-
-		use("EdenEast/nightfox.nvim")
+		use("ethanholz/nightfox.nvim")
 
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
