@@ -8,7 +8,8 @@ disabled = true
 disabled = true
 
 [character]
-success_symbol = "[❯](bold purple)"
+success_symbol = "[❯](purple)"
+
 
 [cmd_duration]
 min_time = 10_000
