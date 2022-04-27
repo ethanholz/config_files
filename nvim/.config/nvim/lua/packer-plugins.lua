@@ -21,44 +21,35 @@ return require("packer").startup({
 	function()
 		-- Manage itself
 		use({ "wbthomason/packer.nvim", opt = true })
-		--Movement
-		use("ggandor/lightspeed.nvim")
 		-- LSP
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
 		use("nvim-lua/lsp-status.nvim")
-		use("ms-jpq/coq_nvim", { branch = "coq" })
-		use("ms-jpq/coq.artifacts", { branch = "artifacts" })
-		use("ms-jpq/coq.thirdparty", { branch = "3p" })
+		use("hrsh7th/nvim-cmp")
+		use("hrsh7th/cmp-nvim-lsp")
+		use("hrsh7th/cmp-nvim-lua")
 		use({ "simrat39/rust-tools.nvim" })
 		use({ "onsails/lspkind-nvim" })
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 
-		use("tjdevries/nlua.nvim")
-		use("nvim-lua/plenary.nvim")
 		--Git
 		use({
 			"lewis6991/gitsigns.nvim",
-			requires = {
-				"nvim-lua/plenary.nvim",
-			},
+			config = function()
+				require("gitsigns").setup()
+			end,
 		})
 
 		-- Inteface
 		use({
-			"kyazdani42/nvim-tree.lua",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		})
-		use({
 			"romgrk/barbar.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+			requires = {
+				"kyazdani42/nvim-web-devicons",
+				opt = true,
+			},
 		})
 		use("lukas-reineke/indent-blankline.nvim")
-		use({
-			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		})
-		use("ethanholz/nightfox.nvim")
+		use("EdenEast/nightfox.nvim")
 
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -71,12 +62,19 @@ return require("packer").startup({
 				require("Comment").setup()
 			end,
 		})
-		use({ "akinsho/nvim-toggleterm.lua" })
-
+		use({
+			"akinsho/nvim-toggleterm.lua",
+			config = function()
+				require("toggleterm").setup()
+			end,
+		})
 		-- Telescope
 		use({
 			"nvim-telescope/telescope.nvim",
-			requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+			requires = {
+				{ "nvim-lua/popup.nvim" },
+				{ "nvim-lua/plenary.nvim" },
+			},
 		})
 		use({
 			"sudormrfbin/cheatsheet.nvim",
@@ -91,8 +89,13 @@ return require("packer").startup({
 			use("andweeb/presence.nvim")
 			-- use("/home/ethanholz/Documents/presence.nvim")
 		end
-		use("ethanholz/nvim-lastplace")
-		-- use(os.getenv("HOME") .. "/Documents/nvim-lastplace")
+		use({
+			"ethanholz/nvim-lastplace",
+			branch = "testing",
+			config = function()
+				require("nvim-lastplace").setup({})
+			end,
+		})
 		use({
 			"Saecki/crates.nvim",
 			event = "BufRead Cargo.toml",

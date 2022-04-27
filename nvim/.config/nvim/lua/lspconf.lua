@@ -1,10 +1,27 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
 local lspkind = require("lspkind")
 local nvim_lsp = require("lspconfig")
-vim.g.coq_settings = { auto_start = "shut-up" }
-local coq = require("coq")
-local capabilities = coq.lsp_ensure_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { "pyright", "vimls", "ansiblels", "bashls" }
+-- vim.g.coq_settings = { auto_start = "shut-up" }
+-- local coq = require("coq")
+local cmp = require("cmp")
+cmp.setup({
+	mapping = {
+		["<TAB>"] = function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			else
+				fallback()
+			end
+		end,
+	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "buffer" },
+	}),
+	ghost_text = true,
+})
+local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "gopls" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
 		on_attach = on_attach,
@@ -29,14 +46,12 @@ require("null-ls").setup({
 		formatting.stylua,
 		formatting.black,
 		formatting.rustfmt,
-		formatting.shfmt,
-		formatting.trim_newlines,
 		formatting.isort,
 		diagnostics.pylama,
-		code_actions.gitsigns,
 	},
 	on_attach = function(client)
 		if client.resolved_capabilities.document_formatting then
+			buf_func = vim.lsp.buf.formatting_sync
 			vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
 		end
 	end,
