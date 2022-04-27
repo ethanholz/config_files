@@ -1,8 +1,7 @@
 -- Map leader config
 vim.g.mapleader = ","
-
 local opts = { noremap = true, silent = true }
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 -- Map Terminal
 map("n", "<Leader>t", "<CMD>ToggleTerm<CR>", opts)
 map("t", "<Leader>t", "<C-\\><C-n><CMD>ToggleTerm<CR>", opts)
@@ -15,20 +14,18 @@ map("n", "<Leader>[", ":BufferPrevious<CR>", opts)
 map("n", "<Leader>]", ":BufferNext<CR>", opts)
 
 -- Telescope
-map("n", "<Leader>ff", "<CMD>lua require('telescope.builtin').find_files()<CR>", opts)
-map("n", "<Leader>fg", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)
-map("n", "<Leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", opts)
-map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", opts)
-map("n", "<leader>fc", "<cmd>lua require('telescope.builtin').colorscheme()<cr>", opts)
-map("n", "<Leader>fl", "<CMD>lua require('telescope.builtin').lsp_document_symbols()<CR>", opts)
-map("n", "<Leader>fs", "<CMD>lua require('telescope.builtin').lsp_code_actions()<CR>", opts)
+map("n", "<Leader>ff", require("telescope.builtin").find_files, opts)
+map("n", "<Leader>fg", require("telescope.builtin").live_grep, opts)
+map("n", "<Leader>fb", require("telescope.builtin").buffers, opts)
+map("n", "<leader>fh", require("telescope.builtin").help_tags, opts)
+map("n", "<leader>fc", require("telescope.builtin").colorscheme, opts)
+map("n", "<Leader>fl", require("telescope.builtin").lsp_document_symbols, opts)
 
-map("n", "<Leader>n", "<CMD>lua require('nvim-tree').toggle()<CR>", opts)
 --Custom bootstrap
 map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
 -- LSP
 map("n", "<Leader>i", ":TroubleToggle<CR>", opts)
-map("n", "gd", "<CMD>lua vim.lsp.buf.definition()<CR>", opts)
+map("n", "gd", vim.lsp.buf.definition, opts)
 
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)

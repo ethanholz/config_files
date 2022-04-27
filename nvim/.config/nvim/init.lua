@@ -22,6 +22,9 @@ vim.opt.softtabstop = tab_value
 vim.opt.shiftwidth = tab_value
 vim.opt.shell = "zsh"
 vim.opt.bg = "dark"
+-- Switch to filetype.lua
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 -- vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
 
 -- Treesitter Consistent Syntax Highlighting and indent
