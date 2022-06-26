@@ -19,7 +19,7 @@ map("n", "<Leader>fg", require("telescope.builtin").live_grep, opts)
 map("n", "<Leader>fb", require("telescope.builtin").buffers, opts)
 map("n", "<leader>fh", require("telescope.builtin").help_tags, opts)
 map("n", "<leader>fc", require("telescope.builtin").colorscheme, opts)
-map("n", "<Leader>fl", require("telescope.builtin").lsp_document_symbols, opts)
+map("n", "<leader>fl", require("telescope.builtin").lsp_document_symbols, opts)
 
 --Custom bootstrap
 map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
@@ -30,3 +30,7 @@ map("n", "gd", vim.lsp.buf.definition, opts)
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)
 map("n", "<Leader>p", '"+p', opts)
+
+-- Git
+map("n", "<Leader>g", require("neogit").open, opts)
+
