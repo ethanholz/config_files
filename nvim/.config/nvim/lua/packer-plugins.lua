@@ -36,6 +36,13 @@ return require("packer").startup({
 				require("gitsigns").setup()
 			end,
 		})
+        use ({
+            "TimUntersberger/neogit",
+            requires = "nvim-lua/plenary.nvim",
+            config = function()
+                require("neogit").setup()
+            end,
+        })
 
 		-- Inteface
 		use({
@@ -84,7 +91,6 @@ return require("packer").startup({
 		})
 		if not is_wsl then
 			use("andweeb/presence.nvim")
-			-- use("/home/ethanholz/Documents/presence.nvim")
 		end
 		use({
 			"ethanholz/nvim-lastplace",
