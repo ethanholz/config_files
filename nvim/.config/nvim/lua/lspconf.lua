@@ -1,8 +1,6 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
 local lspkind = require("lspkind")
 local nvim_lsp = require("lspconfig")
--- vim.g.coq_settings = { auto_start = "shut-up" }
--- local coq = require("coq")
 local cmp = require("cmp")
 cmp.setup({
 	mapping = {
