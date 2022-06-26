@@ -1,11 +1,8 @@
+local is_wsl = require("helper").is_wsl()
 local execute = vim.api.nvim_command
 local fn = vim.fn
 -- Bootstrap Packer
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-local is_wsl = (function()
-	local output = vim.fn.systemlist("uname -r")
-	return not not string.find(output[1] or "", "WSL")
-end)()
 if fn.empty(fn.glob(install_path)) > 0 then
 	fn.system({
 		"git",
