@@ -2,6 +2,7 @@
 vim.g.mapleader = ","
 local opts = { noremap = true, silent = true }
 local map = vim.keymap.set
+
 -- Map Terminal
 map("n", "<Leader>t", "<CMD>ToggleTerm<CR>", opts)
 map("t", "<Leader>t", "<C-\\><C-n><CMD>ToggleTerm<CR>", opts)
