@@ -2,6 +2,7 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 local lspkind = require("lspkind")
 local nvim_lsp = require("lspconfig")
 local cmp = require("cmp")
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format(),
@@ -28,6 +29,7 @@ cmp.setup({
 	}),
 	ghost_text = true,
 })
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "gopls" }
 for _, lsp in ipairs(servers) do
@@ -56,6 +58,7 @@ require("lspconfig").sumneko_lua.setup({
 			},
 		},
 	},
+	capabilities = capabilities,
 })
 local rust_opts = {
 	server = {
@@ -80,7 +83,6 @@ require("null-ls").setup({
 	},
 	on_attach = function(client)
 		if client.server_capabilities.document_formatting then
-			buf_func = vim.lsp.buf.formatting_sync
 			vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
 		end
 	end,

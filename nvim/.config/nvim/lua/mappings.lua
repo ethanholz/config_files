@@ -27,6 +27,7 @@ map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
 -- LSP
 map("n", "<Leader>i", ":TroubleToggle<CR>", opts)
 map("n", "gd", vim.lsp.buf.definition, opts)
+map("n", "K", vim.lsp.buf.hover, opts)
 
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)
@@ -34,4 +35,3 @@ map("n", "<Leader>p", '"+p', opts)
 
 -- Git
 map("n", "<Leader>g", require("neogit").open, opts)
-

@@ -22,11 +22,18 @@ return require("packer").startup({
 		use("neovim/nvim-lspconfig")
 		use("folke/lsp-trouble.nvim")
 		use("nvim-lua/lsp-status.nvim")
+		use({ "simrat39/rust-tools.nvim" })
+		use("onsails/lspkind-nvim")
+		use({
+			"windwp/nvim-autopairs",
+			config = function()
+				require("nvim-autopairs").setup({})
+			end,
+		})
+		-- CMP
 		use("hrsh7th/nvim-cmp")
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")
-		use({ "simrat39/rust-tools.nvim" })
-		use({ "onsails/lspkind-nvim" })
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 
 		--Git
@@ -36,13 +43,13 @@ return require("packer").startup({
 				require("gitsigns").setup()
 			end,
 		})
-        use ({
-            "TimUntersberger/neogit",
-            requires = "nvim-lua/plenary.nvim",
-            config = function()
-                require("neogit").setup()
-            end,
-        })
+		use({
+			"TimUntersberger/neogit",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("neogit").setup()
+			end,
+		})
 
 		-- Inteface
 		use({
