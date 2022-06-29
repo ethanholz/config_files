@@ -30,10 +30,13 @@ return require("packer").startup({
 				require("nvim-autopairs").setup({})
 			end,
 		})
+		-- Ansible
+		use("pearofducks/ansible-vim")
 		-- CMP
 		use("hrsh7th/nvim-cmp")
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")
+		use("hrsh7th/cmp-path")
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 
 		--Git

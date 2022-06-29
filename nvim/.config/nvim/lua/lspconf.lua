@@ -26,12 +26,13 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
+		{ name = "path" },
 	}),
 	ghost_text = true,
 })
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "gopls" }
+local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "gopls", "marksman" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
 		capabilities = capabilities,
@@ -46,7 +47,7 @@ require("lspconfig").sumneko_lua.setup({
 			},
 			diagnostics = {
 				-- Get the language server to recognize the `vim` global
-				globals = { "vim" },
+				globals = { "vim", "use" },
 			},
 			workspace = {
 				-- Make the server aware of Neovim runtime files
