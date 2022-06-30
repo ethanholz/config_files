@@ -3,9 +3,16 @@ local lspkind = require("lspkind")
 local nvim_lsp = require("lspconfig")
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format(),
+	},
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
 	},
 	mapping = {
 		["<C-k>"] = cmp.mapping.select_prev_item(),
@@ -18,6 +25,19 @@ cmp.setup({
 		["<TAB>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
+			elseif luasnip.expandable() then
+				luasnip.expand()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			else
+				fallback()
+			end
+		end),
+		["<S-TAB>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 			else
 				fallback()
 			end
@@ -71,20 +91,27 @@ local rust_opts = {
 }
 require("rust-tools").setup(rust_opts)
 require("trouble").setup({})
+
 local formatting = require("null-ls").builtins.formatting
-local diagnostics = require("null-ls").builtins.diagnostics
-local code_actions = require("null-ls").builtins.code_actions
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 require("null-ls").setup({
-	sources = {
-		formatting.stylua,
-		formatting.black,
-		-- formatting.rustfmt,
-		formatting.isort,
-		diagnostics.pylama,
-	},
-	on_attach = function(client)
-		if client.server_capabilities.document_formatting then
-			vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	-- you can reuse a shared lspconfig on_attach callback here
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = bufnr })
+				end,
+			})
 		end
 	end,
+	sources = {
+		formatting.gofmt,
+		formatting.stylua,
+		-- formatting.black
+		-- formatting.isort
+	},
 })
