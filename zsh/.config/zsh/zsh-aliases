@@ -9,3 +9,8 @@ alias tmux='tmux -f ~/.config/tmux/tmux.conf'
 alias venv-create='python3 -m venv $HOME/.virtualenvs/${PWD##*/}'
 alias workon='source $HOME/.virtualenvs/${PWD##*/}/bin/activate'
 alias workoff='deactivate'
+if [[ $(uname -r) == *"WSL"* ]]; then
+    alias clip='/mnt/c/Windows/SysWOW64/clip.exe'
+    alias win32yank='/mnt/c/Program\ Files/Neovim/bin/win32yank.exe'
+fi
+
