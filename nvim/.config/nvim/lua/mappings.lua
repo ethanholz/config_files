@@ -28,6 +28,8 @@ map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
 map("n", "<Leader>i", ":TroubleToggle<CR>", opts)
 map("n", "gd", vim.lsp.buf.definition, opts)
 map("n", "K", vim.lsp.buf.hover, opts)
+map("n", "<Leader>n", vim.diagnostic.goto_next, opts)
+map("n", "<Leader>N", vim.diagnostic.goto_prev, opts)
 
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)
