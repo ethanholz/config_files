@@ -38,7 +38,9 @@ return require("packer").startup({
 		use("hrsh7th/cmp-nvim-lua")
 		use("hrsh7th/cmp-path")
 		use({ "jose-elias-alvarez/null-ls.nvim" })
-
+        -- Snippets
+        use("L3MON4D3/LuaSnip")
+        use("rafamadriz/friendly-snippets")
 		--Git
 		use({
 			"lewis6991/gitsigns.nvim",
