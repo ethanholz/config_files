@@ -37,3 +37,19 @@ map("n", "<Leader>p", '"+p', opts)
 
 -- Git
 map("n", "<Leader>g", require("neogit").open, opts)
+
+-- Harpoon
+map("n", "<Leader>m", require("harpoon.mark").add_file, opts)
+map("n", "<Leader>q", require("harpoon.ui").toggle_quick_menu, opts)
+map("n", "1", function()
+	require("harpoon.ui").nav_file(1)
+end, opts)
+map("n", "2", function()
+	require("harpoon.ui").nav_file(2)
+end, opts)
+map("n", "3", function()
+	require("harpoon.ui").nav_file(3)
+end, opts)
+map("n", "4", function()
+	require("harpoon.ui").nav_file(4)
+end, opts)

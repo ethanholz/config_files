@@ -38,9 +38,9 @@ return require("packer").startup({
 		use("hrsh7th/cmp-nvim-lua")
 		use("hrsh7th/cmp-path")
 		use({ "jose-elias-alvarez/null-ls.nvim" })
-        -- Snippets
-        use("L3MON4D3/LuaSnip")
-        use("rafamadriz/friendly-snippets")
+		-- Snippets
+		use("L3MON4D3/LuaSnip")
+		use("rafamadriz/friendly-snippets")
 		--Git
 		use({
 			"lewis6991/gitsigns.nvim",
@@ -84,6 +84,12 @@ return require("packer").startup({
 				require("toggleterm").setup()
 			end,
 		})
+		use({
+			"ThePrimeagen/harpoon",
+			requires = {
+				{ "nvim-lua/plenary.nvim" },
+			},
+		})
 		-- Telescope
 		use({
 			"nvim-telescope/telescope.nvim",
@@ -93,20 +99,22 @@ return require("packer").startup({
 			},
 		})
 		use({
-			"sudormrfbin/cheatsheet.nvim",
-			-- optional
+			"nvim-telescope/telescope-fzf-native.nvim",
 			requires = {
 				{ "nvim-telescope/telescope.nvim" },
-				{ "nvim-lua/popup.nvim" },
-				{ "nvim-lua/plenary.nvim" },
 			},
+			run = "make",
 		})
 		if not is_wsl then
-			use("andweeb/presence.nvim")
+			use({
+				"andweeb/presence.nvim",
+				config = function()
+					require("presence"):setup()
+				end,
+			})
 		end
 		use({
 			"ethanholz/nvim-lastplace",
-			branch = "testing",
 			config = function()
 				require("nvim-lastplace").setup({})
 			end,
