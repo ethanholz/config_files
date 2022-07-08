@@ -111,7 +111,5 @@ require("null-ls").setup({
 	sources = {
 		formatting.gofmt,
 		formatting.stylua,
-		-- formatting.black
-		-- formatting.isort
 	},
 })

@@ -10,3 +10,5 @@ require("indent_blankline").setup({
 	buftype_exclude = { "help", "terminal" },
 	filetype_exclude = { "markdown" },
 })
+
+require("telescope").load_extension("fzf")
