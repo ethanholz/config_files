@@ -36,6 +36,7 @@ return require("packer").startup({
 		use("hrsh7th/nvim-cmp")
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")
+		use("saadparwaiz1/cmp_luasnip")
 		use("hrsh7th/cmp-path")
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 		-- Snippets
@@ -66,10 +67,14 @@ return require("packer").startup({
 		})
 		use("lukas-reineke/indent-blankline.nvim")
 		use("EdenEast/nightfox.nvim")
-
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use("p00f/nvim-ts-rainbow")
+		use({
+			"nvim-treesitter/playground",
+			requires = "nvim-treesitter/nvim-treesitter",
+			run = ":TSInstall query",
+		})
 
 		-- Code help
 		use({

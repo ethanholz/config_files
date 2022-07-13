@@ -1,5 +1,6 @@
 require("packer-plugins")
 require("lspconf")
+require("snips")
 require("mappings")
 require("ui")
 -- local colors = require("nightfox.colors").load()
@@ -35,5 +36,8 @@ require("nvim-treesitter.configs").setup({
 	rainbow = {
 		enable = true,
 		extended_mode = true,
+	},
+	playground = {
+		enable = true,
 	},
 })

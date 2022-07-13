@@ -45,6 +45,7 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
 	}),
@@ -53,10 +54,15 @@ cmp.setup({
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "gopls", "marksman" }
+
 for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup({
-		capabilities = capabilities,
-	})
+	-- Handles setup for only adding language servers for those that are installed
+	local result = vim.api.nvim_exec([[echo executable("]] .. lsp .. [[")]], true)
+	if tonumber(result) ~= 0 then
+		nvim_lsp[lsp].setup({
+			capabilities = capabilities,
+		})
+	end
 end
 require("lspconfig").sumneko_lua.setup({
 	settings = {

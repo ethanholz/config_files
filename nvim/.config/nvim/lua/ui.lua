@@ -1,8 +1,3 @@
-require("nightfox").setup({
-	options = {
-		terminal_colors = true,
-	},
-})
 vim.cmd("colorscheme nightfox")
 
 require("indent_blankline").setup({
