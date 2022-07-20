@@ -30,6 +30,7 @@ map("n", "gd", vim.lsp.buf.definition, opts)
 map("n", "K", vim.lsp.buf.hover, opts)
 map("n", "<Leader>n", vim.diagnostic.goto_next, opts)
 map("n", "<Leader>N", vim.diagnostic.goto_prev, opts)
+map("n", "<Leader>m", vim.diagnostic.open_float, opts)
 
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)
@@ -41,15 +42,9 @@ map("n", "<Leader>g", require("neogit").open, opts)
 -- Harpoon
 map("n", "<Leader>m", require("harpoon.mark").add_file, opts)
 map("n", "<Leader>q", require("harpoon.ui").toggle_quick_menu, opts)
-map("n", "1", function()
-	require("harpoon.ui").nav_file(1)
-end, opts)
-map("n", "2", function()
-	require("harpoon.ui").nav_file(2)
-end, opts)
-map("n", "3", function()
-	require("harpoon.ui").nav_file(3)
-end, opts)
-map("n", "4", function()
-	require("harpoon.ui").nav_file(4)
-end, opts)
+-- Using for loop for 1 through 4
+for i = 1, 4 do
+	map("n", tostring(i), function()
+		require("harpoon.ui").nav_file(i)
+	end, opts)
+end
