@@ -67,6 +67,7 @@ return require("packer").startup({
 		})
 		use("lukas-reineke/indent-blankline.nvim")
 		use("EdenEast/nightfox.nvim")
+        use("folke/tokyonight.nvim")
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use("p00f/nvim-ts-rainbow")

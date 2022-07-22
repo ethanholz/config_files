@@ -29,6 +29,8 @@ export GPG_TTY=$(tty)
 
 export EDITOR='nvim'
 export SUDO_EDITOR='nvim'
+#set terminal to emacs bindings so that Ctr+R works in tmux
+bindkey -e
 alias python='python3'
 
 # if [[ ! $(uname -r) == *"WSL"* ]]; then
