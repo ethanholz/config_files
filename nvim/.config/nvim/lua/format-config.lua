@@ -20,6 +20,7 @@ function format_config.bootstrap()
 	install_formatter("black", "pip")
 	install_formatter("stylua", "cargo")
 end
+
 function create_win()
 	start_win = vim.api.nvim_get_current_win()
 	vim.api.nvim_command("botright vnew")
@@ -33,10 +34,12 @@ function create_win()
 	vim.api.nvim_win_set_option(win, "wrap", false)
 	vim.api.nvim_win_set_option(win, "cursorline", true)
 end
+
 function redraw(formatter)
 	vim.api.nvim_buf_set_option(buf, "modifiable", true)
 	table.insert(list, #list + 1, formatter)
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, list)
 	vim.api.nvim_buf_set_option(buf, "modifiable", false)
 end
+
 return format_config

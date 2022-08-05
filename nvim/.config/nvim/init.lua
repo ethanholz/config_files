@@ -4,6 +4,7 @@ require("snips")
 require("mappings")
 require("ui")
 -- local colors = require("nightfox.colors").load()
+require("debug")
 
 -- Window options
 vim.opt.relativenumber = true

@@ -30,6 +30,18 @@ return require("packer").startup({
 				require("nvim-autopairs").setup({})
 			end,
 		})
+		use({
+			"j-hui/fidget.nvim",
+			config = function()
+				require("fidget").setup({})
+			end,
+		})
+		-- Debugging
+		use("mfussenegger/nvim-dap")
+		use({ "leoluz/nvim-dap-go", requires = {
+			"mfussenegger/nvim-dap",
+		} })
+		use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 		-- Ansible
 		use("pearofducks/ansible-vim")
 		-- CMP
@@ -39,6 +51,13 @@ return require("packer").startup({
 		use("saadparwaiz1/cmp_luasnip")
 		use("hrsh7th/cmp-path")
 		use({ "jose-elias-alvarez/null-ls.nvim" })
+		use({
+			"lvimuser/lsp-inlayhints.nvim",
+			branch = "readme",
+			config = function()
+				require("lsp-inlayhints").setup()
+			end,
+		})
 		-- Snippets
 		use("L3MON4D3/LuaSnip")
 		use("rafamadriz/friendly-snippets")
@@ -49,6 +68,7 @@ return require("packer").startup({
 				require("gitsigns").setup()
 			end,
 		})
+		-- Git
 		use({
 			"TimUntersberger/neogit",
 			requires = "nvim-lua/plenary.nvim",
@@ -57,7 +77,7 @@ return require("packer").startup({
 			end,
 		})
 
-		-- Inteface
+		-- Interface
 		use({
 			"romgrk/barbar.nvim",
 			requires = {
@@ -67,7 +87,8 @@ return require("packer").startup({
 		})
 		use("lukas-reineke/indent-blankline.nvim")
 		use("EdenEast/nightfox.nvim")
-        use("folke/tokyonight.nvim")
+		use("folke/tokyonight.nvim")
+		use("nvim-lualine/lualine.nvim")
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use("p00f/nvim-ts-rainbow")
