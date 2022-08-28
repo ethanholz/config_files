@@ -38,6 +38,17 @@ function timezsh() {
     for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
+function fwg {
+    switch="$1"
+    if [[ $switch == "enable" ]]; then
+        sudo ufw allow in on wg0
+        sudo ufw allow out on wg0
+    elif [[ $switch == "disable" ]]; then
+        sudo ufw deny in on wg0
+        sudo ufw deny out on wg0
+    fi
+}
+
 function copy() {
     command="${@}"
     if [[ $(uname -r) == *"WSL"* ]]; then

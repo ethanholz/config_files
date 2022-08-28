@@ -13,4 +13,6 @@ if [[ $(uname -r) == *"WSL"* ]]; then
     alias clip='/mnt/c/Windows/SysWOW64/clip.exe'
     alias win32yank='/mnt/c/Program\ Files/Neovim/bin/win32yank.exe'
 fi
+alias new-note='touch $(date "+%m-%d-%Y").md'
+alias ybunlock='gpg-connect-agent updatestartuptty /bye >/dev/null'
 

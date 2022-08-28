@@ -23,7 +23,10 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "marlonrichert/zsh-autocomplete"
 # Soruce zsh-functions
 zmodload zsh/zprof
-export GPG_TTY=$(tty)
+# Add support for using GPG key for SSH
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
+gpg-connect-agent updatestartuptty /bye >/dev/null
 # Opting not to source the bootstrap file and will run this manually
 # source ~/.config/zsh-plugins/bootstrap.zsh
 
@@ -33,9 +36,6 @@ export SUDO_EDITOR='nvim'
 bindkey -e
 alias python='python3'
 
-# if [[ ! $(uname -r) == *"WSL"* ]]; then
-#     alias ssh='kitty +kitten ssh'
-# fi
 # Completions
 # autoload -U compinit
 # compinit -i
