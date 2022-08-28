@@ -55,20 +55,6 @@ cmp.setup({
 })
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
--- local formatting_on_attach = function(client, bufnr)
--- 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
--- 	if client.supports_method("textDocument/formatting") then
--- 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
--- 		vim.api.nvim_create_autocmd("BufWritePre", {
--- 			group = augroup,
--- 			buffer = bufnr,
--- 			callback = function()
--- 				vim.lsp.buf.format({ bufnr = bufnr })
--- 			end,
--- 		})
--- 	end
--- end
-
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
 		filter = function(client)
@@ -91,15 +77,36 @@ local formatting_attach = function(client, bufnr)
 	end
 end
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "gopls", "marksman" }
+local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "marksman", "gopls" }
 for _, lsp in ipairs(servers) do
 	-- Handles setup for only adding language servers for those that are installed
-	local result = vim.api.nvim_exec([[echo executable("]] .. lsp .. [[")]], true)
+	local exec = lsp
+	if exec == "dockerls" then
+		exec = "docker-langserver"
+	end
+	local result = vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true)
 	if tonumber(result) ~= 0 then
+		if lsp == "gopls" then
+			nvim_lsp[lsp].setup({
+				capabilities = capabilities,
+				on_attach = function(client, bufnr)
+					formatting_attach(client, bufnr)
+				end,
+				settings = {
+					gopls = {
+						gofumpt = true,
+						analyses = {
+							unusedparams = true,
+						},
+						staticcheck = true,
+					},
+				},
+			})
+		end
 		nvim_lsp[lsp].setup({
 			capabilities = capabilities,
 			on_attach = function(client, bufnr)
-				if lsp == "gopls" or lsp == "pyright" then
+				if lsp == "pyright" then
 					formatting_attach(client, bufnr)
 				end
 			end,
@@ -142,34 +149,30 @@ require("rust-tools").setup(rust_opts)
 require("trouble").setup({})
 
 local formatting = require("null-ls").builtins.formatting
+local diagnostics = require("null-ls").builtins.diagnostics
 require("null-ls").setup({
 	-- you can reuse a shared lspconfig on_attach callback here
 	on_attach = formatting_attach,
 	debug = true,
 	sources = {
-		formatting.gofmt,
+		formatting.gofumpt,
+		formatting.goimports,
 		formatting.stylua,
 		formatting.rustfmt,
 		formatting.black,
+		diagnostics.golangci_lint.with({
+			args = {
+				"run",
+				"--fix=false",
+				"--enable",
+				"gofumpt",
+				"--enable",
+				"golint",
+				"--out-format=json",
+				"$DIRNAME",
+				"--path-prefix",
+				"$ROOT",
+			},
+		}),
 	},
 })
--- local formatting = require("null-ls").builtins.formatting
--- require("null-ls").setup({
---     -- you can reuse a shared lspconfig on_attach callback here
---     on_attach = function(client, bufnr)
---         if client.supports_method("textDocument/formatting") then
---             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
---             vim.api.nvim_create_autocmd("BufWritePre", {
---                 group = augroup,
---                 buffer = bufnr,
---                 callback = function()
---                     vim.lsp.buf.formatting_sync()
---                 end,
---             })
---         end
---     end,
---     sources = {
---         formatting.gofmt,
---         formatting.stylua,
---     },
--- })

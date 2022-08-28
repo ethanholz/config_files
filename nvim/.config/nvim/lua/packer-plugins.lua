@@ -36,6 +36,12 @@ return require("packer").startup({
 				require("fidget").setup({})
 			end,
 		})
+		use({
+			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+			config = function()
+				require("lsp_lines").setup()
+			end,
+		})
 		-- Debugging
 		use("mfussenegger/nvim-dap")
 		use({ "leoluz/nvim-dap-go", requires = {
@@ -53,7 +59,6 @@ return require("packer").startup({
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 		use({
 			"lvimuser/lsp-inlayhints.nvim",
-			branch = "readme",
 			config = function()
 				require("lsp-inlayhints").setup()
 			end,
@@ -117,6 +122,13 @@ return require("packer").startup({
 				{ "nvim-lua/plenary.nvim" },
 			},
 		})
+		use({
+			"kylechui/nvim-surround",
+			tag = "*",
+			config = function()
+				require("nvim-surround").setup()
+			end,
+		})
 		-- Telescope
 		use({
 			"nvim-telescope/telescope.nvim",
@@ -154,5 +166,6 @@ return require("packer").startup({
 				require("crates").setup()
 			end,
 		})
+		use({ "gaoDean/autolist.nvim" })
 	end,
 })

@@ -39,6 +39,7 @@ map("n", "<Leader>p", '"+p', opts)
 
 -- Git
 map("n", "<Leader>g", require("neogit").open, opts)
+map("n", "<Leader>hs", ":Gitsigns stage_hunk<CR>")
 
 -- Harpoon
 map("n", "<Leader>m", require("harpoon.mark").add_file, opts)
