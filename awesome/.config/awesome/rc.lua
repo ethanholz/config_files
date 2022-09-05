@@ -25,6 +25,8 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 awful.screen.set_auto_dpi_enabled(true)
+local xresources = require("beautiful.xresources")
+local dpi = xresources.apply_dpi
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -35,6 +37,8 @@ if awesome.startup_errors then
 		text = awesome.startup_errors,
 	})
 end
+
+local has_defaults, defaults = pcall(require, "custom.defaults")
 
 -- Handle runtime errors after startup
 do
@@ -64,6 +68,12 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+
+if has_defaults then
+	browser = defaults["browser"]
+	suspend = defaults["supsend"]
+	work_apps = defaults["work_apps"]
+end
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -143,6 +153,17 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("%a %b %d, %I:%M %p", 10)
+new_textclock = wibox.container.margin(mytextclock, dpi(5), dpi(10))
+west_coast_clock = wibox.container.margin(wibox.widget.textclock("Pacific: %I:%M %p", 10, "America/Los_Angeles"), dpi(10), dpi(5))
+east_coast_clock = wibox.container.margin(wibox.widget.textclock("Eastern: %I:%M %p", 10, "America/New_York"), dpi(5), dpi(5))
+
+-- local spacer = wibox.widget({ 
+-- 	widget = wibox.widget.seperator,
+--     textbox_seperator =
+-- 	orientation = "vertical",
+-- 	forced_width = 40,
+-- 	color = "white",
+-- })
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -199,6 +220,26 @@ local function set_wallpaper(s)
 	end
 end
 
+local function workmode()
+	if work_apps == nil then
+		return
+	end
+	local tag = awful.tag.find_by_name(awful.screen.focused(), "8")
+	local state = true
+	for _, c in ipairs(tag:clients()) do
+		local name = string.lower(c.name)
+		if string.find(name, "slack") or string.find(name, "thunderbird") then
+			state = false
+			c:kill()
+		end
+	end
+	if state then
+		for _, app in pairs(work_apps) do
+			awful.spawn(app)
+		end
+	end
+end
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
@@ -215,7 +256,7 @@ awful.screen.connect_for_each_screen(function(s)
 		l.floating,
 		l.floating,
 		l.floating,
-		l.floating,
+		l.tile,
 		l.tile,
 	}
 	awful.tag(names, s, layouts)
@@ -277,7 +318,11 @@ awful.screen.connect_for_each_screen(function(s)
 				with_icon = true,
 				shape = "rounded_bar",
 			}),
-			mytextclock,
+			-- mytextclock,
+			-- spacer,
+			west_coast_clock,
+            east_coast_clock,
+            new_textclock,
 			s.mylayoutbox,
 			logout_menu_widget({
 				onsuspend = function()
@@ -389,8 +434,8 @@ globalkeys = gears.table.join(
 	end, { description = "run rofi", group = "launcher" }),
 
 	awful.key({ modkey }, "b", function()
-		awful.util.spawn("brave-browser")
-	end, { description = "run brave", group = "applications" }),
+		awful.spawn.spawn(browser)
+	end, { description = "run browser", group = "applications" }),
 
 	awful.key({ modkey }, "d", function()
 		awful.util.spawn("discord")
@@ -423,8 +468,12 @@ globalkeys = gears.table.join(
 		awful.spawn.spawn([[pactl set-source-volume alsa_input.pci-0000_21_00.3.analog-stereo 40% &]])
 	end, { description = "set mic to 40%", group = "volume" }),
 	awful.key({ modkey }, "F8", function()
-		awful.spawn.with_shell("systemctl suspend")
-	end, { description = "supsend machine", group = "awesome" })
+		awful.spawn.with_shell(suspend)
+	end, { description = "supsend machine", group = "awesome" }),
+	awful.key({}, "Print", function()
+		awful.spawn.with_shell("flameshot gui")
+	end, { description = "supsend machine", group = "awesome" }),
+	awful.key({ modkey }, "F4", workmode, { description = "supsend machine", group = "awesome" })
 )
 
 clientkeys = gears.table.join(
@@ -595,6 +644,9 @@ awful.rules.rules = {
 	},
 	-- Set a rule to always but discord on the 9th tag
 	{ rule = { class = "discord" }, properties = { screen = 1, tag = "9" } },
+	-- Always put slack on tag 8
+	{ rule = { class = "Slack" }, properties = { screen = 1, tag = "8" } },
+	{ rule = { class = "Thunderbird" }, properties = { screen = 1, tag = "8" } },
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },
 	--   properties = { screen = 1, tag = "2" } },
