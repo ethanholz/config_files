@@ -36,12 +36,6 @@ return require("packer").startup({
 				require("fidget").setup({})
 			end,
 		})
-		use({
-			"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-			config = function()
-				require("lsp_lines").setup()
-			end,
-		})
 		-- Debugging
 		use("mfussenegger/nvim-dap")
 		use({ "leoluz/nvim-dap-go", requires = {
@@ -59,9 +53,6 @@ return require("packer").startup({
 		use({ "jose-elias-alvarez/null-ls.nvim" })
 		use({
 			"lvimuser/lsp-inlayhints.nvim",
-			config = function()
-				require("lsp-inlayhints").setup()
-			end,
 		})
 		-- Snippets
 		use("L3MON4D3/LuaSnip")
@@ -87,13 +78,13 @@ return require("packer").startup({
 			"romgrk/barbar.nvim",
 			requires = {
 				"kyazdani42/nvim-web-devicons",
-				opt = true,
 			},
 		})
 		use("lukas-reineke/indent-blankline.nvim")
 		use("EdenEast/nightfox.nvim")
 		use("folke/tokyonight.nvim")
 		use("nvim-lualine/lualine.nvim")
+		use("Djancyp/better-comments.nvim")
 		-- Treesitter
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use("p00f/nvim-ts-rainbow")
@@ -102,6 +93,7 @@ return require("packer").startup({
 			requires = "nvim-treesitter/nvim-treesitter",
 			run = ":TSInstall query",
 		})
+		use({ "nvim-treesitter/nvim-treesitter-context", requires = "nvim-treesitter/nvim-treesitter-context" })
 
 		-- Code help
 		use({
@@ -143,6 +135,12 @@ return require("packer").startup({
 				{ "nvim-telescope/telescope.nvim" },
 			},
 			run = "make",
+		})
+		use({
+			"ptethng/telescope-makefile",
+			requires = {
+				{ "akinsho/nvim-toggleterm.lua" },
+			},
 		})
 		if not is_wsl then
 			use({

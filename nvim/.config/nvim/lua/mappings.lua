@@ -21,6 +21,7 @@ map("n", "<Leader>fb", require("telescope.builtin").buffers, opts)
 map("n", "<leader>fh", require("telescope.builtin").help_tags, opts)
 map("n", "<leader>fc", require("telescope.builtin").colorscheme, opts)
 map("n", "<leader>fl", require("telescope.builtin").lsp_document_symbols, opts)
+map("n", "<Leader>fm", require("telescope").extensions.make.make, opts)
 
 --Custom bootstrap
 map("n", "<Leader>bs", ":Bootstrap<CR>", opts)
@@ -32,6 +33,7 @@ map("n", "<Leader>n", vim.diagnostic.goto_next, opts)
 map("n", "<Leader>N", vim.diagnostic.goto_prev, opts)
 map("n", "<Leader>m", vim.diagnostic.open_float, opts)
 map("n", "<Leader>ca", vim.lsp.buf.code_action, opts)
+map("n", "<Leader>cr", vim.lsp.buf.rename, opts)
 
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)
@@ -44,6 +46,7 @@ map("n", "<Leader>hs", ":Gitsigns stage_hunk<CR>")
 -- Harpoon
 map("n", "<Leader>m", require("harpoon.mark").add_file, opts)
 map("n", "<Leader>q", require("harpoon.ui").toggle_quick_menu, opts)
+map("n", "<Leader>fq", require("telescope").extensions.harpoon.marks, opts)
 -- Using for loop for 1 through 4
 for i = 1, 4 do
 	map("n", "<Leader>" .. tostring(i), function()
