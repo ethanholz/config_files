@@ -164,6 +164,6 @@ return require("packer").startup({
 				require("crates").setup()
 			end,
 		})
-		use({ "gaoDean/autolist.nvim" })
+		use({ "ellisonleao/glow.nvim" })
 	end,
 })
