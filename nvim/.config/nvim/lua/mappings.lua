@@ -35,7 +35,8 @@ map("n", "<Leader>n", vim.diagnostic.goto_next, opts)
 map("n", "<Leader>N", vim.diagnostic.goto_prev, opts)
 map("n", "<Leader>m", vim.diagnostic.open_float, opts)
 map("n", "<Leader>ca", vim.lsp.buf.code_action, opts)
-map("n", "<Leader>cr", vim.lsp.buf.rename, opts)
+map("n", "<Leader>cR", vim.lsp.buf.rename, opts)
+map("n", "gr", vim.lsp.buf.references, opts)
 
 -- Clipboard
 map("v", "<Leader>y", '"+y', opts)
@@ -51,9 +52,9 @@ map("n", "<Leader>q", require("harpoon.ui").toggle_quick_menu, opts)
 map("n", "<Leader>fq", require("telescope").extensions.harpoon.marks, opts)
 -- Using for loop for 1 through 4
 for i = 1, 4 do
-	map("n", "<Leader>" .. tostring(i), function()
-		require("harpoon.ui").nav_file(i)
-	end, opts)
+    map("n", "<Leader>" .. tostring(i), function()
+        require("harpoon.ui").nav_file(i)
+    end, opts)
 end
 
 -- Debugs

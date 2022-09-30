@@ -8,21 +8,21 @@ local f = ls.function_node
 
 -- This is a temporary function to handle conversion
 local json_convert = function(index)
-	return f(function(arg)
-		if arg[1] == "" then
-			return ""
-		end
-		local stringVal = arg[1][1]:lower()
-		return { stringVal }
-	end, { index })
+    return f(function(arg)
+        if arg[1] == "" then
+            return ""
+        end
+        local stringVal = arg[1][1]:lower()
+        return { stringVal }
+    end, { index })
 end
 
 ls.config.set_config({
-	updateevents = "TextChanged,TextChangedI",
-	history = true,
-	enable_autosnippets = true,
+    updateevents = "TextChanged,TextChangedI",
+    history = true,
+    enable_autosnippets = true,
 })
 
 ls.add_snippets("go", {
-	s("jsc", fmt([[{} {} `json:"{}"`]], { i(1), i(2), json_convert(1) })),
+    s("jsc", fmt([[{} {} `json:"{}"`]], { i(1), i(2), json_convert(1) })),
 })
