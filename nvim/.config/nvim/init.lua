@@ -24,7 +24,7 @@ vim.opt.shiftwidth = tab_value
 vim.opt.expandtab = true
 vim.opt.shell = "zsh"
 vim.opt.bg = "dark"
--- vim.cmd([[command! Bootstrap lua require('format-config').bootstrap()]])
+vim.opt.spell = true -- Enables treesitter comment spelling
 
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({

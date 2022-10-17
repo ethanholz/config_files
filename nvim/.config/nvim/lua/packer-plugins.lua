@@ -51,9 +51,6 @@ return require("packer").startup({
         use("saadparwaiz1/cmp_luasnip")
         use("hrsh7th/cmp-path")
         use({ "jose-elias-alvarez/null-ls.nvim" })
-        use({
-            "lvimuser/lsp-inlayhints.nvim",
-        })
         -- Snippets
         use("L3MON4D3/LuaSnip")
         use("rafamadriz/friendly-snippets")
@@ -166,5 +163,11 @@ return require("packer").startup({
             end,
         })
         use({ "ellisonleao/glow.nvim" })
+        use({
+            "folke/which-key.nvim",
+            config = function()
+                require("which-key").setup({})
+            end,
+        })
     end,
 })

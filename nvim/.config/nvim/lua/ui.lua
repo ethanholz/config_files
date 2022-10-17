@@ -1,7 +1,4 @@
--- vim.cmd("colorscheme nightfox")
--- Only availble on latest nvim nightly at this time
 vim.cmd.colorscheme("carbonfox")
--- vim.cmd.colorscheme("oxocarbon")
 local palettes = require("nightfox.palette").load("carbonfox")
 require("better-comment").Setup({
     tags = {
@@ -40,27 +37,33 @@ require("indent_blankline").setup({
     buftype_exclude = { "help", "terminal" },
     filetype_exclude = { "markdown" },
 })
-
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("harpoon")
 require("telescope").load_extension("make")
 
-local function hook()
-    local harpoon_number = require("harpoon.mark").get_index_of(vim.fn.bufname())
-    if harpoon_number then
-        return "ﯠ " .. harpoon_number
-    else
-        return "ﯡ "
+local ok, lualine = pcall(require, "lualine")
+if ok then
+    local function hook()
+        local harpoon_number = require("harpoon.mark").get_index_of(vim.fn.bufname())
+        if harpoon_number then
+            return "ﯠ " .. harpoon_number
+        else
+            return "ﯡ "
+        end
     end
+    lualine.setup({
+        options = {
+            theme = "auto",
+        },
+        sections = {
+            lualine_y = {
+                hook,
+            },
+        },
+    })
+    vim.o.cmdheight = 0
 end
 
-require("lualine").setup({
-    sections = {
-        lualine_y = {
-            hook,
-        },
-    },
-})
 -- Used to enable nicer diagnostic lines
 -- vim.diagnostic.config({
 -- 	virtual_text = false,

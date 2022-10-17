@@ -26,3 +26,7 @@ ls.config.set_config({
 ls.add_snippets("go", {
     s("jsc", fmt([[{} {} `json:"{}"`]], { i(1), i(2), json_convert(1) })),
 })
+
+ls.add_snippets("c", {
+    s("bis", fmt([[(Bi_Status_Fn({}) << {})]], { i(1), i(2) })),
+})
