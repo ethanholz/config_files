@@ -75,22 +75,46 @@ local formatting_attach = function(client, bufnr)
         })
     end
 end
+local go_formatting_attach = function(_, _)
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+        callback = function()
+            vim.lsp.buf.format()
+        end,
+    })
+end
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-local servers = { "pyright", "vimls", "ansiblels", "dockerls", "bashls", "solc", "eslint", "marksman", "gopls", "ccls" }
+local servers = {
+    "pyright",
+    "vimls",
+    "ansiblels",
+    "dockerls",
+    "bashls",
+    "solc",
+    "eslint",
+    "marksman",
+    "gopls",
+    "ccls",
+    "golangci_lint_ls",
+    "sumneko_lua",
+}
 for _, lsp in ipairs(servers) do
     -- Handles setup for only adding language servers for those that are installed
     local exec = lsp
     if exec == "dockerls" then
         exec = "docker-langserver"
     end
+    if exec == "golangci_lint_ls" then
+        exec = "golangci-lint"
+    end
+    if exec == "sumneko_lua" then
+        exec = "lua-language-server"
+    end
     local result = vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true)
     if tonumber(result) ~= 0 then
         if lsp == "gopls" then
             nvim_lsp[lsp].setup({
                 capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    formatting_attach(client, bufnr)
-                end,
+                on_attach = go_formatting_attach,
                 settings = {
                     gopls = {
                         gofumpt = true,
@@ -98,50 +122,68 @@ for _, lsp in ipairs(servers) do
                             unusedparams = true,
                         },
                         staticcheck = true,
+                        codelenses = { test = true },
                     },
                 },
             })
+        elseif lsp == "golanci_lint_ls" then
+            nvim_lsp[lsp].setup({
+                capabilities = capabilities,
+                init_options = {
+                    command = {
+                        "golangci-lint",
+                        "run",
+                        "--enable",
+                        "gofumpt",
+                        "--enable",
+                        "golint",
+                        "--out-format",
+                        "json",
+                        "--issues-exit-code=1",
+                    },
+                },
+            })
+        elseif lsp == "sumneko_lua" then
+            nvim_lsp[lsp].setup({
+                settings = {
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                            version = "LuaJIT",
+                        },
+                        diagnostics = {
+                            -- Get the language server to recognize the `vim` global
+                            globals = { "vim", "use", "beautiful", "awful" },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            library = vim.api.nvim_get_runtime_file("", true),
+                        },
+                        hint = {
+                            enable = true,
+                        },
+                        -- Do not send telemetry data containing a randomized but unique identifier
+                        telemetry = {
+                            enable = false,
+                        },
+                    },
+                },
+                capabilities = capabilities,
+                on_attach = formatting_attach,
+            })
+        else
+            nvim_lsp[lsp].setup({
+                capabilities = capabilities,
+                on_attach = function(client, bufnr)
+                    if lsp == "pyright" then
+                        formatting_attach(client, bufnr)
+                    end
+                end,
+            })
         end
-        nvim_lsp[lsp].setup({
-            capabilities = capabilities,
-            on_attach = function(client, bufnr)
-                if lsp == "pyright" then
-                    formatting_attach(client, bufnr)
-                end
-            end,
-        })
     end
 end
 
-require("lspconfig").sumneko_lua.setup({
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT",
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { "vim", "use", "beautiful", "awful" },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            hint = {
-                enable = true,
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        formatting_attach(client, bufnr)
-    end,
-})
 local rust_opts = {
     server = {
         on_attach = formatting_attach,
@@ -156,14 +198,11 @@ require("rust-tools").setup(rust_opts)
 require("trouble").setup({})
 
 local formatting = require("null-ls").builtins.formatting
-local diagnostics = require("null-ls").builtins.diagnostics
 require("null-ls").setup({
     -- you can reuse a shared lspconfig on_attach callback here
     on_attach = formatting_attach,
     debug = true,
     sources = {
-        formatting.gofumpt,
-        formatting.goimports,
         formatting.stylua.with({
             args = {
                 "--search-parent-directories",
@@ -176,19 +215,5 @@ require("null-ls").setup({
         }),
         formatting.rustfmt,
         formatting.black,
-        diagnostics.golangci_lint.with({
-            args = {
-                "run",
-                "--fix=false",
-                "--enable",
-                "gofumpt",
-                "--enable",
-                "golint",
-                "--out-format=json",
-                "$DIRNAME",
-                "--path-prefix",
-                "$ROOT",
-            },
-        }),
     },
 })
