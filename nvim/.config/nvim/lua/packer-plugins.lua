@@ -81,7 +81,6 @@ return require("packer").startup({
         use("EdenEast/nightfox.nvim")
         use("folke/tokyonight.nvim")
         use("nvim-lualine/lualine.nvim")
-        use("Djancyp/better-comments.nvim")
         use("stevearc/dressing.nvim")
         -- Treesitter
         use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -140,14 +139,6 @@ return require("packer").startup({
                 { "akinsho/nvim-toggleterm.lua" },
             },
         })
-        if not is_wsl then
-            use({
-                "andweeb/presence.nvim",
-                config = function()
-                    require("presence"):setup()
-                end,
-            })
-        end
         use({
             "ethanholz/nvim-lastplace",
             config = function()
@@ -167,6 +158,13 @@ return require("packer").startup({
             "folke/which-key.nvim",
             config = function()
                 require("which-key").setup({})
+            end,
+        })
+        use({
+            "andythigpen/nvim-coverage",
+            requires = "nvim-lua/plenary.nvim",
+            config = function()
+                require("coverage").setup()
             end,
         })
     end,

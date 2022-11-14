@@ -40,3 +40,22 @@ require("nvim-treesitter.configs").setup({
     },
 })
 require("treesitter-context").setup()
+
+local function LoadCoverageOnEnter()
+    local cwd = vim.fn.getcwd()
+    local cwd_glob = cwd .. "/*"
+    local paths = vim.split(vim.fn.glob(cwd_glob), "\n")
+    for _, file in pairs(paths) do
+        if file == cwd .. "/coverage.out" then
+            require("coverage").load(true)
+            break
+        end
+    end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        LoadCoverageOnEnter()
+    end,
+})
