@@ -1,36 +1,4 @@
 vim.cmd.colorscheme("carbonfox")
-local palettes = require("nightfox.palette").load("carbonfox")
-require("better-comment").Setup({
-    tags = {
-        {
-            name = "TODO",
-            fg = palettes.white["bright"],
-            bg = palettes.blue["dim"],
-            bold = true,
-            virtal_text = "",
-        },
-        {
-            name = "FIX",
-            fg = palettes.white["bright"],
-            bg = palettes.red["dim"],
-            bold = true,
-            virtual_text = "",
-        },
-        {
-            name = "WARNING",
-            fg = "#FFA500",
-            bg = "",
-            bold = false,
-        },
-        {
-            name = "!",
-            fg = palettes.red["bright"],
-            bg = "",
-            bold = true,
-            virtual_text = "",
-        },
-    },
-})
 
 require("indent_blankline").setup({
     show_end_of_line = true,
