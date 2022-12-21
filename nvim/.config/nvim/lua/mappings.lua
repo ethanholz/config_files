@@ -4,7 +4,7 @@ vim.cmd.timeoutlen = 0
 -- local opts = { noremap = true, silent = true }
 -- local map = vim.keymap.set
 local wk = require("which-key")
-local v = { mode = "v" }
+local v = { mode = "v", noremap = "true" }
 
 wk.register({
     ["<leader>"] = {
@@ -13,7 +13,6 @@ wk.register({
             a = { vim.lsp.buf.code_action, "Code Action" },
             R = { vim.lsp.buf.rename, "Rename" },
         },
-        d = { [["d]], "Super D" },
         f = {
             name = "Telescope",
             f = { require("telescope.builtin").find_files, "Find File" },
@@ -27,16 +26,19 @@ wk.register({
         },
         g = {
             name = "Git",
-            g = { require("neogit").open, "Open neogit" },
+            g = { vim.cmd.Git, "Open vim-fugitive" },
             s = {
                 name = "Stage",
-                h = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk" },
-                b = { "<cmd>Gitsigns stage_buffer<cr>", "Stage Buffer" },
+                h = { require("gitsigns").stage_hunk, "Stage Hunk" },
+                b = { require("gitsigns").stage_buffer, "Stage Buffer" },
             },
+            b = { require("gitsigns").blame_line, "Blame Line" },
         },
         m = { require("harpoon.mark").add_file, "Harpoon Mark" },
         p = { '"+p', "Paste from clipboard" },
         q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
+        u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
+        i = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
     },
     ["<leader>1"] = {
         function()
@@ -63,10 +65,11 @@ wk.register({
         "Harpoon 4",
     },
     ["g"] = {
-        r = { vim.lsp.buf.references, "References" },
+        r = { require("telescope.builtin").lsp_references, "References" },
+        i = { require("telescope.builtin").lsp_implementations, "Implementations" },
         d = { vim.lsp.buf.definition, "Goto Definition" },
-        n = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
-        N = { vim.diagnostic.goto_prev, "Go to Prev Diagnostic" },
+        j = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
+        k = { vim.diagnostic.goto_prev, "Go to Prev Diagnostic" },
     },
     ["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
     ["<space>c"] = { vim.cmd.cclose, "Close qf list" },
