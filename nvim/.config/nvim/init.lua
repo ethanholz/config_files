@@ -26,6 +26,9 @@ vim.opt.shell = "zsh"
 vim.opt.bg = "dark"
 vim.opt.spell = true -- Enables treesitter comment spelling
 
+-- Persistent undos
+vim.opt.undofile = true
+
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({
     highlight = {
@@ -38,6 +41,26 @@ require("nvim-treesitter.configs").setup({
     playground = {
         enable = true,
     },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<c-space>",
+            node_incremental = "<c-space>",
+            scope_incremental = "<c-s>",
+            node_decremental = "<c-backspace>",
+        },
+    },
+    textobjects = {
+        swap = {
+            enable = true,
+            swap_next = {
+                ["<leader>a"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>A"] = "@parameter.inner",
+            },
+        },
+    },
 })
 require("treesitter-context").setup()
 
@@ -49,8 +72,23 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("CoverageDisplayGroup", { clear = true }),
-    pattern = "*",
+    pattern = { "go" },
     callback = function()
         LoadCoverageOnEnter()
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    group = vim.api.nvim_create_augroup("CoverageRun", { clear = true }),
+    pattern = { "*_test.go" },
+    callback = function()
+        io.popen("go test -coverprofile=coverage.out ./...")
+        LoadCoverageOnEnter()
+    end,
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = { "*.service" },
+    callback = function()
+        vim.api.nvim_buf_set_option(0, "filetype", "systemd")
     end,
 })
