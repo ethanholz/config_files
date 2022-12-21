@@ -18,6 +18,7 @@ return require("packer").startup({
     function()
         -- Manage itself
         use({ "wbthomason/packer.nvim", opt = true })
+
         -- LSP
         use("neovim/nvim-lspconfig")
         use("folke/lsp-trouble.nvim")
@@ -25,25 +26,38 @@ return require("packer").startup({
         use({ "simrat39/rust-tools.nvim" })
         use("onsails/lspkind-nvim")
         use({
-            "windwp/nvim-autopairs",
-            config = function()
-                require("nvim-autopairs").setup({})
-            end,
-        })
-        use({
             "j-hui/fidget.nvim",
             config = function()
                 require("fidget").setup({})
             end,
         })
+
+        use({
+            "windwp/nvim-autopairs",
+            config = function()
+                require("nvim-autopairs").setup({})
+            end,
+        })
+
         -- Debugging
         use("mfussenegger/nvim-dap")
         use({ "leoluz/nvim-dap-go", requires = {
             "mfussenegger/nvim-dap",
         } })
         use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
-        -- Ansible
+
+        -- Specific filetypes
         use("pearofducks/ansible-vim")
+        use({ "saltstack/salt-vim" })
+        use({
+            "Saecki/crates.nvim",
+            event = "BufRead Cargo.toml",
+            requires = { "nvim-lua/plenary.nvim" },
+            config = function()
+                require("crates").setup()
+            end,
+        })
+
         -- CMP
         use("hrsh7th/nvim-cmp")
         use("hrsh7th/cmp-nvim-lsp")
@@ -51,39 +65,27 @@ return require("packer").startup({
         use("saadparwaiz1/cmp_luasnip")
         use("hrsh7th/cmp-path")
         use({ "jose-elias-alvarez/null-ls.nvim" })
+
         -- Snippets
         use("L3MON4D3/LuaSnip")
         use("rafamadriz/friendly-snippets")
+
         --Git
+        use({ "tpope/vim-fugitive" })
         use({
             "lewis6991/gitsigns.nvim",
             config = function()
                 require("gitsigns").setup()
             end,
         })
-        -- Git
-        use({
-            "TimUntersberger/neogit",
-            requires = "nvim-lua/plenary.nvim",
-            config = function()
-                require("neogit").setup()
-            end,
-        })
 
-        -- Interface
-        use({
-            "romgrk/barbar.nvim",
-            requires = {
-                "kyazdani42/nvim-web-devicons",
-            },
-        })
         use("lukas-reineke/indent-blankline.nvim")
         use("EdenEast/nightfox.nvim")
-        use("folke/tokyonight.nvim")
         use("nvim-lualine/lualine.nvim")
         use("stevearc/dressing.nvim")
         -- Treesitter
         use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+        use({ "nvim-treesitter/nvim-treesitter-textobjects" })
         use("p00f/nvim-ts-rainbow")
         use({
             "nvim-treesitter/playground",
@@ -110,13 +112,6 @@ return require("packer").startup({
             requires = {
                 { "nvim-lua/plenary.nvim" },
             },
-        })
-        use({
-            "kylechui/nvim-surround",
-            tag = "*",
-            config = function()
-                require("nvim-surround").setup()
-            end,
         })
         -- Telescope
         use({
@@ -145,15 +140,8 @@ return require("packer").startup({
                 require("nvim-lastplace").setup({})
             end,
         })
-        use({
-            "Saecki/crates.nvim",
-            event = "BufRead Cargo.toml",
-            requires = { "nvim-lua/plenary.nvim" },
-            config = function()
-                require("crates").setup()
-            end,
-        })
-        use({ "ellisonleao/glow.nvim" })
+
+        use({ "mbbill/undotree" })
         use({
             "folke/which-key.nvim",
             config = function()

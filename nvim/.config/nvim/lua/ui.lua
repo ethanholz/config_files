@@ -2,7 +2,7 @@ vim.cmd.colorscheme("carbonfox")
 
 require("indent_blankline").setup({
     show_end_of_line = true,
-    buftype_exclude = { "help", "terminal" },
+    buftype_exclude = { "help", "terminal", "nofile" },
     filetype_exclude = { "markdown" },
 })
 require("telescope").load_extension("fzf")
