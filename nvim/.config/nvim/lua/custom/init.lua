@@ -4,8 +4,11 @@
 --     require("custom.packer-plugins")
 -- end
 
+-- Set variables
+require("custom.set")
+
 -- lazy.nvim
 require("custom.plugins")
 
--- Set variables
-require("custom.set")
+-- Set UI vars
+require("custom.ui")

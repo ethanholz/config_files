@@ -2,7 +2,6 @@ require("custom")
 require("lspconf")
 require("snips")
 require("mappings")
-require("ui")
 require("debug")
 
 -- Treesitter Consistent Syntax Highlighting and indent
