@@ -69,6 +69,12 @@ return require("packer").startup({
         -- Snippets
         use("L3MON4D3/LuaSnip")
         use("rafamadriz/friendly-snippets")
+        use {
+            "danymat/neogen",
+            requires = "nvim-treesitter/nvim-treesitter",
+            -- Uncomment next line if you want to follow only stable versions
+            -- tag = "*"
+        }
 
         --Git
         use({ "tpope/vim-fugitive" })
@@ -79,10 +85,12 @@ return require("packer").startup({
             end,
         })
 
+        -- UI
         use("lukas-reineke/indent-blankline.nvim")
         use("EdenEast/nightfox.nvim")
         use("nvim-lualine/lualine.nvim")
         use("stevearc/dressing.nvim")
+
         -- Treesitter
         use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
         use({ "nvim-treesitter/nvim-treesitter-textobjects" })
@@ -128,12 +136,9 @@ return require("packer").startup({
             },
             run = "make",
         })
-        use({
-            "ptethng/telescope-makefile",
-            requires = {
-                { "akinsho/nvim-toggleterm.lua" },
-            },
-        })
+        use({ "benfowler/telescope-luasnip.nvim", requires = {
+            { "nvim-telescope/telescope.nvim" },
+        } })
         use({
             "ethanholz/nvim-lastplace",
             config = function()
