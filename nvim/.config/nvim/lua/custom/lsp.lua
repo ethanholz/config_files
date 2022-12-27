@@ -6,7 +6,7 @@ local nvim_lsp = require("lspconfig")
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
     formatting = {
         format = lspkind.cmp_format(),
@@ -65,26 +65,32 @@ local lsp_formatting = function(bufnr)
     })
 end
 
-local formatting_attach = function(client, bufnr)
-    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-    if client.server_capabilities.documentFormattingProvder then
-        -- if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.buf.format()
-            end,
-        })
-    end
-end
-local go_formatting_attach = function(_, _)
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-        callback = function()
-            vim.lsp.buf.format({ async = false })
-        end,
-    })
+-- local formatting_attach = function(client, bufnr)
+--     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+--     if client.server_capabilities.documentFormattingProvder then
+--         -- if client.supports_method("textDocument/formatting") then
+--         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+--         vim.api.nvim_create_autocmd("BufWritePre", {
+--             group = augroup,
+--             buffer = bufnr,
+--             callback = function()
+--                 vim.lsp.buf.format()
+--             end,
+--         })
+--     end
+-- end
+-- local go_formatting_attach = function(_, _)
+--     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+--         callback = function()
+--             vim.lsp.buf.format({ async = false })
+--         end,
+--     })
+-- end
+
+local on_attach = function(client, bufnr)
+    -- if client.server_capabilities.documentSymbolProvider then
+    --     navic.attach(client, bufnr)
+    -- end
 end
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = {
@@ -127,6 +133,7 @@ for _, lsp in ipairs(servers) do
     if tonumber(result) ~= 0 then
         if lsp == "gopls" then
             nvim_lsp[lsp].setup({
+                on_attach = on_attach,
                 capabilities = capabilities,
                 settings = {
                     gopls = {
@@ -202,14 +209,14 @@ for _, lsp in ipairs(servers) do
                     },
                 },
                 capabilities = capabilities,
-                on_attach = formatting_attach,
+                on_attach = on_attach,
             })
         else
             nvim_lsp[lsp].setup({
                 capabilities = capabilities,
                 on_attach = function(client, bufnr)
                     if lsp == "pyright" then
-                        formatting_attach(client, bufnr)
+                        on_attach(client, bufnr)
                     end
                 end,
             })
@@ -219,7 +226,7 @@ end
 
 local rust_opts = {
     server = {
-        on_attach = formatting_attach,
+        on_attach = on_attach,
         ["rust-analyzer"] = {
             procMacro = {
                 enable = false,
@@ -234,10 +241,9 @@ require("trouble").setup({})
 local formatting = require("null-ls").builtins.formatting
 require("null-ls").setup({
     -- you can reuse a shared lspconfig on_attach callback here
-    on_attach = formatting_attach,
     debug = true,
     sources = {
-        formatting.rustfmt,
+        -- formatting.rustfmt,
         formatting.black,
     },
 })

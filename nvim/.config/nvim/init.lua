@@ -1,5 +1,4 @@
 require("custom")
-require("lspconf")
 require("snips")
 require("mappings")
 require("debug")
