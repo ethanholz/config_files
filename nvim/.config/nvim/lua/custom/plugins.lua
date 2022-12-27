@@ -44,7 +44,6 @@ local plugins = {
     },
     {
         "saltstack/salt-vim",
-        ft = "sls"
     },
     {
         "Saecki/crates.nvim",
