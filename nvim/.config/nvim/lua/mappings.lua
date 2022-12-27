@@ -21,7 +21,6 @@ wk.register({
             h = { require("telescope.builtin").help_tags, "Help Tags" },
             c = { require("telescope.builtin").colorscheme, "Colorschme" },
             l = { require("telescope.builtin").lsp_document_symbols, "LSP Document Symbols" },
-            m = { require("telescope").extensions.make.make, "make commands" },
             q = { require("telescope").extensions.harpoon.marks, "Harpoon Marks" },
         },
         g = {
@@ -35,10 +34,12 @@ wk.register({
             b = { require("gitsigns").blame_line, "Blame Line" },
         },
         m = { require("harpoon.mark").add_file, "Harpoon Mark" },
+        n = { require("neogen").generate, "Neogen" },
         p = { '"+p', "Paste from clipboard" },
         q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
         u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
         i = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
+        s = { require("telescope.builtin").spell_suggest, "Spell suggest" }
     },
     ["<leader>1"] = {
         function()
