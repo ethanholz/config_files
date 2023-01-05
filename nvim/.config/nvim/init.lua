@@ -1,6 +1,6 @@
 require("custom")
-require("snips")
 require("mappings")
+require("snips")
 
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({

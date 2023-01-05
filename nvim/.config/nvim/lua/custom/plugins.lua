@@ -19,11 +19,11 @@ local plugins = {
     "onsails/lspkind-nvim",
     {
         "j-hui/fidget.nvim",
-        config = true
+        config = true,
     },
     {
         "windwp/nvim-autopairs",
-        config = true
+        config = true,
     },
     -- Debugging
     "mfussenegger/nvim-dap",
@@ -31,16 +31,16 @@ local plugins = {
         "leoluz/nvim-dap-go",
         dependencies = {
             "mfussenegger/nvim-dap",
-        }
+        },
     },
     {
         "rcarriga/nvim-dap-ui",
-        dependencies = { "mfussenegger/nvim-dap" }
+        dependencies = { "mfussenegger/nvim-dap" },
     },
     -- Filetype plugins
     {
         "pearofducks/ansible-vim",
-        ft = "ansible.yaml"
+        ft = "ansible.yaml",
     },
     {
         "saltstack/salt-vim",
@@ -49,7 +49,7 @@ local plugins = {
         "Saecki/crates.nvim",
         event = "BufRead Cargo.toml",
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = true
+        config = true,
     },
 
     -- nvim-cmp
@@ -59,17 +59,14 @@ local plugins = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-path",
-        }
+            "saadparwaiz1/cmp_luasnip",
+        },
     },
-    -- {
-    --     "saadparwaiz1/cmp_luasnip",
-    --     dependencies = { "L3MON4D3/LuaSnip" }
-    -- },
 
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate"
+        build = ":TSUpdate",
     },
     "nvim-treesitter/nvim-treesitter-textobjects",
     "p00f/nvim-ts-rainbow",
@@ -82,7 +79,7 @@ local plugins = {
     {
         "danymat/neogen",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
-        version = "*"
+        version = "*",
     },
 
     -- Snippets
@@ -93,20 +90,24 @@ local plugins = {
         },
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
-        end
+        end,
     },
-
 
     -- Git
     "tpope/vim-fugitive",
     {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPre",
-        config = true
+        config = true,
     },
 
     -- UI
-    "EdenEast/nightfox.nvim",
+    {
+        "EdenEast/nightfox.nvim",
+        config = function()
+            vim.cmd.colorscheme("carbonfox")
+        end,
+    },
     "nvim-lualine/lualine.nvim",
     "stevearc/dressing.nvim",
 
@@ -134,7 +135,7 @@ local plugins = {
             require("telescope").load_extension("harpoon")
             require("telescope").load_extension("luasnip")
         end,
-        lazy = true
+        lazy = true,
     },
     {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -148,7 +149,7 @@ local plugins = {
         dependencies = {
             "nvim-telescope/telescope.nvim",
         },
-        lazy = true
+        lazy = true,
     },
     {
         "ethanholz/nvim-lastplace",
@@ -157,13 +158,13 @@ local plugins = {
     "mbbill/undotree",
     {
         "folke/which-key.nvim",
-        config = true
+        config = true,
     },
     {
         "andythigpen/nvim-coverage",
         dependencies = "nvim-lua/plenary.nvim",
-        config = true
-    }
+        config = true,
+    },
 }
 
 require("lazy").setup(plugins)
