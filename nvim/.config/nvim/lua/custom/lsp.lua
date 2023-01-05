@@ -65,168 +65,110 @@ local lsp_formatting = function(bufnr)
     })
 end
 
--- local formatting_attach = function(client, bufnr)
---     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
---     if client.server_capabilities.documentFormattingProvder then
---         -- if client.supports_method("textDocument/formatting") then
---         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
---         vim.api.nvim_create_autocmd("BufWritePre", {
---             group = augroup,
---             buffer = bufnr,
---             callback = function()
---                 vim.lsp.buf.format()
---             end,
---         })
---     end
--- end
--- local go_formatting_attach = function(_, _)
---     vim.api.nvim_create_autocmd({ "BufWritePre" }, {
---         callback = function()
---             vim.lsp.buf.format({ async = false })
---         end,
---     })
--- end
 
-local on_attach = function(client, bufnr)
-    -- if client.server_capabilities.documentSymbolProvider then
-    --     navic.attach(client, bufnr)
-    -- end
-end
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- A table of servers used for setting up LSP
 local servers = {
-    "pyright",
-    "vimls",
-    -- "ansiblels", -- Temporarily disabled
-    "dockerls",
+    "ccls",
     "bashls",
+    "marksman",
+    "pyright",
     "solc",
     "eslint",
-    "marksman",
-    "gopls",
-    "ccls",
-    "golangci_lint_ls",
-    "sumneko_lua",
-    "salt_ls",
+    {
+        "sumneko_lua",
+        exec = "lua-language-server",
+        settings = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                    version = "LuaJIT",
+                },
+                diagnostics = {
+                    -- Get the language server to recognize the `vim` global and `awesome`
+                    globals = { "vim", "use", "beautiful", "awful" },
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                },
+                hint = {
+                    enable = true,
+                },
+                telemetry = {
+                    enable = false,
+                },
+            },
+        },
+    },
+    { "vimls", exec = "vim-language-server" },
+    { "vuels", exec = "vls" },
+    { "salt_ls", exec = "salt_lsp_server" },
+    { "dockerls", exec = "docker-langserver" },
+    {
+        "golangci_lint_ls",
+        exec = "golangci-lint-langserver",
+        init_options = {
+            command = {
+                "golangci-lint",
+                "run",
+                "--enable",
+                "gofumpt",
+                "--enable",
+                "golint",
+                "--out-format",
+                "json",
+                "--issues-exit-code=1",
+            },
+        },
+    },
+    {
+        "gopls",
+        settings = {
+            gopls = {
+                gofumpt = true,
+                analyses = {
+                    unusedparams = true,
+                },
+                staticcheck = true,
+                codelenses = { test = true },
+            },
+        },
+    },
 }
-for _, lsp in ipairs(servers) do
-    -- Handles setup for only adding language servers for those that are installed
-    local exec = lsp
-    if exec == "dockerls" then
-        exec = "docker-langserver"
-    end
-    if exec == "golangci_lint_ls" then
-        exec = "golangci-lint"
-    end
-    if exec == "sumneko_lua" then
-        exec = "lua-language-server"
-    end
-    if exec == "vimls" then
-        exec = "vim-language-server"
-    end
-    if exec == "ansiblels" then
-        exec = "ansible-language-server"
-    end
-    if exec == "salt_ls" then
-        exec = "salt_lsp_server"
-    end
-    local result = vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true)
-    if tonumber(result) ~= 0 then
-        if lsp == "gopls" then
-            nvim_lsp[lsp].setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-                settings = {
-                    gopls = {
-                        gofumpt = true,
-                        analyses = {
-                            unusedparams = true,
-                        },
-                        staticcheck = true,
-                        codelenses = { test = true },
-                    },
-                },
-            })
-        elseif lsp == "ansiblels" then
-            nvim_lsp[lsp].setup({
-                capabilities = capabilities,
-                settings = {
-                    ansible = {
-                        ansible = {
-                            path = "ansible",
-                        },
-                        ansibleLint = {
-                            enabled = false,
-                        },
-                        executionEnvironment = {
-                            enabled = false,
-                        },
-                        python = {
-                            interpreterPath = "python",
-                        },
-                    },
-                },
-            })
-        elseif lsp == "golanci_lint_ls" then
-            nvim_lsp[lsp].setup({
-                capabilities = capabilities,
-                init_options = {
-                    command = {
-                        "golangci-lint",
-                        "run",
-                        "--enable",
-                        "gofumpt",
-                        "--enable",
-                        "golint",
-                        "--out-format",
-                        "json",
-                        "--issues-exit-code=1",
-                    },
-                },
-            })
-        elseif lsp == "sumneko_lua" then
-            nvim_lsp[lsp].setup({
-                settings = {
-                    Lua = {
-                        runtime = {
-                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                            version = "LuaJIT",
-                        },
-                        diagnostics = {
-                            -- Get the language server to recognize the `vim` global
-                            globals = { "vim", "use", "beautiful", "awful" },
-                        },
-                        workspace = {
-                            -- Make the server aware of Neovim runtime files
-                            library = vim.api.nvim_get_runtime_file("", true),
-                        },
-                        hint = {
-                            enable = true,
-                        },
-                        -- Do not send telemetry data containing a randomized but unique identifier
-                        telemetry = {
-                            enable = false,
-                        },
-                    },
-                },
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
+
+-- Only install servers that exist + use custom options
+for _, server in ipairs(servers) do
+    local exec = ""
+    local lsp = ""
+    local setup = { capabilities = capabilities }
+    if type(server) == "table" then
+        lsp = server[1]
+        if server.exec ~= nil then
+            exec = server.exec
         else
-            nvim_lsp[lsp].setup({
-                capabilities = capabilities,
-                on_attach = function(client, bufnr)
-                    if lsp == "pyright" then
-                        on_attach(client, bufnr)
-                    end
-                end,
-            })
+            exec = lsp
         end
+        if server.settings ~= nil then
+            setup["settings"] = server.settings
+        end
+        if server.init_options ~= nil then
+            setup["init_options"] = server.init_options
+        end
+    else
+        lsp = server
+        exec = server
+    end
+
+    local result = tonumber(vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true))
+    if result ~= 0 then
+        nvim_lsp[lsp].setup(setup)
     end
 end
 
 local rust_opts = {
     server = {
-        on_attach = on_attach,
+        capabilities = capabilities,
         ["rust-analyzer"] = {
             procMacro = {
                 enable = false,
@@ -237,9 +179,11 @@ local rust_opts = {
 require("rust-tools").setup(rust_opts)
 require("trouble").setup({})
 
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+local helpers = require("null-ls.helpers")
 
-local formatting = require("null-ls").builtins.formatting
-require("null-ls").setup({
+null_ls.setup({
     -- you can reuse a shared lspconfig on_attach callback here
     debug = true,
     sources = {
@@ -247,9 +191,8 @@ require("null-ls").setup({
         formatting.black,
     },
 })
-local null_ls = require("null-ls")
-local helpers = require("null-ls.helpers")
 
+-- Setup custom linter for salt with null-ls
 local salt_lint = {
     method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     filetypes = { "sls" },
@@ -271,14 +214,14 @@ local salt_lint = {
                 row = "linenumber",
                 code = "id",
                 message = "message",
-                severity = "severity"
+                severity = "severity",
             },
             severities = {
                 LOW = helpers.diagnostics.severities.warning,
-                HIGH = helpers.diagnostics.severities.error
-            }
-        })
-    })
+                HIGH = helpers.diagnostics.severities.error,
+            },
+        }),
+    }),
 }
 
 null_ls.register(salt_lint)
