@@ -58,6 +58,7 @@ local plugins = {
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
         },
@@ -69,7 +70,7 @@ local plugins = {
         build = ":TSUpdate",
     },
     "nvim-treesitter/nvim-treesitter-textobjects",
-    "p00f/nvim-ts-rainbow",
+    "mrjones2014/nvim-ts-rainbow",
     {
         "nvim-treesitter/playground",
         dependencies = { "nvim-treesitter/nvim-treesitter" },

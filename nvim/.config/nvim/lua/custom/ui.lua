@@ -29,5 +29,6 @@ if ok then
 
     lualine.setup(lualine_config)
 
-    vim.o.cmdheight = 0
+    vim.opt.cmdheight = 0
+    vim.opt.laststatus = 3
 end

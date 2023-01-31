@@ -4,6 +4,7 @@ vim.cmd.timeoutlen = 0
 -- local opts = { noremap = true, silent = true }
 -- local map = vim.keymap.set
 local wk = require("which-key")
+local test = 0
 local v = { mode = "v", noremap = "true" }
 
 wk.register({
@@ -39,7 +40,7 @@ wk.register({
         q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
         u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
         i = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
-        s = { require("telescope.builtin").spell_suggest, "Spell suggest" }
+        s = { require("telescope.builtin").spell_suggest, "Spell suggest" },
     },
     ["<leader>1"] = {
         function()

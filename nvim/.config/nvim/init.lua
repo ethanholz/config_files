@@ -37,6 +37,15 @@ require("nvim-treesitter.configs").setup({
                 ["<leader>A"] = "@parameter.inner",
             },
         },
+        lsp_interop = {
+            enable = true,
+            border = 'none',
+            floating_preview_opts = {},
+            peek_definition_code = {
+                ["<leader>df"] = "@function.outer",
+                ["<leader>dF"] = "@class.outer"
+            }
+        }
     },
 })
 require("treesitter-context").setup()
@@ -47,22 +56,25 @@ local function LoadCoverageOnEnter()
     end
 end
 
-vim.api.nvim_create_autocmd("FileType", {
-    group = vim.api.nvim_create_augroup("CoverageDisplayGroup", { clear = true }),
-    pattern = { "go" },
-    callback = function()
-        LoadCoverageOnEnter()
-    end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    group = vim.api.nvim_create_augroup("CoverageRun", { clear = true }),
-    pattern = { "*_test.go" },
-    callback = function()
-        io.popen("go test -coverprofile=coverage.out ./...")
-        LoadCoverageOnEnter()
-    end,
-})
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--     group = vim.api.nvim_create_augroup("CoverageDisplayGroup", { clear = true }),
+--     pattern = { "go" },
+--     callback = function()
+--         LoadCoverageOnEnter()
+--     end,
+-- })
+-- --
+-- vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+--     group = vim.api.nvim_create_augroup("CoverageRun", { clear = true }),
+--     pattern = { "*_test.go" },
+--     callback = function()
+--         local exit = os.execute("go test -coverprofile=coverage.out ./...")
+--         if exit == 0 then
+--             LoadCoverageOnEnter()
+--         end
+--     end,
+-- })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
     pattern = { "*.service" },
     callback = function()

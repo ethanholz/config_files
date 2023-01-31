@@ -47,13 +47,14 @@ cmp.setup({
     },
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
         { name = "nvim_lsp_lua" },
         { name = "luasnip" },
         { name = "crates" },
         { name = "buffer" },
         { name = "path" },
     }),
-    ghost_text = true,
+    -- ghost_text = true,
 })
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 local lsp_formatting = function(bufnr)
@@ -105,6 +106,7 @@ local servers = {
     { "vuels", exec = "vls" },
     { "salt_ls", exec = "salt_lsp_server" },
     { "dockerls", exec = "docker-langserver" },
+    { "arduino_langauge_server", exec = "arduino-langauge-server" },
     {
         "golangci_lint_ls",
         exec = "golangci-lint-langserver",
@@ -144,6 +146,9 @@ for _, server in ipairs(servers) do
     local setup = { capabilities = capabilities }
     if type(server) == "table" then
         lsp = server[1]
+        if server.enable ~= nil and server.continue then
+            goto continue
+        end
         if server.exec ~= nil then
             exec = server.exec
         else
@@ -164,6 +169,7 @@ for _, server in ipairs(servers) do
     if result ~= 0 then
         nvim_lsp[lsp].setup(setup)
     end
+    ::continue::
 end
 
 local rust_opts = {
@@ -225,3 +231,11 @@ local salt_lint = {
 }
 
 null_ls.register(salt_lint)
+
+-- vim.api.nvim_create_autocmd('DiagnosticChanged', {
+--     pattern = { "*.go" },
+--     callback = function(args)
+--         local diagnostics = args.data.diagnostics
+--         vim.pretty_print(vim.diagnostic.get()[1])
+--     end,
+-- })
