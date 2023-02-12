@@ -75,7 +75,18 @@ local servers = {
     "marksman",
     "pyright",
     "solc",
-    "eslint",
+    {
+        "eslint",
+        exec = "vscode-eslint-language-server"
+    },
+    {
+        "tsserver",
+        exec = "typescript-language-server"
+    },
+    {
+        "astro",
+        exec = "astro-ls"
+    },
     {
         "sumneko_lua",
         exec = "lua-language-server",
@@ -187,6 +198,7 @@ require("trouble").setup({})
 
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
+local code_actions = null_ls.builtins.code_actions
 local helpers = require("null-ls.helpers")
 
 null_ls.setup({
@@ -195,6 +207,7 @@ null_ls.setup({
     sources = {
         -- formatting.rustfmt,
         formatting.black,
+        code_actions.gomodifytags
     },
 })
 

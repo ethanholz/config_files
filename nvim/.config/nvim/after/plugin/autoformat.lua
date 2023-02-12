@@ -3,7 +3,7 @@ if not enable_autoformat then
     return
 end
 
-local exclude_list = { "ccls", "tsserver" }
+local exclude_list = { "ccls", "tsserver", "astro" }
 local has_value = function(name)
     for _, value in ipairs(exclude_list) do
         if value == name then

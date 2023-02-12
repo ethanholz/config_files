@@ -132,9 +132,17 @@ local plugins = {
             "nvim-lua/plenary.nvim",
         },
         init = function()
+            require("telescope").setup({
+                extensions = {
+                    file_browser = {
+                        hijack_netrw = true
+                    }
+                }
+            })
             require("telescope").load_extension("fzf")
             require("telescope").load_extension("harpoon")
             require("telescope").load_extension("luasnip")
+            require("telescope").load_extension("file_browser")
         end,
         lazy = true,
     },
@@ -144,6 +152,13 @@ local plugins = {
             { "nvim-telescope/telescope.nvim" },
         },
         build = "make",
+    },
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
+        lazy = true
     },
     {
         "benfowler/telescope-luasnip.nvim",

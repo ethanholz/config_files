@@ -75,6 +75,7 @@ wk.register({
     },
     ["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
     ["<space>c"] = { vim.cmd.cclose, "Close qf list" },
+    ["<S-f>"] = { require("telescope").extensions.file_browser.file_browser, "Open file picker" },
 })
 wk.register({
     ["<leader>"] = {
