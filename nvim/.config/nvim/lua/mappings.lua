@@ -4,8 +4,8 @@ vim.cmd.timeoutlen = 0
 -- local opts = { noremap = true, silent = true }
 -- local map = vim.keymap.set
 local wk = require("which-key")
-local test = 0
 local v = { mode = "v", noremap = "true" }
+local t = { mode = "t", noremap = "true" }
 
 wk.register({
     ["<leader>"] = {
@@ -35,7 +35,11 @@ wk.register({
             b = { require("gitsigns").blame_line, "Blame Line" },
         },
         m = { require("harpoon.mark").add_file, "Harpoon Mark" },
-        n = { require("neogen").generate, "Neogen" },
+        n = {
+            name = "Neo*",
+            g = { require("neogen").generate, "Neogen" },
+            n = { "<cmd>Neorg workspace notes<cr>", "Neorg Notes" },
+        },
         p = { '"+p', "Paste from clipboard" },
         q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
         u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
@@ -73,8 +77,10 @@ wk.register({
         j = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
         k = { vim.diagnostic.goto_prev, "Go to Prev Diagnostic" },
     },
+    ["space"] = {
+        c = { vim.cmd.cclose, "Close qf list" },
+    },
     ["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
-    ["<space>c"] = { vim.cmd.cclose, "Close qf list" },
     ["<S-f>"] = { require("telescope").extensions.file_browser.file_browser, "Open file picker" },
 })
 wk.register({
@@ -82,6 +88,9 @@ wk.register({
         y = { '"+y', "Yank to clipboard" },
     },
 }, v)
+wk.register({
+    ["<Esc>"] = { "<C-\\><C-n>", "Exit terminal" }
+}, t)
 -- -- BarBar Keymaps
 -- map("n", "<Leader>[", ":BufferPrevious<CR>", opts)
 -- map("n", "<Leader>]", ":BufferNext<CR>", opts)

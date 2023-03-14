@@ -80,6 +80,10 @@ local servers = {
         exec = "vscode-eslint-language-server"
     },
     {
+        "ltex",
+        exec = "ltex-ls"
+    },
+    {
         "tsserver",
         exec = "typescript-language-server"
     },
@@ -88,7 +92,7 @@ local servers = {
         exec = "astro-ls"
     },
     {
-        "sumneko_lua",
+        "lua_ls",
         exec = "lua-language-server",
         settings = {
             Lua = {
