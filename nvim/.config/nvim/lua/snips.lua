@@ -121,7 +121,7 @@ ls.add_snippets("rust", {
 let reader = io::BufReader::new(file).lines();
 for line in reader {{
     {}
-}}]]         ,
+}}]],
             { i(1), i(2) }
         )
     ),
