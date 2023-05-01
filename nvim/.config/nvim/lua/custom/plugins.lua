@@ -12,9 +12,16 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 local plugins = {
     "neovim/nvim-lspconfig",
-    "folke/lsp-trouble.nvim",
+    {
+        "folke/lsp-trouble.nvim",
+        config = true,
+        dependencies = { "nvim-tree/nvim-web-devicons" }
+    },
     "nvim-lua/lsp-status.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    {
+        "ethanholz/null-ls.nvim",
+        dir = "~/Documents/github/null-ls.nvim"
+    },
     "simrat39/rust-tools.nvim",
     "onsails/lspkind-nvim",
     {
@@ -169,7 +176,6 @@ local plugins = {
     },
     {
         "ethanholz/nvim-lastplace",
-        config = true,
     },
     "mbbill/undotree",
     {
@@ -181,6 +187,11 @@ local plugins = {
         dependencies = "nvim-lua/plenary.nvim",
         config = true,
     },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
+        config = true,
+    }
 }
 
 require("lazy").setup(plugins)

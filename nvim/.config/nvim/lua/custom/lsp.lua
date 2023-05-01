@@ -117,28 +117,11 @@ local servers = {
             },
         },
     },
-    { "vimls", exec = "vim-language-server" },
-    { "vuels", exec = "vls" },
-    { "salt_ls", exec = "salt_lsp_server" },
-    { "dockerls", exec = "docker-langserver" },
+    { "vimls",                   exec = "vim-language-server" },
+    { "vuels",                   exec = "vls" },
+    { "salt_ls",                 exec = "salt_lsp_server" },
+    { "dockerls",                exec = "docker-langserver" },
     { "arduino_langauge_server", exec = "arduino-langauge-server" },
-    {
-        "golangci_lint_ls",
-        exec = "golangci-lint-langserver",
-        init_options = {
-            command = {
-                "golangci-lint",
-                "run",
-                "--enable",
-                "gofumpt",
-                "--enable",
-                "golint",
-                "--out-format",
-                "json",
-                "--issues-exit-code=1",
-            },
-        },
-    },
     {
         "gopls",
         settings = {
@@ -203,56 +186,21 @@ require("trouble").setup({})
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
 local code_actions = null_ls.builtins.code_actions
+local diagnostics = null_ls.builtins.diagnostics
 local helpers = require("null-ls.helpers")
+
+
 
 null_ls.setup({
     -- you can reuse a shared lspconfig on_attach callback here
     debug = true,
     sources = {
         -- formatting.rustfmt,
+        diagnostics.revive.with({
+            args = { "-config", vim.fn.expand("~/.config/revive/revive.toml"), "-formatter", "json", "./..." }
+        }),
         formatting.black,
-        code_actions.gomodifytags
+        code_actions.gomodifytags,
+        diagnostics.saltlint
     },
 })
-
--- Setup custom linter for salt with null-ls
-local salt_lint = {
-    method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-    filetypes = { "sls" },
-    generator = null_ls.generator({
-        command = "salt-lint",
-        args = { "--nocolor", "--json", "$FILENAME" },
-        to_stdin = true,
-        from_stderr = true,
-        format = "json",
-        check_exit_code = function(code, stderr)
-            local success = code == 0
-            if not success then
-                print(stderr)
-            end
-            return success
-        end,
-        on_output = helpers.diagnostics.from_json({
-            attributes = {
-                row = "linenumber",
-                code = "id",
-                message = "message",
-                severity = "severity",
-            },
-            severities = {
-                LOW = helpers.diagnostics.severities.warning,
-                HIGH = helpers.diagnostics.severities.error,
-            },
-        }),
-    }),
-}
-
-null_ls.register(salt_lint)
-
--- vim.api.nvim_create_autocmd('DiagnosticChanged', {
---     pattern = { "*.go" },
---     callback = function(args)
---         local diagnostics = args.data.diagnostics
---         vim.pretty_print(vim.diagnostic.get()[1])
---     end,
--- })
