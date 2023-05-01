@@ -35,16 +35,12 @@ wk.register({
             b = { require("gitsigns").blame_line, "Blame Line" },
         },
         m = { require("harpoon.mark").add_file, "Harpoon Mark" },
-        n = {
-            name = "Neo*",
-            g = { require("neogen").generate, "Neogen" },
-            n = { "<cmd>Neorg workspace notes<cr>", "Neorg Notes" },
-        },
         p = { '"+p', "Paste from clipboard" },
         q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
         u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
         i = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
         s = { require("telescope.builtin").spell_suggest, "Spell suggest" },
+        t = { "<cmd>TodoTelescope<cr>", "TodoTelescope" }
     },
     ["<leader>1"] = {
         function()
@@ -71,11 +67,11 @@ wk.register({
         "Harpoon 4",
     },
     ["g"] = {
-        r = { require("telescope.builtin").lsp_references, "References" },
-        i = { require("telescope.builtin").lsp_implementations, "Implementations" },
         d = { vim.lsp.buf.definition, "Goto Definition" },
         j = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
         k = { vim.diagnostic.goto_prev, "Go to Prev Diagnostic" },
+        r = { require("telescope.builtin").lsp_references, "References" },
+        i = { require("telescope.builtin").lsp_implementations, "Implementations" },
     },
     ["space"] = {
         c = { vim.cmd.cclose, "Close qf list" },
