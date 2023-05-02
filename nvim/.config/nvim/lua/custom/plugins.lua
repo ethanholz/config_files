@@ -176,6 +176,7 @@ local plugins = {
     },
     {
         "ethanholz/nvim-lastplace",
+        config = true
     },
     "mbbill/undotree",
     {
