@@ -49,25 +49,28 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
         { name = "nvim_lsp_lua" },
+        { name = "copilot" },
         { name = "luasnip" },
         { name = "crates" },
         { name = "buffer" },
         { name = "path" },
     }),
-    -- ghost_text = true,
+    experimental = {
+        ghost_text = true,
+    },
 })
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-local lsp_formatting = function(bufnr)
-    vim.lsp.buf.format({
-        filter = function(client)
-            return client.name == "null-ls"
-        end,
-        bufnr = bufnr,
-    })
-end
 
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'git' },
+        { name = 'buffer' }
+    })
+})
+require("cmp_git").setup()
 -- A table of servers used for setting up LSP
 local servers = {
     "ccls",
@@ -75,9 +78,21 @@ local servers = {
     "marksman",
     "pyright",
     "solc",
+    "nixd",
     {
         "eslint",
         exec = "vscode-eslint-language-server"
+    },
+    {
+        "nil_ls",
+        exec = "nil",
+        settings = {
+            ['nil'] = {
+                formatting = {
+                    command = { "nixpkgs-fmt" },
+                }
+            }
+        }
     },
     {
         "ltex",
@@ -107,6 +122,7 @@ local servers = {
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false
                 },
                 hint = {
                     enable = true,
@@ -129,9 +145,18 @@ local servers = {
                 gofumpt = true,
                 analyses = {
                     unusedparams = true,
+                    shadow = true,
                 },
                 staticcheck = true,
                 codelenses = { test = true },
+                hints = {
+                    assignVariableTypes = true,
+                    composeLiteralFields = true,
+                    constantValues = true,
+                    functionTypeParameter = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
             },
         },
     },
@@ -170,16 +195,44 @@ for _, server in ipairs(servers) do
     ::continue::
 end
 
+
 local rust_opts = {
     server = {
         capabilities = capabilities,
         ["rust-analyzer"] = {
             procMacro = {
-                enable = false,
+                enable = true,
+            },
+            diagnostics = {
+                enable = true,
+                enable_experimental = true,
             },
         },
     },
+    tools = {
+        inlay_hints = {
+            auto = false
+        },
+    }
 }
+
+vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = "LspAttach_inlayhints",
+    callback = function(args)
+        if not (args.data and args.data.client_id) then
+            return
+        end
+
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        local palette = require("nightfox.palette").load("carbonfox")
+        local bg = palette.bg1
+        vim.cmd([[hi LSPInlayHint guibg=]] .. bg .. [[gui=bold]])
+        require("lsp-inlayhints").on_attach(client, bufnr)
+    end,
+})
+
 require("rust-tools").setup(rust_opts)
 require("trouble").setup({})
 
@@ -199,6 +252,7 @@ null_ls.setup({
         diagnostics.revive.with({
             args = { "-config", vim.fn.expand("~/.config/revive/revive.toml"), "-formatter", "json", "./..." }
         }),
+        formatting.stylua,
         formatting.black,
         code_actions.gomodifytags,
         diagnostics.saltlint

@@ -9,3 +9,6 @@ require("custom.ui")
 
 -- Set LSP vars
 require("custom.lsp")
+
+-- Set diagnostics vars
+require("custom.diagnostics")
