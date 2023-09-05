@@ -1,7 +1,12 @@
 local ok, lualine = pcall(require, "lualine")
 if ok then
 	local ho, harpoon_mark = pcall(require, "harpoon.mark")
-	local lualine_config = {}
+	local lualine_config = {
+		options = {
+			component_separators = { left = "|", right = "|" },
+			section_separators = "",
+		},
+	}
 	if ho then
 		local function hook()
 			local harpoon_number = harpoon_mark.get_index_of(vim.fn.bufname())

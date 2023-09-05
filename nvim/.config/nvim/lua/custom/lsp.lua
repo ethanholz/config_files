@@ -1,5 +1,3 @@
-require("dap-go").setup()
-require("dapui").setup()
 vim.o.completeopt = "menuone,noinsert,noselect"
 local lspkind = require("lspkind")
 local nvim_lsp = require("lspconfig")
@@ -79,6 +77,10 @@ local servers = {
     "pyright",
     "solc",
     "nixd",
+    {
+        "ansiblels",
+        exec = "ansible-language-server"
+    },
     {
         "eslint",
         exec = "vscode-eslint-language-server"
@@ -233,6 +235,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+
 require("rust-tools").setup(rust_opts)
 require("trouble").setup({})
 
@@ -240,9 +243,6 @@ local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
 local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
-local helpers = require("null-ls.helpers")
-
-
 
 null_ls.setup({
     -- you can reuse a shared lspconfig on_attach callback here
@@ -253,7 +253,7 @@ null_ls.setup({
             args = { "-config", vim.fn.expand("~/.config/revive/revive.toml"), "-formatter", "json", "./..." }
         }),
         formatting.stylua,
-        formatting.black,
+        -- formatting.black,
         code_actions.gomodifytags,
         diagnostics.saltlint
     },

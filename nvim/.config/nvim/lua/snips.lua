@@ -1,5 +1,4 @@
 local ls = require("luasnip")
-require("neogen").setup({ snippet_engine = "luasnip" })
 local helper = require("custom.helper")
 -- Snippet creator
 local s = ls.s

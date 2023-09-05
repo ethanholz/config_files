@@ -3,7 +3,7 @@ if not enable_autoformat then
 	return
 end
 
-local exclude_list = { "ccls", "tsserver", "astro", "lua_ls" }
+local exclude_list = { "ccls", "tsserver", "astro", "lua_ls", "salt_ls" }
 local has_value = function(name)
 	for _, value in ipairs(exclude_list) do
 		if value == name then
@@ -42,6 +42,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local client_id = args.data.client_id
 		local client = vim.lsp.get_client_by_id(client_id)
 		local bufnr = args.buf
+		if vim.bo.ft == "sls" then
+			return
+		end
 
 		-- Only attach to clients that support document formatting
 		if not client.server_capabilities.documentFormattingProvider or has_value(client.name) then

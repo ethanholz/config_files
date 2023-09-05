@@ -58,6 +58,15 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.grlx = {
+	install_info = {
+		url = "~/Documents/code/work-oss/tree-sitter-grlx",
+		files = { "src/parser.c" },
+	},
+	filetype = "grlx",
+}
+vim.filetype.add({ extension = { grlx = "grlx" } })
 require("treesitter-context").setup()
 
 local function LoadCoverageOnEnter()
@@ -85,9 +94,20 @@ end
 --         end
 --     end,
 -- })
+vim.api.nvim_create_autocmd({ "BufRead, BufNewFile" }, {
+	pattern = { "*/ansible/*.yml" },
+	callback = function()
+		vim.api.nvim_buf_set_option(0, "filetype", "yaml.ansible")
+	end,
+})
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*.service" },
 	callback = function()
 		vim.api.nvim_buf_set_option(0, "filetype", "systemd")
 	end,
 })
+
+if vim.env.ZELLIJ ~= nil then
+	vim.fn.system({ "zellij", "action", "switch-mode", "locked" })
+end

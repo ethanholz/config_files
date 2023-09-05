@@ -24,7 +24,6 @@ local plugins = {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	"jose-elias-alvarez/null-ls.nvim",
-	"nvim-lua/lsp-status.nvim",
 	{
 		"lvimuser/lsp-inlayhints.nvim",
 		config = true,
@@ -37,6 +36,7 @@ local plugins = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 		},
+		ft = "go",
 		build = function()
 			if not require("nvim-treesitter.parsers").has_parser("go") then
 				vim.cmd("TSInstall go")
@@ -49,18 +49,6 @@ local plugins = {
 		"windwp/nvim-autopairs",
 		config = true,
 	},
-	-- Debugging
-	"mfussenegger/nvim-dap",
-	{
-		"leoluz/nvim-dap-go",
-		dependencies = {
-			"mfussenegger/nvim-dap",
-		},
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap" },
-	},
 	-- Filetype plugins
 	{
 		"pearofducks/ansible-vim",
@@ -68,6 +56,7 @@ local plugins = {
 	},
 	{
 		"saltstack/salt-vim",
+		ft = "sls",
 	},
 	{
 		"Saecki/crates.nvim",
@@ -113,12 +102,6 @@ local plugins = {
 		build = ":TSInstall query",
 	},
 	"nvim-treesitter/nvim-treesitter-context",
-	{
-		"danymat/neogen",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		version = "*",
-	},
-
 	-- Snippets
 	{
 		"L3MON4D3/LuaSnip",
@@ -132,19 +115,11 @@ local plugins = {
 
 	-- Git
 	"tpope/vim-fugitive",
-	-- {
-	-- 	"NeogitOrg/neogit",
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 	},
-	-- 	config = true,
-	-- },
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufReadPre",
 		config = true,
 	},
-
 	-- UI
 	{
 		"EdenEast/nightfox.nvim",
@@ -162,6 +137,9 @@ local plugins = {
 	},
 	{
 		"ThePrimeagen/harpoon",
+		opts = {
+			tabline = true,
+		},
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 		},
@@ -213,12 +191,6 @@ local plugins = {
 	{
 		"ethanholz/nvim-lastplace",
 		config = true,
-		dir = "/home/ethan/Documents/github/nvim-lastplace",
-	},
-	{
-		"farmergreg/vim-lastplace",
-		lazy = false,
-		enabled = false,
 	},
 	"mbbill/undotree",
 	{
@@ -229,15 +201,6 @@ local plugins = {
 		"andythigpen/nvim-coverage",
 		dependencies = "nvim-lua/plenary.nvim",
 		config = true,
-	},
-	{
-		"folke/todo-comments.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		config = true,
-	},
-	{
-		"ibhagwan/fzf-lua",
-		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	{
 		"IndianBoy42/tree-sitter-just",
@@ -253,11 +216,9 @@ local plugins = {
 		"jackMort/ChatGPT.nvim",
 		-- event = "VeryLazy",
 		cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions", "ChatpGPTRun" },
-		config = function()
-			require("chatgpt").setup({
-				api_key_cmd = "op read op://personal-api-auth/ChatGPT/credential --no-newline",
-			})
-		end,
+		opts = {
+			api_key_cmd = "op read op://personal-api-auth/ChatGPT/credential --no-newline",
+		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
@@ -272,13 +233,10 @@ local plugins = {
 			"rcarriga/nvim-notify",
 		},
 	},
-	{
-		"ruifm/gitlinker.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = true,
-	},
+	-- {
+	-- 	"sourcegraph/sg.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- },
 }
 
 require("lazy").setup(plugins)

@@ -1,8 +1,6 @@
 -- Map leader config
 vim.g.mapleader = ","
 vim.cmd.timeoutlen = 0
--- local opts = { noremap = true, silent = true }
--- local map = vim.keymap.set
 local wk = require("which-key")
 local v = { mode = "v", noremap = "true" }
 local t = { mode = "t", noremap = "true" }
@@ -20,24 +18,69 @@ local function gitui_toggle()
 	gitui:toggle()
 end
 
-local function toggle_jq()
-	local bufnr = vim.api.nvim_get_current_buf()
-	local start_line, start_col, end_line, end_col = unpack(vim.fn.getpos("'<"))
-	local lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, end_line, false)
-	-- io.popen("jq --argjson in '" .. selection .. "'", "w"):close()
+-- Register LSP mappings
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(args)
+		wk.register({
+			["<leader>"] = {
+				c = {
+					name = "LSP Code Changes",
+					a = { vim.lsp.buf.code_action, "Code Action" },
+					R = { vim.lsp.buf.rename, "Rename" },
+				},
+				f = {
+					l = { require("telescope.builtin").lsp_document_symbols, "LSP Document Symbols" },
+				},
+			},
+			["g"] = {
+				d = { vim.lsp.buf.definition, "Goto Definition" },
+				r = { require("telescope.builtin").lsp_references, "References" },
+				i = { require("telescope.builtin").lsp_implementations, "Implementations" },
+			},
+			["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
+		})
+	end,
+})
+
+-- Register Go mappings
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "*.go" },
+	group = vim.api.nvim_create_augroup("UserGoConfig", {}),
+	callback = function(args)
+		wk.register({
+			["g"] = {
+				t = {
+					name = "Go Tags",
+					a = {
+						name = "Add Tags",
+						j = { ":GoTagAdd json <cr>", "JSON" },
+						y = { ":GoTagAdd yaml <cr>", "YAML" },
+					},
+					r = {
+						name = "Remove Tags",
+						j = { ":GoTagRm json <cr>", "JSON" },
+						y = { ":GoTagRm yaml <cr>", "YAML" },
+					},
+					f = { ":GoIfErr<cr>", "iferr" },
+				},
+			},
+		})
+	end,
+})
+
+local harpoon_table = {}
+for i = 1, 9 do
+	harpoon_table["<leader>" .. tostring(i)] = {
+		function()
+			require("harpoon.ui").nav_file(i)
+		end,
+		"Harpoon " .. tostring(i),
+	}
 end
 
-local function gitlinker_callback()
-	require("gitlinker").get_repo_url({ action_callback = require("gitlinker.actions").open_in_browser })
-end
-
-wk.register({
+wk.register(vim.tbl_extend("force", harpoon_table, {
 	["<leader>"] = {
-		c = {
-			name = "LSP Code Changes",
-			a = { vim.lsp.buf.code_action, "Code Action" },
-			R = { vim.lsp.buf.rename, "Rename" },
-		},
 		f = {
 			name = "Telescope",
 			f = { require("telescope.builtin").find_files, "Find File" },
@@ -45,7 +88,6 @@ wk.register({
 			b = { require("telescope.builtin").buffers, "Buffer List" },
 			h = { require("telescope.builtin").help_tags, "Help Tags" },
 			c = { require("telescope.builtin").colorscheme, "Colorschme" },
-			l = { require("telescope.builtin").lsp_document_symbols, "LSP Document Symbols" },
 			q = { require("telescope").extensions.harpoon.marks, "Harpoon Marks" },
 			s = { require("telescope.builtin").grep_string, "Grep String" },
 		},
@@ -59,9 +101,7 @@ wk.register({
 			},
 			b = { require("gitsigns").blame_line, "Blame Line" },
 			u = { gitui_toggle, "gitui toggle" },
-			o = { gitlinker_callback, "gitinker" },
 		},
-		j = { toggle_jq, "jq" },
 		m = { require("harpoon.mark").add_file, "Harpoon Mark" },
 		p = { '"+p', "Paste from clipboard" },
 		q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
@@ -70,57 +110,15 @@ wk.register({
 		s = { require("telescope.builtin").spell_suggest, "Spell suggest" },
 		t = { "<cmd>ToggleTerm direction=horizontal<cr>", "New Terminal" },
 	},
-	["<leader>1"] = {
-		function()
-			require("harpoon.ui").nav_file(1)
-		end,
-		"Harpoon 1",
-	},
-	["<leader>2"] = {
-		function()
-			require("harpoon.ui").nav_file(2)
-		end,
-		"Harpoon 2",
-	},
-	["<leader>3"] = {
-		function()
-			require("harpoon.ui").nav_file(3)
-		end,
-		"Harpoon 3",
-	},
-	["<leader>4"] = {
-		function()
-			require("harpoon.ui").nav_file(4)
-		end,
-		"Harpoon 4",
-	},
 	["g"] = {
-		d = { vim.lsp.buf.definition, "Goto Definition" },
 		j = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
 		k = { vim.diagnostic.goto_prev, "Go to Prev Diagnostic" },
-		r = { require("telescope.builtin").lsp_references, "References" },
-		i = { require("telescope.builtin").lsp_implementations, "Implementations" },
-		t = {
-			name = "Go Tags",
-			a = {
-				name = "Add Tags",
-				j = { ":GoTagAdd json <cr>", "JSON" },
-				y = { ":GoTagAdd yaml <cr>", "YAML" },
-			},
-			r = {
-				name = "Remove Tags",
-				j = { ":GoTagRm json <cr>", "JSON" },
-				y = { ":GoTagRm yaml <cr>", "YAML" },
-			},
-			f = { ":GoIfErr<cr>", "iferr" },
-		},
 	},
 	["space"] = {
 		c = { vim.cmd.cclose, "Close qf list" },
 	},
-	["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
 	["<S-f>"] = { require("telescope").extensions.file_browser.file_browser, "Open file picker" },
-})
+}))
 wk.register({
 	["<leader>"] = {
 		y = { '"+y', "Yank to clipboard" },
@@ -129,6 +127,8 @@ wk.register({
 			s = { require("telescope.builtin").grep_string, "Grep String" },
 		},
 	},
+	["<S-j>"] = { ":m '>+<CR>gv=gv", "Move down selection" },
+	["<S-k>"] = { ":m '<-2<CR>gv=gv", "Move up selection" },
 }, v)
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "Exit terminal" },
