@@ -6,8 +6,23 @@ local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
 -- require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            require("copilot_cmp.comparators").prioritize,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
     formatting = {
-        format = lspkind.cmp_format(),
+        format = lspkind.cmp_format({
+            symbol_map = { Copilot = "" },
+        }),
     },
     snippet = {
         expand = function(args)
@@ -44,14 +59,14 @@ cmp.setup({
         end),
     },
     sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
-        { name = "nvim_lsp_lua" },
-        { name = "copilot" },
-        { name = "luasnip" },
-        { name = "crates" },
-        { name = "buffer" },
-        { name = "path" },
+        { name = "copilot",                 group_index = 2 },
+        { name = "nvim_lsp",                group_index = 2 },
+        { name = "nvim_lsp_signature_help", group_index = 2 },
+        { name = "nvim_lsp_lua",            group_index = 2 },
+        { name = "luasnip",                 group_index = 2 },
+        { name = "crates",                  group_index = 2 },
+        { name = "buffer",                  group_index = 2 },
+        { name = "path",                    group_index = 2 },
     }),
     experimental = {
         ghost_text = true,
@@ -72,11 +87,17 @@ require("cmp_git").setup()
 -- A table of servers used for setting up LSP
 local servers = {
     "ccls",
+    "ocamllsp",
     "bashls",
     "marksman",
     "pyright",
     "solc",
     "nixd",
+    "zls",
+    {
+        "grammarly",
+        exec = "grammarly-languageserver"
+    },
     {
         "ansiblels",
         exec = "ansible-language-server"
@@ -148,6 +169,7 @@ local servers = {
                 analyses = {
                     unusedparams = true,
                     shadow = true,
+                    structtag = false
                 },
                 staticcheck = true,
                 codelenses = { test = true },
@@ -234,6 +256,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         require("lsp-inlayhints").on_attach(client, bufnr)
     end,
 })
+
 
 
 require("rust-tools").setup(rust_opts)

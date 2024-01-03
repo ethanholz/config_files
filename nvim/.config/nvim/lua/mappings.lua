@@ -1,9 +1,9 @@
 -- Map leader config
-vim.g.mapleader = ","
 vim.cmd.timeoutlen = 0
 local wk = require("which-key")
 local v = { mode = "v", noremap = "true" }
 local t = { mode = "t", noremap = "true" }
+local t_n
 
 local Terminal = require("toggleterm.terminal").Terminal
 local gitui = Terminal:new({
@@ -45,9 +45,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- Register Go mappings
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "*.go" },
+	pattern = { "go" },
 	group = vim.api.nvim_create_augroup("UserGoConfig", {}),
-	callback = function(args)
+	callback = function()
 		wk.register({
 			["g"] = {
 				t = {
@@ -102,7 +102,6 @@ wk.register(vim.tbl_extend("force", harpoon_table, {
 			b = { require("gitsigns").blame_line, "Blame Line" },
 			u = { gitui_toggle, "gitui toggle" },
 		},
-		m = { require("harpoon.mark").add_file, "Harpoon Mark" },
 		p = { '"+p', "Paste from clipboard" },
 		q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
 		u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
@@ -117,7 +116,6 @@ wk.register(vim.tbl_extend("force", harpoon_table, {
 	["space"] = {
 		c = { vim.cmd.cclose, "Close qf list" },
 	},
-	["<S-f>"] = { require("telescope").extensions.file_browser.file_browser, "Open file picker" },
 }))
 wk.register({
 	["<leader>"] = {
@@ -133,9 +131,3 @@ wk.register({
 wk.register({
 	["<Esc>"] = { "<C-\\><C-n>", "Exit terminal" },
 }, t)
--- -- Debugs
--- map("n", "<Leader>dt", require("dapui").toggle, opts)
--- map("n", "<Leader>tt", require("dap").toggle_breakpoint, opts)
--- map("n", "<F5>", require("dap").continue, opts)
--- map("n", "<F2>", require("dap").step_into, opts)
--- map("n", "<F12>", require("dap").step_over, opts)

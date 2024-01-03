@@ -20,6 +20,7 @@ vim.opt.bg = "dark"
 vim.opt.spell = true -- Enables treesitter comment spelling
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
+vim.opt.filetype = "on"
 
 -- Persistent undos
 vim.opt.undofile = true

@@ -3,6 +3,7 @@ local helper = require("custom.helper")
 -- Snippet creator
 local s = ls.s
 local fmt = require("luasnip.extras.fmt").fmt
+local rep = require("luasnip.extras").rep
 local i = ls.insert_node
 local f = ls.function_node
 
@@ -103,6 +104,29 @@ ls.add_snippets("sls", {
 
 ls.add_snippets("go", {
 	s("jsc", fmt([[{} {} `json:"{}"`]], { i(1), i(2), json_convert(1) })),
+})
+
+ls.add_snippets("markdown", {
+	s(
+		"doc",
+		fmt(
+			[[
+## **{}**
+{}
+#### Parameters
+| parameter | type | required | description |
+|-----------|------|----------|-------------|
+```yaml
+{}:
+```
+    ]],
+			{ i(1), i(2), rep(1) }
+		)
+	),
+})
+
+ls.add_snippets("markdown", {
+	s("lin", fmt([[| _{}_ | {} | {} | {} ]], { i(1), i(2), i(3), i(4) })),
 })
 
 ls.add_snippets("c", {
