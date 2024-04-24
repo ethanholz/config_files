@@ -3,20 +3,6 @@ vim.cmd.timeoutlen = 0
 local wk = require("which-key")
 local v = { mode = "v", noremap = "true" }
 local t = { mode = "t", noremap = "true" }
-local t_n
-
-local Terminal = require("toggleterm.terminal").Terminal
-local gitui = Terminal:new({
-	cmd = "gitui",
-	hidden = true,
-	direction = "float",
-	on_open = function()
-		vim.cmd("startinsert!")
-	end,
-})
-local function gitui_toggle()
-	gitui:toggle()
-end
 
 -- Register LSP mappings
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -69,6 +55,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- local home_row = { "a", "s", "d", "f", "g", "h", "j", "k", "l" }
 local harpoon_table = {}
 for i = 1, 9 do
 	harpoon_table["<leader>" .. tostring(i)] = {
@@ -83,7 +70,8 @@ wk.register(vim.tbl_extend("force", harpoon_table, {
 	["<leader>"] = {
 		f = {
 			name = "Telescope",
-			f = { require("telescope.builtin").find_files, "Find File" },
+			-- f = { require("telescope.builtin").find_files, "Find File" },
+			f = { require("custom.telescope-project").project_files, "Find File" },
 			g = { require("telescope.builtin").live_grep, "Live Grep" },
 			b = { require("telescope.builtin").buffers, "Buffer List" },
 			h = { require("telescope.builtin").help_tags, "Help Tags" },
@@ -100,14 +88,13 @@ wk.register(vim.tbl_extend("force", harpoon_table, {
 				b = { require("gitsigns").stage_buffer, "Stage Buffer" },
 			},
 			b = { require("gitsigns").blame_line, "Blame Line" },
-			u = { gitui_toggle, "gitui toggle" },
 		},
 		p = { '"+p', "Paste from clipboard" },
 		q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
 		u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
 		i = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
 		s = { require("telescope.builtin").spell_suggest, "Spell suggest" },
-		t = { "<cmd>ToggleTerm direction=horizontal<cr>", "New Terminal" },
+		z = { ":Freeze<cr>", "Freeze" },
 	},
 	["g"] = {
 		j = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
@@ -124,6 +111,25 @@ wk.register({
 			name = "Telescope",
 			s = { require("telescope.builtin").grep_string, "Grep String" },
 		},
+		g = {
+			name = "Git",
+			s = {
+				name = "Stage",
+				h = {
+					function()
+						require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+					end,
+					"Stage Hunk",
+				},
+				r = {
+					function()
+						require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+					end,
+					"Reset Hunk",
+				},
+			},
+		},
+		z = { ":Freeze<cr>", "Freeze" },
 	},
 	["<S-j>"] = { ":m '>+<CR>gv=gv", "Move down selection" },
 	["<S-k>"] = { ":m '<-2<CR>gv=gv", "Move up selection" },

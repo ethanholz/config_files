@@ -115,6 +115,7 @@ require("nvim-treesitter.configs").setup({
 vim.filetype.add({ extension = { grlx = "grlx", mdx = "mdx" } })
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local ft_parser = require("nvim-treesitter.parsers").filetype_to_parsername
+---@class gotmpl
 parser_config.gotmpl = {
 	install_info = {
 		url = "https://github.com/ngalaiko/tree-sitter-go-template",
@@ -124,14 +125,6 @@ parser_config.gotmpl = {
 	used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml", "grlx" },
 }
 vim.treesitter.language.register("markdown", "mdx")
--- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
--- parser_config.grlx = {
--- 	install_info = {
--- 		url = "~/Documents/code/work-oss/tree-sitter-grlx",
--- 		files = { "src/parser.c" },
--- 	},
--- 	filetype = "grlx",
--- }
 require("treesitter-context").setup()
 
 local function LoadCoverageOnEnter()
@@ -194,25 +187,21 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	group = vim.api.nvim_create_augroup("SlsSelect", { clear = true }),
-	pattern = { "*/salt/*" },
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = vim.api.nvim_create_augroup("edit_text", { clear = true }),
+	pattern = { "gitcommit", "markdown", "txt" },
+	desc = "Enable spell checking and text wrapping for certain filetypes",
 	callback = function()
-		vim.cmd("set ft=sls")
+		-- vim.opt_local.wrap = true
+		vim.opt_local.spell = true
 	end,
 })
+vim.opt.spell = false
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*.service" },
 	callback = function()
 		vim.api.nvim_buf_set_option(0, "filetype", "systemd")
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-	pattern = { "term://*toggleterm*" },
-	callback = function()
-		vim.opt_local.number = false
 	end,
 })
 

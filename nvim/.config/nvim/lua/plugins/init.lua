@@ -1,12 +1,6 @@
 return {
 	{ "neovim/nvim-lspconfig" },
 	{
-		"rmagatti/goto-preview",
-		config = function()
-			require("goto-preview").setup({ default_mappings = true })
-		end,
-	},
-	{
 		"folke/lsp-trouble.nvim",
 		config = true,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -17,7 +11,11 @@ return {
 		config = true,
 		on = { "LspAttach" },
 	},
-	"simrat39/rust-tools.nvim",
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^3",
+		ft = { "rust" },
+	},
 	{
 		"olexsmir/gopher.nvim",
 		dependencies = {
@@ -41,11 +39,6 @@ return {
 		config = true,
 	},
 	"ziglang/zig.vim",
-	{
-		"pest-parser/pest.vim",
-		ft = "pest",
-		config = true,
-	},
 
 	-- nvim-cmp
 	{
@@ -60,7 +53,6 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 	},
-
 	-- Treesitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -88,11 +80,20 @@ return {
 		"EdenEast/nightfox.nvim",
 		config = function()
 			-- vim.cmd.colorscheme("carbonfox")
-			vim.cmd.colorscheme("terafox")
+			-- vim.cmd.colorscheme("terafox")
+		end,
+	},
+	{
+		"rose-pine/neovim",
+		name = "rose-pine",
+		config = function()
+			require("rose-pine").setup({
+				variant = "moon",
+			})
+			vim.cmd.colorscheme("rose-pine")
 		end,
 	},
 	"stevearc/dressing.nvim",
-
 	-- Code help
 	{
 		"numToStr/Comment.nvim",
@@ -113,28 +114,5 @@ return {
 		config = true,
 	},
 	"NoahTheDuke/vim-just",
-	{
-		"akinsho/toggleterm.nvim",
-		version = "*",
-		config = true,
-	},
-	{
-		"jackMort/ChatGPT.nvim",
-		-- event = "VeryLazy",
-		cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions", "ChatpGPTRun" },
-		opts = {
-			api_key_cmd = "op read op://personal-api-auth/ChatGPT/credential --no-newline",
-		},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-	},
-	"mfussenegger/nvim-lint",
-	{
-		"mrjones2014/op.nvim",
-		build = "make install",
-		config = true,
-	},
+	"gleam-lang/gleam.vim",
 }

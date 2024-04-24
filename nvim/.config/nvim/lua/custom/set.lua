@@ -15,9 +15,9 @@ vim.opt.softtabstop = tab_value
 vim.opt.shiftwidth = tab_value
 vim.opt.expandtab = true
 
-vim.opt.shell = "zsh"
+vim.opt.shell = "fish"
 vim.opt.bg = "dark"
-vim.opt.spell = true -- Enables treesitter comment spelling
+vim.opt.spell = false -- Enables treesitter comment spelling
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.filetype = "on"
