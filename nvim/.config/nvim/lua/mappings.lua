@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				r = { require("telescope.builtin").lsp_references, "References" },
 				i = { require("telescope.builtin").lsp_implementations, "Implementations" },
 			},
-			["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
+			-- ["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
 		})
 	end,
 })
@@ -70,8 +70,8 @@ wk.register(vim.tbl_extend("force", harpoon_table, {
 	["<leader>"] = {
 		f = {
 			name = "Telescope",
-			-- f = { require("telescope.builtin").find_files, "Find File" },
-			f = { require("custom.telescope-project").project_files, "Find File" },
+			f = { require("telescope.builtin").find_files, "Find File" },
+			p = { require("custom.telescope-project").project_files, "Find Project File" },
 			g = { require("telescope.builtin").live_grep, "Live Grep" },
 			b = { require("telescope.builtin").buffers, "Buffer List" },
 			h = { require("telescope.builtin").help_tags, "Help Tags" },

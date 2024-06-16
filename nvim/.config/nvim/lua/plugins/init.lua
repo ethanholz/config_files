@@ -13,7 +13,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^3",
+		version = "^4",
 		ft = { "rust" },
 	},
 	{
@@ -60,11 +60,6 @@ return {
 	},
 	"nvim-treesitter/nvim-treesitter-textobjects",
 	"mrjones2014/nvim-ts-rainbow",
-	{
-		"nvim-treesitter/playground",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		build = ":TSInstall query",
-	},
 	"nvim-treesitter/nvim-treesitter-context",
 	-- Snippets
 	{

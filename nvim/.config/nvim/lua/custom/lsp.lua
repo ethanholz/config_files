@@ -67,6 +67,7 @@ cmp.setup({
 		{ name = "crates", group_index = 2 },
 		{ name = "buffer", group_index = 2 },
 		{ name = "path", group_index = 2 },
+		{ name = "git", group_index = 2 },
 	}),
 	experimental = {
 		ghost_text = true,
@@ -90,19 +91,33 @@ local servers = {
 	"bashls",
 	"gleam",
 	"marksman",
-	"pyright",
+	{
+		"pyright",
+		settings = {
+			pyright = {
+				disableOrganizeImports = true,
+			},
+			python = {
+				analysis = {
+					ignore = "*",
+				},
+			},
+		},
+	},
+	-- "pyright",
 	"solc",
 	"nixd",
 	"zls",
 	"pylyzer",
+	"ruff",
 	{
 		"terraformls",
 		exec = "terraform-ls",
 	},
-	{
-		"ruff_lsp",
-		exec = "ruff-lsp",
-	},
+	-- {
+	-- 	"ruff_lsp",
+	-- 	exec = "ruff-lsp",
+	-- },
 	{
 		"grammarly",
 		exec = "grammarly-languageserver",
@@ -169,7 +184,6 @@ local servers = {
 	{ "vuels", exec = "vls" },
 	{ "salt_ls", exec = "salt_lsp_server" },
 	{ "dockerls", exec = "docker-langserver" },
-	{ "arduino_langauge_server", exec = "arduino-langauge-server" },
 	{
 		"gopls",
 		settings = {
@@ -221,7 +235,10 @@ for _, server in ipairs(servers) do
 		exec = server
 	end
 
-	local result = tonumber(vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true))
+	-- local result = tonumber(vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true))
+	local command = [[echo executable("]] .. exec .. [[")]]
+	local out = vim.api.nvim_exec2(command, { output = true })
+	local result = tonumber(out.output)
 	if result ~= 0 then
 		nvim_lsp[lsp].setup(setup)
 	end
@@ -241,27 +258,38 @@ vim.g.rustaceanvim = {
 			},
 		},
 	},
-	tools = {
-		inlay_hints = {
-			auto = false,
-		},
-	},
 }
 
 vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = "LspAttach_inlayhints",
 	callback = function(args)
+		-- if not (args.data and args.data.client_id) then
+		-- 	return
+		-- end
+		--
+		-- local bufnr = args.buf
+		-- local client = vim.lsp.get_client_by_id(args.data.client_id)
+		-- local palette = require("nightfox.palette").load("carbonfox")
+		-- local bg = palette.bg1
+		-- vim.cmd([[hi LSPInlayHint guibg=]] .. bg .. [[gui=bold]])
+		-- require("lsp-inlayhints").on_attach(client, bufnr)
+		vim.lsp.inlay_hint.enable(true)
+	end,
+})
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("LspAttach_Python", {}),
+	callback = function(args)
 		if not (args.data and args.data.client_id) then
 			return
 		end
-
-		local bufnr = args.buf
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		local palette = require("nightfox.palette").load("carbonfox")
-		local bg = palette.bg1
-		vim.cmd([[hi LSPInlayHint guibg=]] .. bg .. [[gui=bold]])
-		require("lsp-inlayhints").on_attach(client, bufnr)
+		if client == nil then
+			return
+		end
+		if client.name == "ruff" then
+			client.server_capabilities.hoverProvider = false
+		end
 	end,
 })
 
@@ -270,11 +298,14 @@ require("trouble").setup({})
 
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
 	-- you can reuse a shared lspconfig on_attach callback here
 	debug = true,
 	sources = {
 		formatting.stylua,
+		-- diagnostics.actionlint,
+		-- diagnostics.mypy,
 	},
 })

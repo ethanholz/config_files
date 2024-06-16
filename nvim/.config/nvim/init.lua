@@ -205,6 +205,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("python_options", { clear = true }),
+	pattern = { "python" },
+	callback = function()
+		vim.opt_local.colorcolumn = "80"
+	end,
+})
+
 if vim.env.ZELLIJ ~= nil then
 	vim.fn.system({ "zellij", "action", "switch-mode", "locked" })
 end
