@@ -235,7 +235,6 @@ for _, server in ipairs(servers) do
 		exec = server
 	end
 
-	-- local result = tonumber(vim.api.nvim_exec([[echo executable("]] .. exec .. [[")]], true))
 	local command = [[echo executable("]] .. exec .. [[")]]
 	local out = vim.api.nvim_exec2(command, { output = true })
 	local result = tonumber(out.output)
