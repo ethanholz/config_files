@@ -92,7 +92,6 @@ wk.register(vim.tbl_extend("force", harpoon_table, {
 		p = { '"+p', "Paste from clipboard" },
 		q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
 		u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
-		i = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
 		s = { require("telescope.builtin").spell_suggest, "Spell suggest" },
 		z = { ":Freeze<cr>", "Freeze" },
 	},

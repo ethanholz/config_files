@@ -1,10 +1,5 @@
 return {
 	{ "neovim/nvim-lspconfig" },
-	{
-		"folke/lsp-trouble.nvim",
-		config = true,
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
 	"jose-elias-alvarez/null-ls.nvim",
 	{
 		"lvimuser/lsp-inlayhints.nvim",
