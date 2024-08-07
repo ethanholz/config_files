@@ -5,17 +5,6 @@ local configs = require("lspconfig.configs")
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
--- require("luasnip.loaders.from_vscode").lazy_load()
-if not configs.superhtml then
-	configs.superhtml = {
-		default_config = {
-			name = "superhtml",
-			cmd = { "superhtml", "lsp" },
-			filetypes = { "html", "superhtml", "htm", "shtml" },
-			root_dir = require("lspconfig.util").root_pattern(".git"),
-		},
-	}
-end
 cmp.setup({
 	sorting = {
 		priority_weight = 2,
@@ -78,7 +67,6 @@ cmp.setup({
 		{ name = "crates", group_index = 2 },
 		{ name = "buffer", group_index = 2 },
 		{ name = "path", group_index = 2 },
-		{ name = "git", group_index = 2 },
 	}),
 	experimental = {
 		ghost_text = true,
@@ -88,20 +76,22 @@ cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-cmp.setup.filetype("gitcommit", {
-	sources = cmp.config.sources({
-		{ name = "git" },
-		{ name = "buffer" },
-	}),
-})
-require("cmp_git").setup()
+if not configs.superhtml then
+	configs.superhtml = {
+		default_config = {
+			name = "superhtml",
+			cmd = { "superhtml", "lsp" },
+			filetypes = { "html", "superhtml", "htm", "shtml" },
+			root_dir = require("lspconfig.util").root_pattern(".git"),
+		},
+	}
+end
 -- A table of servers used for setting up LSP
 local servers = {
 	"ccls",
 	"ocamllsp",
 	"bashls",
 	"gleam",
-	"marksman",
 	"superhtml",
 	{
 		"pyright",
@@ -116,23 +106,12 @@ local servers = {
 			},
 		},
 	},
-	-- "pyright",
-	"solc",
 	"nixd",
 	"zls",
-	"pylyzer",
 	"ruff",
 	{
 		"terraformls",
 		exec = "terraform-ls",
-	},
-	-- {
-	-- 	"ruff_lsp",
-	-- 	exec = "ruff-lsp",
-	-- },
-	{
-		"grammarly",
-		exec = "grammarly-languageserver",
 	},
 	{
 		"ansiblels",
@@ -196,8 +175,6 @@ local servers = {
 		},
 	},
 	{ "vimls", exec = "vim-language-server" },
-	{ "vuels", exec = "vls" },
-	{ "salt_ls", exec = "salt_lsp_server" },
 	{ "dockerls", exec = "docker-langserver" },
 	{
 		"gopls",
@@ -263,9 +240,6 @@ vim.g.rustaceanvim = {
 	server = {
 		capabilities = capabilities,
 		["rust-analyzer"] = {
-			-- procMacro = {
-			-- 	enable = true,
-			-- },
 			diagnostics = {
 				enable = true,
 				enable_experimental = true,
@@ -278,19 +252,10 @@ vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = "LspAttach_inlayhints",
 	callback = function(args)
-		-- if not (args.data and args.data.client_id) then
-		-- 	return
-		-- end
-		--
-		-- local bufnr = args.buf
-		-- local client = vim.lsp.get_client_by_id(args.data.client_id)
-		-- local palette = require("nightfox.palette").load("carbonfox")
-		-- local bg = palette.bg1
-		-- vim.cmd([[hi LSPInlayHint guibg=]] .. bg .. [[gui=bold]])
-		-- require("lsp-inlayhints").on_attach(client, bufnr)
 		vim.lsp.inlay_hint.enable(true)
 	end,
 })
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("LspAttach_Python", {}),
 	callback = function(args)
@@ -305,21 +270,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			client.server_capabilities.hoverProvider = false
 		end
 	end,
-})
-
--- require("rust-tools").setup(rust_opts)
-require("trouble").setup({})
-
-local null_ls = require("null-ls")
-local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-
-null_ls.setup({
-	-- you can reuse a shared lspconfig on_attach callback here
-	debug = true,
-	sources = {
-		formatting.stylua,
-		-- diagnostics.actionlint,
-		-- diagnostics.mypy,
-	},
 })
