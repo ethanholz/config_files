@@ -41,7 +41,6 @@ vim.api.nvim_create_autocmd("FileType", {
 wk.add({
 	{ "<leader>f", group = "Telescope" },
 	{ "<leader>ff", require("telescope.builtin").find_files, desc = "Find File" },
-	{ "<leader>fp", require("custom.telescope-project").project_files, desc = "Find Project File" },
 	{ "<leader>fg", require("telescope.builtin").live_grep, desc = "Live Grep" },
 	{ "<leader>fb", require("telescope.builtin").buffers, desc = "Buffer List" },
 	{ "<leader>fh", require("telescope.builtin").help_tags, desc = "Help Tags" },
