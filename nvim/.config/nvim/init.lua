@@ -19,18 +19,18 @@ require("snips")
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
-		"lua",
-		"rust",
-		"go",
-		"c",
 		"bash",
+		"c",
 		"dockerfile",
-		"gomod",
 		"gitcommit",
+		"go",
+		"gomod",
+		"lua",
+		"python",
 		"query",
+		"rust",
 		"toml",
 		"yaml",
-		"hurl",
 	},
 	highlight = {
 		enable = true,
@@ -111,8 +111,12 @@ require("nvim-treesitter.configs").setup({
 			-- },
 		},
 	},
+	sync_install = false,
+	auto_install = false,
+	ignore_install = {},
+	modules = {},
 })
-vim.filetype.add({ extension = { mdx = "mdx" } })
+vim.filetype.add({ extension = { mdx = "mdx", service = "systemd" } })
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local ft_parser = require("nvim-treesitter.parsers").filetype_to_parsername
 ---@class gotmpl
@@ -129,66 +133,6 @@ vim.treesitter.language.register("html", "superhtml")
 
 require("treesitter-context").setup()
 
-local function LoadCoverageOnEnter()
-	if vim.fn.globpath(".", "coverage.out") ~= "" then
-		require("coverage").load(true)
-		vim.api.nvim_create_user_command("GoCov", "!go tool cover -html coverage.out", {})
-	end
-end
-
-vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("CoverageDisplayGroup", { clear = true }),
-	pattern = { "go" },
-	callback = function()
-		LoadCoverageOnEnter()
-	end,
-})
--- Vars that hold buffer and window for testing
-local buf = nil
-local win = nil
-
-local function create_output_buffer()
-	if not buf or not vim.api.nvim_buf_is_valid(buf) then
-		buf = vim.api.nvim_create_buf(false, true)
-		vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
-	end
-end
-
-local function view_output()
-	if win and vim.api.nvim_win_is_valid(win) then
-		vim.api.nvim_win_close(win, true)
-		win = nil
-	else
-		if buf and vim.api.nvim_buf_is_valid(buf) then
-			vim.api.nvim_command("vsplit")
-			win = vim.api.nvim_get_current_win()
-			vim.api.nvim_win_set_buf(win, buf)
-		end
-	end
-end
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	group = vim.api.nvim_create_augroup("CoverageRun", { clear = true }),
-	pattern = { "*_test.go" },
-	callback = function()
-		create_output_buffer()
-		vim.api.nvim_create_user_command("ViewOutput", view_output, {})
-		vim.fn.jobstart("go test -coverprofile=coverage.out", {
-			stdout_buffered = true,
-			on_exit = function(_, exit_code, _)
-				if exit_code == 0 then
-					require("coverage").load(true)
-				end
-			end,
-			on_stdout = function(_, data)
-				if data then
-					vim.api.nvim_buf_set_lines(buf, 0, -1, false, data)
-				end
-			end,
-		})
-	end,
-})
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	group = vim.api.nvim_create_augroup("edit_text", { clear = true }),
 	pattern = { "gitcommit", "markdown", "txt" },
@@ -199,13 +143,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 vim.opt.spell = false
-
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "*.service" },
-	callback = function()
-		vim.api.nvim_buf_set_option(0, "filetype", "systemd")
-	end,
-})
 
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("python_options", { clear = true }),
