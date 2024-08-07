@@ -1,30 +1,22 @@
 -- Map leader config
 vim.cmd.timeoutlen = 0
 local wk = require("which-key")
-local v = { mode = "v", noremap = "true" }
-local t = { mode = "t", noremap = "true" }
 
 -- Register LSP mappings
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
-		wk.register({
-			["<leader>"] = {
-				c = {
-					name = "LSP Code Changes",
-					a = { vim.lsp.buf.code_action, "Code Action" },
-					R = { vim.lsp.buf.rename, "Rename" },
-				},
-				f = {
-					l = { require("telescope.builtin").lsp_document_symbols, "LSP Document Symbols" },
-				},
-			},
-			["g"] = {
-				d = { vim.lsp.buf.definition, "Goto Definition" },
-				r = { require("telescope.builtin").lsp_references, "References" },
-				i = { require("telescope.builtin").lsp_implementations, "Implementations" },
-			},
-			-- ["K"] = { vim.lsp.buf.hover, "Hover (LSP)" },
+		wk.add({
+			{ "<leader>c", group = "LSP Code Changes" },
+			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+			{ "<leader>R", vim.lsp.buf.rename, desc = "Rename" },
+			{ "<leader>f", group = "LSP Find" },
+			{ "<leader>fl", require("telescope.builtin").lsp_document_symbols, desc = "LSP Document Symbols" },
+			{ "g", group = "LSP Goto" },
+			{ "gd", vim.lsp.buf.definition, desc = "Goto Definition" },
+			{ "gr", require("telescope.builtin").lsp_references, desc = "References" },
+			{ "gi", require("telescope.builtin").lsp_implementations, desc = "Implementations" },
+			{ "K", vim.lsp.buf.hover, desc = "Hover (LSP)" },
 		})
 	end,
 })
@@ -34,105 +26,102 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "go" },
 	group = vim.api.nvim_create_augroup("UserGoConfig", {}),
 	callback = function()
-		wk.register({
-			["g"] = {
-				t = {
-					name = "Go Tags",
-					a = {
-						name = "Add Tags",
-						j = { ":GoTagAdd json <cr>", "JSON" },
-						y = { ":GoTagAdd yaml <cr>", "YAML" },
-					},
-					r = {
-						name = "Remove Tags",
-						j = { ":GoTagRm json <cr>", "JSON" },
-						y = { ":GoTagRm yaml <cr>", "YAML" },
-					},
-					f = { ":GoIfErr<cr>", "iferr" },
-				},
-			},
+		wk.add({
+			{ "<leader>gt", group = "Go Tags" },
+			{ "<leader>gta", group = "Add Tags" },
+			{ "<leader>gtaj", "<cmd>GoTagAdd json<cr>", desc = "Add JSON tags" },
+			{ "<leader>gtay", "<cmd>GoTagAdd yaml<cr>", desc = "Add YAML tags" },
+			{ "<leader>gtr", group = "Remove Tags" },
+			{ "<leader>gtrj", "<cmd>GoTagRm json<cr>", desc = "Remove JSON tags" },
+			{ "<leader>gtry", "<cmd>GoTagRm yaml<cr>", desc = "Remove YAML tags" },
 		})
 	end,
 })
 
--- local home_row = { "a", "s", "d", "f", "g", "h", "j", "k", "l" }
-local harpoon_table = {}
-for i = 1, 9 do
-	harpoon_table["<leader>" .. tostring(i)] = {
+wk.add({
+	{ "<leader>f", group = "Telescope" },
+	{ "<leader>ff", require("telescope.builtin").find_files, desc = "Find File" },
+	{ "<leader>fp", require("custom.telescope-project").project_files, desc = "Find Project File" },
+	{ "<leader>fg", require("telescope.builtin").live_grep, desc = "Live Grep" },
+	{ "<leader>fb", require("telescope.builtin").buffers, desc = "Buffer List" },
+	{ "<leader>fh", require("telescope.builtin").help_tags, desc = "Help Tags" },
+	{ "<leader>fc", require("telescope.builtin").colorscheme, desc = "Colorschme" },
+	{ "<leader>fq", require("telescope").extensions.harpoon.marks, desc = "Harpoon Marks" },
+	{ "<leader>fs", require("telescope.builtin").grep_string, desc = "Grep String" },
+	{ "<leader>g", group = "Git" },
+	{ "<leader>gg", vim.cmd.Git, desc = "Open vim-fugitive" },
+	{ "<leader>gs", group = "Git Stage" },
+	{ "<leader>gsh", require("gitsigns").stage_hunk, desc = "Stage Hunk" },
+	{ "<leader>gsb", require("gitsigns").stage_buffer, desc = "Stage Buffer" },
+	{ "<leader>gb", require("gitsigns").blame_line, desc = "Blame Line" },
+	{ "<leader>p", '"+p', desc = "Paste from clipboard" },
+	{ "<leader>q", require("harpoon.ui").toggle_quick_menu, desc = "Harpoon Quick Menu" },
+	{ "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "UndoTreeToggle" },
+	{ "<leader>s", require("telescope.builtin").spell_suggest, desc = "Spell suggest" },
+	{ "gk", vim.diagnostic.goto_prev, desc = "Go to Prev Diagnostic" },
+	{ "gj", vim.diagnostic.goto_next, desc = "Go to Next Diagnostic" },
+	{ "<space>c", vim.cmd.cclose, desc = "Close qf list" },
+	{ "<Esc>", "<C-\\><C-n>", desc = "Exit terminal" },
+	{ "<leader>y", '"+y', desc = "Yank to clipboard" },
+	{ "<leader>g", group = "Git" },
+	{ "<leader>gs", group = "Git Stage" },
+	{
+		mode = { "v", "n" },
+		{
+			"<leader>gsh",
+			function()
+				require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+			end,
+			desc = "Stage Hunk",
+		},
+		{
+			"<leader>gsr",
+			function()
+				require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+			end,
+			desc = "Reset Hunk",
+		},
+		{ "<leader>z", ":Freeze<cr>", desc = "Freeze" },
+		{ "<S-j>", ":m '>+<CR>gv=gv", desc = "Move down selection" },
+		{ "<S-k>", ":m '<-2<CR>gv=gv", desc = "Move up selection" },
+	},
+	{
+		mode = { "t" },
+		{ "<ESC>", "<C-\\><C-n>", desc = "Exit terminal" },
+	},
+	{
+		"<leader>1",
 		function()
-			require("harpoon.ui").nav_file(i)
+			require("harpoon.ui").nav_file(1)
 		end,
-		"Harpoon " .. tostring(i),
-	}
-end
-
-wk.register(vim.tbl_extend("force", harpoon_table, {
-	["<leader>"] = {
-		f = {
-			name = "Telescope",
-			f = { require("telescope.builtin").find_files, "Find File" },
-			p = { require("custom.telescope-project").project_files, "Find Project File" },
-			g = { require("telescope.builtin").live_grep, "Live Grep" },
-			b = { require("telescope.builtin").buffers, "Buffer List" },
-			h = { require("telescope.builtin").help_tags, "Help Tags" },
-			c = { require("telescope.builtin").colorscheme, "Colorschme" },
-			q = { require("telescope").extensions.harpoon.marks, "Harpoon Marks" },
-			s = { require("telescope.builtin").grep_string, "Grep String" },
-		},
-		g = {
-			name = "Git",
-			g = { vim.cmd.Git, "Open vim-fugitive" },
-			s = {
-				name = "Stage",
-				h = { require("gitsigns").stage_hunk, "Stage Hunk" },
-				b = { require("gitsigns").stage_buffer, "Stage Buffer" },
-			},
-			b = { require("gitsigns").blame_line, "Blame Line" },
-		},
-		p = { '"+p', "Paste from clipboard" },
-		q = { require("harpoon.ui").toggle_quick_menu, "Harpoon Quick Menu" },
-		u = { "<cmd>UndotreeToggle<cr>", "UndoTreeToggle" },
-		s = { require("telescope.builtin").spell_suggest, "Spell suggest" },
-		z = { ":Freeze<cr>", "Freeze" },
+		desc = "Harpoon 1",
 	},
-	["g"] = {
-		j = { vim.diagnostic.goto_next, "Go to Next Diagnostic" },
-		k = { vim.diagnostic.goto_prev, "Go to Prev Diagnostic" },
+	{
+		"<leader>2",
+		function()
+			require("harpoon.ui").nav_file(2)
+		end,
+		desc = "Harpoon 2",
 	},
-	["space"] = {
-		c = { vim.cmd.cclose, "Close qf list" },
+	{
+		"<leader>3",
+		function()
+			require("harpoon.ui").nav_file(3)
+		end,
+		desc = "Harpoon 3",
 	},
-}))
-wk.register({
-	["<leader>"] = {
-		y = { '"+y', "Yank to clipboard" },
-		f = {
-			name = "Telescope",
-			s = { require("telescope.builtin").grep_string, "Grep String" },
-		},
-		g = {
-			name = "Git",
-			s = {
-				name = "Stage",
-				h = {
-					function()
-						require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-					end,
-					"Stage Hunk",
-				},
-				r = {
-					function()
-						require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-					end,
-					"Reset Hunk",
-				},
-			},
-		},
-		z = { ":Freeze<cr>", "Freeze" },
+	{
+		"<leader>4",
+		function()
+			require("harpoon.ui").nav_file(4)
+		end,
+		desc = "Harpoon 4",
 	},
-	["<S-j>"] = { ":m '>+<CR>gv=gv", "Move down selection" },
-	["<S-k>"] = { ":m '<-2<CR>gv=gv", "Move up selection" },
-}, v)
-wk.register({
-	["<Esc>"] = { "<C-\\><C-n>", "Exit terminal" },
-}, t)
+	{
+		"<leader>5",
+		function()
+			require("harpoon.ui").nav_file(5)
+		end,
+		desc = "Harpoon 5",
+	},
+})

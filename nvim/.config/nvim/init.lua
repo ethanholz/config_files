@@ -125,6 +125,8 @@ parser_config.gotmpl = {
 	used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml", "grlx" },
 }
 vim.treesitter.language.register("markdown", "mdx")
+vim.treesitter.language.register("html", "superhtml")
+
 require("treesitter-context").setup()
 
 local function LoadCoverageOnEnter()

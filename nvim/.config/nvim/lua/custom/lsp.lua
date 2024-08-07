@@ -1,10 +1,21 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
 local lspkind = require("lspkind")
 local nvim_lsp = require("lspconfig")
+local configs = require("lspconfig.configs")
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
 -- require("luasnip.loaders.from_vscode").lazy_load()
+if not configs.superhtml then
+	configs.superhtml = {
+		default_config = {
+			name = "superhtml",
+			cmd = { "superhtml", "lsp" },
+			filetypes = { "html", "superhtml", "htm", "shtml" },
+			root_dir = require("lspconfig.util").root_pattern(".git"),
+		},
+	}
+end
 cmp.setup({
 	sorting = {
 		priority_weight = 2,
@@ -91,6 +102,7 @@ local servers = {
 	"bashls",
 	"gleam",
 	"marksman",
+	"superhtml",
 	{
 		"pyright",
 		settings = {
@@ -144,6 +156,9 @@ local servers = {
 	{
 		"ltex",
 		exec = "ltex-ls",
+		settings = {
+			enabled = { "markdown" },
+		},
 	},
 	{
 		"tsserver",
