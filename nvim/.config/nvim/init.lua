@@ -112,7 +112,7 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
-vim.filetype.add({ extension = { grlx = "grlx", mdx = "mdx" } })
+vim.filetype.add({ extension = { mdx = "mdx" } })
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 -- local ft_parser = require("nvim-treesitter.parsers").filetype_to_parsername
 ---@class gotmpl
@@ -122,7 +122,7 @@ parser_config.gotmpl = {
 		files = { "src/parser.c" },
 	},
 	filetype = "gotmpl",
-	used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml", "grlx" },
+	used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
 }
 vim.treesitter.language.register("markdown", "mdx")
 vim.treesitter.language.register("html", "superhtml")
