@@ -1,7 +1,0 @@
-configuration {
-    modi: "window,drun,combi";
-    font: "Jet Brains Mono Nerd Font 15";
-    combi-mod: "window,run";
-    show-icons: true;
-}
-@theme "slate"
