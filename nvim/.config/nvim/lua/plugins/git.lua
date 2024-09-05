@@ -27,12 +27,12 @@ return {
 				end
 				map({ "v", "n" }, "<leader>gsh", function()
 					signs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end)
-				map("n", "<leader>gsb", signs.stage_buffer)
+				end, { desc = "Stage hunk" })
+				map("n", "<leader>gsb", signs.stage_buffer, { desc = "Stage buffer" })
 				map({ "v", "n" }, "<leader>gsr", function()
 					require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end)
-				map("n", "<leader>gb", signs.blame_line)
+				end, { desc = "Reset hunk" })
+				map("n", "<leader>gb", signs.blame_line, { desc = "Blame Line" })
 			end,
 		},
 	},

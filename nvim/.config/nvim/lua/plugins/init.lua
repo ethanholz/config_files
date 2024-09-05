@@ -61,7 +61,7 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 		},
-		version = "v2.1",
+		version = "v2.*",
 		build = "make install_jsregexp",
 	},
 	-- UI
