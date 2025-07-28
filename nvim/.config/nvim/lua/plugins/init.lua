@@ -59,8 +59,6 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 	},
-	"nvim-treesitter/nvim-treesitter-textobjects",
-	-- "mrjones2014/nvim-ts-rainbow",
 	"HiPhish/rainbow-delimiters.nvim",
 	"nvim-treesitter/nvim-treesitter-context",
 	-- Snippets

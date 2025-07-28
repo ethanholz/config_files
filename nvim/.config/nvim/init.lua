@@ -51,66 +51,6 @@ require("nvim-treesitter.configs").setup({
 			node_decremental = "<c-backspace>",
 		},
 	},
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true,
-			keymaps = {
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = { query = "@class.inner", desc = "Select inner" },
-				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scop" },
-				["il"] = "@loop.inner",
-				["al"] = "@loop.outer",
-				["fn"] = { query = "@function.name", desc = "Select function name" },
-			},
-			selection_modes = {
-				["@parameter.outer"] = "v", -- charwise
-				["@function.outer"] = "V", -- linewise
-				["@class.outer"] = "<c-v>", -- blockwise
-			},
-			include_surrounding_whitespace = false,
-		},
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>a"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>A"] = "@parameter.inner",
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true,
-			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]]"] = { query = "@class.outer", desc = "Next class" },
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[["] = { query = "@class.outer", desc = "Previous class" },
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
-			},
-		},
-		lsp_interop = {
-			enable = true,
-			border = "none",
-			floating_preview_opts = {},
-			-- peek_definition_code = {
-			-- 	["<leader>df"] = "@function.outer",
-			-- 	["<leader>dF"] = "@class.outer",
-			-- },
-		},
-	},
 	sync_install = false,
 	auto_install = false,
 	ignore_install = {},
