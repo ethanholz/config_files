@@ -11,9 +11,34 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.g.mapleader = ","
 vim.opt.runtimepath:prepend(lazypath)
+vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.spelllang = "en"
+-- Global options
+vim.opt.termguicolors = true
+vim.opt.hidden = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.scrolloff = 8
+vim.opt.splitright = true
+local tab_value = 4
+vim.opt.tabstop = tab_value
+vim.opt.softtabstop = tab_value
+vim.opt.shiftwidth = tab_value
+vim.opt.expandtab = true
+
+vim.opt.shell = "fish"
+vim.opt.bg = "dark"
+vim.opt.spell = false -- Enables treesitter comment spelling
+vim.opt.termguicolors = true
+vim.opt.signcolumn = "yes"
+vim.opt.filetype = "on"
+
+-- Persistent undos
+vim.opt.undofile = true
 require("lazy").setup("plugins")
-require("custom")
 require("mappings")
+require("lsp")
 
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({
