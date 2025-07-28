@@ -61,15 +61,6 @@ return {
 	},
 	"HiPhish/rainbow-delimiters.nvim",
 	"nvim-treesitter/nvim-treesitter-context",
-	-- Snippets
-	{
-		"L3MON4D3/LuaSnip",
-		dependencies = {
-			"rafamadriz/friendly-snippets",
-		},
-		version = "v2.*",
-		build = "make install_jsregexp",
-	},
 	-- UI
 	{
 		"EdenEast/nightfox.nvim",
@@ -78,16 +69,6 @@ return {
 			-- vim.cmd.colorscheme("terafox")
 		end,
 	},
-	-- {
-	-- 	"rose-pine/neovim",
-	-- 	name = "rose-pine",
-	-- 	config = function()
-	-- 		require("rose-pine").setup({
-	-- 			variant = "moon",
-	-- 		})
-	-- 		vim.cmd.colorscheme("rose-pine")
-	-- 	end,
-	-- },
 	{
 		"folke/tokyonight.nvim",
 		lazy = false,

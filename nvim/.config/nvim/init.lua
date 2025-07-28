@@ -14,7 +14,6 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup("plugins")
 require("custom")
 require("mappings")
-require("snips")
 
 -- Treesitter Consistent Syntax Highlighting and indent
 require("nvim-treesitter.configs").setup({
@@ -42,6 +41,7 @@ require("nvim-treesitter.configs").setup({
 	playground = {
 		enable = true,
 	},
+	-- Potentially remove, this is not really in my roation yet
 	incremental_selection = {
 		enable = true,
 		keymaps = {
