@@ -31,20 +31,27 @@ return {
 		"Saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		config = true,
+		opts = {
+			lsp = {
+				enabled = true,
+				actions = true,
+				completion = true,
+				hover = true,
+			},
+		},
 	},
 	"ziglang/zig.vim",
 
-	-- nvim-cmp
 	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"hrsh7th/cmp-path",
-			"saadparwaiz1/cmp_luasnip",
-			"nvim-lua/plenary.nvim",
+		"saghen/blink.cmp",
+		dependencies = { "rafamadriz/friendly-snippets" },
+		version = "1.*",
+		opts = {
+			keymap = {
+				preset = "default",
+				["<C-j>"] = { "select_next", "fallback" },
+				["<C-k>"] = { "select_prev", "fallback" },
+			},
 		},
 	},
 	-- Treesitter
