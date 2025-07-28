@@ -4,14 +4,23 @@ return {
 		cmd = "Telescope",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
 		},
+		branch = "0.1.x",
 		init = function()
-			require("telescope").setup({})
+			require("telescope").setup({
+				pickers = {
+					find_files = {
+						-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+						find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+					},
+				},
+			})
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("harpoon")
 		end,
 
-		lazy = true,
+		-- lazy = true,
 		keys = {
 			{ "<leader>ff", require("telescope.builtin").find_files, desc = "Find File" },
 			{ "<leader>fg", require("telescope.builtin").live_grep, desc = "Live Grep" },

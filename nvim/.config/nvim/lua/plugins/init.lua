@@ -8,7 +8,7 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^4",
+		version = "^5",
 		ft = { "rust" },
 	},
 	{
@@ -53,7 +53,8 @@ return {
 		build = ":TSUpdate",
 	},
 	"nvim-treesitter/nvim-treesitter-textobjects",
-	"mrjones2014/nvim-ts-rainbow",
+	-- "mrjones2014/nvim-ts-rainbow",
+	"HiPhish/rainbow-delimiters.nvim",
 	"nvim-treesitter/nvim-treesitter-context",
 	-- Snippets
 	{
@@ -72,14 +73,23 @@ return {
 			-- vim.cmd.colorscheme("terafox")
 		end,
 	},
+	-- {
+	-- 	"rose-pine/neovim",
+	-- 	name = "rose-pine",
+	-- 	config = function()
+	-- 		require("rose-pine").setup({
+	-- 			variant = "moon",
+	-- 		})
+	-- 		vim.cmd.colorscheme("rose-pine")
+	-- 	end,
+	-- },
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
 		config = function()
-			require("rose-pine").setup({
-				variant = "moon",
-			})
-			vim.cmd.colorscheme("rose-pine")
+			vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
 	"stevearc/dressing.nvim",

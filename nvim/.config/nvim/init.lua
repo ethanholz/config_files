@@ -157,4 +157,5 @@ if vim.env.ZELLIJ ~= nil then
 end
 vim.diagnostic.config({
 	update_in_insert = false,
+	virtual_text = { current_line = true },
 })

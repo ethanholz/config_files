@@ -1,7 +1,5 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
 local lspkind = require("lspkind")
-local nvim_lsp = require("lspconfig")
-local configs = require("lspconfig.configs")
 local cmp = require("cmp")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local luasnip = require("luasnip")
@@ -9,7 +7,7 @@ cmp.setup({
 	sorting = {
 		priority_weight = 2,
 		comparators = {
-			require("copilot_cmp.comparators").prioritize,
+			-- require("copilot_cmp.comparators").prioritize,
 			cmp.config.compare.offset,
 			cmp.config.compare.exact,
 			cmp.config.compare.score,
@@ -59,7 +57,7 @@ cmp.setup({
 		end),
 	},
 	sources = cmp.config.sources({
-		{ name = "copilot", group_index = 2 },
+		-- { name = "copilot", group_index = 2 },
 		{ name = "nvim_lsp", group_index = 2 },
 		{ name = "nvim_lsp_signature_help", group_index = 2 },
 		{ name = "nvim_lsp_lua", group_index = 2 },
@@ -75,40 +73,19 @@ cmp.setup({
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+vim.lsp.config("*", {
+	capabilities = capabilities,
+})
 
-if not configs.superhtml then
-	configs.superhtml = {
-		default_config = {
-			name = "superhtml",
-			cmd = { "superhtml", "lsp" },
-			filetypes = { "html", "superhtml", "htm", "shtml" },
-			root_dir = require("lspconfig.util").root_pattern(".git"),
-		},
-	}
-end
 -- A table of servers used for setting up LSP
 local servers = {
-	"ccls",
-	"ocamllsp",
-	"bashls",
-	"gleam",
+	-- "bashls",
 	"superhtml",
-	{
-		"pyright",
-		settings = {
-			pyright = {
-				disableOrganizeImports = true,
-			},
-			python = {
-				analysis = {
-					ignore = "*",
-				},
-			},
-		},
-	},
+	"pyright",
 	"nixd",
 	"zls",
 	"ruff",
+	"tflint",
 	{
 		"terraformls",
 		exec = "terraform-ls",
@@ -124,20 +101,10 @@ local servers = {
 	{
 		"nil_ls",
 		exec = "nil",
-		settings = {
-			["nil"] = {
-				formatting = {
-					command = { "nixpkgs-fmt" },
-				},
-			},
-		},
 	},
 	{
 		"ltex",
 		exec = "ltex-ls",
-		settings = {
-			enabled = { "markdown" },
-		},
 	},
 	{
 		"tsserver",
@@ -150,62 +117,14 @@ local servers = {
 	{
 		"lua_ls",
 		exec = "lua-language-server",
-		settings = {
-			Lua = {
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global and `awesome`
-					globals = { "vim", "use", "beautiful", "awful" },
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = vim.api.nvim_get_runtime_file("", true),
-					checkThirdParty = false,
-				},
-				hint = {
-					enable = true,
-				},
-				telemetry = {
-					enable = false,
-				},
-			},
-		},
 	},
-	{ "vimls", exec = "vim-language-server" },
-	{ "dockerls", exec = "docker-langserver" },
-	{
-		"gopls",
-		settings = {
-			gopls = {
-				gofumpt = true,
-				analyses = {
-					unusedparams = true,
-					shadow = true,
-					structtag = false,
-				},
-				staticcheck = true,
-				codelenses = { test = true },
-				hints = {
-					assignVariableTypes = true,
-					composeLiteralFields = true,
-					constantValues = true,
-					functionTypeParameter = true,
-					parameterNames = true,
-					rangeVariableTypes = true,
-				},
-			},
-		},
-	},
+	"gopls",
 }
 
 -- Only install servers that exist + use custom options
 for _, server in ipairs(servers) do
 	local exec = ""
 	local lsp = ""
-	local setup = { capabilities = capabilities }
 	if type(server) == "table" then
 		lsp = server[1]
 		if server.enable ~= nil and server.continue then
@@ -216,12 +135,6 @@ for _, server in ipairs(servers) do
 		else
 			exec = lsp
 		end
-		if server.settings ~= nil then
-			setup["settings"] = server.settings
-		end
-		if server.init_options ~= nil then
-			setup["init_options"] = server.init_options
-		end
 	else
 		lsp = server
 		exec = server
@@ -231,18 +144,33 @@ for _, server in ipairs(servers) do
 	local out = vim.api.nvim_exec2(command, { output = true })
 	local result = tonumber(out.output)
 	if result ~= 0 then
-		nvim_lsp[lsp].setup(setup)
+		vim.lsp.enable(lsp)
+		-- nvim_lsp[lsp].setup(setup)
 	end
 	::continue::
 end
 
 vim.g.rustaceanvim = {
 	server = {
-		capabilities = capabilities,
-		["rust-analyzer"] = {
-			diagnostics = {
-				enable = true,
-				enable_experimental = true,
+		on_attach = function(client, _)
+			client.server_capabilities.workspace.didChangeWatchedFiles = {
+				dynamicRegistration = false,
+			}
+		end,
+		default_settings = {
+			["rust-analyzer"] = {
+				files = {
+					watcherExclude = {
+						"**/.direnv/**",
+					},
+					excludeDirs = {
+						".direnv",
+						".github",
+					},
+				},
+				cargo = {
+					features = "all",
+				},
 			},
 		},
 	},
