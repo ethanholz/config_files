@@ -12,8 +12,6 @@ local function map(mode, l, r, opts)
 end
 map({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
-map("n", "gk", vim.diagnostic.goto_prev, { desc = "Go to Prev Diagnostic" })
-map("n", "gj", vim.diagnostic.goto_next, { desc = "Go to Prev Diagnostic" })
 map("t", "<ESC>", "<C-\\><C-n>", { desc = "Exit terminal" })
 
 -- Register LSP mappings

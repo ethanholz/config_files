@@ -1,5 +1,5 @@
 vim.o.completeopt = "menuone,noinsert,noselect"
-local lspkind = require("lspkind")
+-- local lspkind = require("lspkind")
 -- A table of servers used for setting up LSP
 local servers = {
 	-- "bashls",

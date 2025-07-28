@@ -2,11 +2,6 @@ return {
 	{ "neovim/nvim-lspconfig" },
 	"jose-elias-alvarez/null-ls.nvim",
 	{
-		"lvimuser/lsp-inlayhints.nvim",
-		config = true,
-		on = { "LspAttach" },
-	},
-	{
 		"mrcjkb/rustaceanvim",
 		version = "^5",
 		ft = { "rust" },
@@ -25,7 +20,6 @@ return {
 		end,
 		config = true,
 	},
-	"onsails/lspkind-nvim",
 	-- Filetype plugins
 	{
 		"Saecki/crates.nvim",
