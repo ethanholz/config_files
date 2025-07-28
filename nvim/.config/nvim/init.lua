@@ -133,17 +133,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 vim.opt.spell = false
 
-vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("python_options", { clear = true }),
-	pattern = { "python" },
-	callback = function()
-		vim.opt_local.colorcolumn = "80"
-	end,
-})
-
-if vim.env.ZELLIJ ~= nil then
-	vim.fn.system({ "zellij", "action", "switch-mode", "locked" })
-end
 vim.diagnostic.config({
 	update_in_insert = false,
 	virtual_text = { current_line = true },
