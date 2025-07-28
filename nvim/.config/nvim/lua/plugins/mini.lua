@@ -16,4 +16,9 @@ return {
 		version = "*",
 		config = true,
 	},
+	{
+		"echasnovski/mini.comment",
+		version = "*",
+		config = true,
+	},
 }

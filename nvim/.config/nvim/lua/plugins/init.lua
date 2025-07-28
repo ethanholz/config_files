@@ -63,13 +63,6 @@ return {
 	"nvim-treesitter/nvim-treesitter-context",
 	-- UI
 	{
-		"EdenEast/nightfox.nvim",
-		config = function()
-			-- vim.cmd.colorscheme("carbonfox")
-			-- vim.cmd.colorscheme("terafox")
-		end,
-	},
-	{
 		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
@@ -79,12 +72,6 @@ return {
 		end,
 	},
 	"stevearc/dressing.nvim",
-	-- Code help
-	{
-		"numToStr/Comment.nvim",
-		config = true,
-	},
-
 	{
 		"ethanholz/nvim-lastplace",
 		config = true,
