@@ -1,5 +1,5 @@
 return {
-	settings = {
-		enabled = { "markdown" },
-	},
+    settings = {
+        enabled = { "markdown" },
+    },
 }

@@ -1,9 +1,9 @@
 return {
-	settings = {
-		["nil"] = {
-			formatting = {
-				command = { "nixpkgs-fmt" },
-			},
-		},
-	},
+    settings = {
+        ["nil"] = {
+            formatting = {
+                command = { "nixpkgs-fmt" },
+            },
+        },
+    },
 }

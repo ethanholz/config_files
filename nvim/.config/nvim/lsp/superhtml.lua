@@ -1,3 +1,3 @@
 return {
-	filetypes = { "html", "superhtml", "htm", "shtml" },
+    filetypes = { "html", "superhtml", "htm", "shtml" },
 }
