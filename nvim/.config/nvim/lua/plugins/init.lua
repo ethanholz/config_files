@@ -99,5 +99,4 @@ return {
 		config = true,
 	},
 	"NoahTheDuke/vim-just",
-	"gleam-lang/gleam.vim",
 }
