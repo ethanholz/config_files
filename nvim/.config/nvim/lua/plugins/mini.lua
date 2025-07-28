@@ -11,4 +11,9 @@ return {
 			})
 		end,
 	},
+	{
+		"echasnovski/mini.pairs",
+		version = "*",
+		config = true,
+	},
 }
