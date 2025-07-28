@@ -117,17 +117,6 @@ require("nvim-treesitter.configs").setup({
 	modules = {},
 })
 vim.filetype.add({ extension = { mdx = "mdx", service = "systemd" } })
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
--- local ft_parser = require("nvim-treesitter.parsers").filetype_to_parsername
----@class gotmpl
-parser_config.gotmpl = {
-	install_info = {
-		url = "https://github.com/ngalaiko/tree-sitter-go-template",
-		files = { "src/parser.c" },
-	},
-	filetype = "gotmpl",
-	used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
-}
 vim.treesitter.language.register("markdown", "mdx")
 vim.treesitter.language.register("html", "superhtml")
 
