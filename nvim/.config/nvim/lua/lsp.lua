@@ -14,10 +14,6 @@ local servers = {
         exec = "terraform-ls",
     },
     {
-        "ansiblels",
-        exec = "ansible-language-server",
-    },
-    {
         "eslint",
         exec = "vscode-eslint-language-server",
     },
@@ -45,6 +41,7 @@ local servers = {
 }
 
 -- Only install servers that exist + use custom options
+-- We may be able to potentially remove this
 for _, server in ipairs(servers) do
     local exec = ""
     local lsp = ""
@@ -104,21 +101,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     group = "LspAttach_inlayhints",
     callback = function(args)
         vim.lsp.inlay_hint.enable(true)
-    end,
-})
-
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LspAttach_Python", {}),
-    callback = function(args)
-        if not (args.data and args.data.client_id) then
-            return
-        end
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client == nil then
-            return
-        end
-        if client.name == "ruff" then
-            client.server_capabilities.hoverProvider = false
-        end
     end,
 })

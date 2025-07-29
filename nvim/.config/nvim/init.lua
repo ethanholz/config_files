@@ -33,6 +33,7 @@ vim.opt.spell = false -- Enables treesitter comment spelling
 vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.filetype = "on"
+vim.o.swapfile = false
 
 -- Persistent undos
 vim.opt.undofile = true

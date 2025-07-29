@@ -50,7 +50,6 @@ return {
             vim.cmd.colorscheme("tokyonight-night")
         end,
     },
-    -- "stevearc/dressing.nvim",
     {
         "ethanholz/nvim-lastplace",
         config = true,
