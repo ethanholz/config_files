@@ -26,7 +26,7 @@ local servers = {
         exec = "ltex-ls",
     },
     {
-        "tsserver",
+        "ts_ls",
         exec = "typescript-language-server",
     },
     {
