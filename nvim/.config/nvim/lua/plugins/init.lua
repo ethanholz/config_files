@@ -1,24 +1,9 @@
 return {
     { "neovim/nvim-lspconfig" },
-    "jose-elias-alvarez/null-ls.nvim",
     {
         "mrcjkb/rustaceanvim",
         version = "^5",
         ft = { "rust" },
-    },
-    {
-        "olexsmir/gopher.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        ft = "go",
-        build = function()
-            if not require("nvim-treesitter.parsers").has_parser("go") then
-                vim.cmd("TSInstall go")
-            end
-        end,
-        config = true,
     },
     -- Filetype plugins
     {
