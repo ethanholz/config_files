@@ -47,7 +47,15 @@ return {
         priority = 1000,
         opts = {},
         config = function()
-            vim.cmd.colorscheme("tokyonight-night")
+            -- vim.cmd.colorscheme("tokyonight-night")
+        end,
+    },
+    -- Lazy
+    {
+        "vague2k/vague.nvim",
+        config = function()
+            -- NOTE: you do not need to call setup if you don't want to.
+            vim.cmd.colorscheme("vague")
         end,
     },
     {
