@@ -60,8 +60,4 @@ return {
         "folke/which-key.nvim",
         config = true,
     },
-    {
-        "IndianBoy42/tree-sitter-just",
-        config = true,
-    },
 }
