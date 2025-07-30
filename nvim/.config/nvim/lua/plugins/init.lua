@@ -38,7 +38,6 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
     },
-    "HiPhish/rainbow-delimiters.nvim",
     "nvim-treesitter/nvim-treesitter-context",
     -- UI
     {

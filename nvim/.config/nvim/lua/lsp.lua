@@ -9,6 +9,7 @@ local servers = {
     "zls",
     "ruff",
     "tflint",
+    "just",
     {
         "terraformls",
         exec = "terraform-ls",
