@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.g.mapleader = ","
 vim.opt.runtimepath:prepend(lazypath)
+vim.opt.winborder = "rounded"
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.spelllang = "en"
