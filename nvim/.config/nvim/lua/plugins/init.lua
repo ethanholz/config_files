@@ -26,6 +26,12 @@ return {
         dependencies = { "rafamadriz/friendly-snippets" },
         version = "1.*",
         opts = {
+            completion = {
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 500,
+                },
+            },
             keymap = {
                 preset = "default",
                 ["<C-j>"] = { "select_next", "fallback" },
