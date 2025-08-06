@@ -39,6 +39,10 @@ local servers = {
         exec = "lua-language-server",
     },
     "gopls",
+    {
+        "gh_actions_ls",
+        exec = "gh-actions-language-server",
+    },
 }
 
 -- Only install servers that exist + use custom options
