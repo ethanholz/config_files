@@ -34,6 +34,8 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 vim.opt.filetype = "on"
 vim.o.swapfile = false
+vim.o.wrap = false
+vim.o.clipboard = "unnamedplus"
 
 -- Persistent undos
 vim.opt.undofile = true
@@ -98,5 +100,6 @@ vim.opt.spell = false
 
 vim.diagnostic.config({
     update_in_insert = false,
-    virtual_text = { current_line = true },
+    -- virtual_text = { current_line = true },
+    virtual_lines = { current_line = true },
 })

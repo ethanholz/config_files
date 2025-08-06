@@ -41,20 +41,10 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     -- UI
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000,
-        opts = {},
-        config = function()
-            -- vim.cmd.colorscheme("tokyonight-night")
-        end,
-    },
-    -- Lazy
-    {
-        "vague2k/vague.nvim",
+        "EdenEast/nightfox.nvim",
         config = function()
             -- NOTE: you do not need to call setup if you don't want to.
-            vim.cmd.colorscheme("vague")
+            vim.cmd.colorscheme("carbonfox")
         end,
     },
     {
