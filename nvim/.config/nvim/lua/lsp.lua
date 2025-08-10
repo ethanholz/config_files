@@ -43,6 +43,10 @@ local servers = {
         "gh_actions_ls",
         exec = "gh-actions-language-server",
     },
+    {
+        "yamlls",
+        exec = "yaml-language-server",
+    },
 }
 
 -- Only install servers that exist + use custom options
@@ -74,6 +78,8 @@ for _, server in ipairs(servers) do
     end
     ::continue::
 end
+
+vim.lsp.enable("biome-custom")
 
 vim.g.rustaceanvim = {
     server = {
