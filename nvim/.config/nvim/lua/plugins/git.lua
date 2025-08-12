@@ -34,6 +34,10 @@ return {
                 end, { desc = "Reset hunk" })
                 map("n", "<leader>gb", signs.blame_line, { desc = "Blame Line" })
             end,
+            current_line_blame = true,
+            current_line_blame_opts = {
+                delay = "250",
+            },
         },
     },
 }
