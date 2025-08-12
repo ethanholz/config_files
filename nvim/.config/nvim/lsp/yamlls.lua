@@ -7,7 +7,12 @@ return {
         },
         yaml = {
             schemas = {
-                ["https://directory.omsf.io/schema.json"] = { "/software/*", "/workflows/*" },
+                ["https://directory.omsf.io/schema.json"] = {
+                    "/software/*",
+                    "/workflows/*",
+                    "/software/**/*",
+                    "/workflows/**/*",
+                },
             },
         },
     },
