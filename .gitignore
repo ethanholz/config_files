@@ -1,8 +1,1 @@
-nvim-old/plugged
-nvim-old/.netrwhist
-nvim/.config/nvim/plugin
-nvim/.config/nvim/spell
-zsh/.config/zsh/plugins/*
-zsh/.config/zsh/.zcompdump
-tmux/.config/tmux/plugins/*
-
+*.old

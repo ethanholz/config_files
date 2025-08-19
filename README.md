@@ -1,3 +1,3 @@
-# config_files
+# nvim
 
-My dotfiles used for configuring Linux dev machines. Uses Gnu stow for management.
+My neovim config
