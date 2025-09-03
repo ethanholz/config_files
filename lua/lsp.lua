@@ -11,6 +11,10 @@ local servers = {
     "tflint",
     "just",
     {
+        "harper_ls",
+        exec = "harper-ls",
+    },
+    {
         "terraformls",
         exec = "terraform-ls",
     },
@@ -22,10 +26,10 @@ local servers = {
         "nil_ls",
         exec = "nil",
     },
-    {
-        "ltex",
-        exec = "ltex-ls",
-    },
+    -- {
+    --     "ltex",
+    --     exec = "ltex-ls",
+    -- },
     {
         "ts_ls",
         exec = "typescript-language-server",
